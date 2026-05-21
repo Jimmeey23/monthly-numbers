@@ -166,6 +166,8 @@ function testDashboardCockpitHeaderContracts() {
   assert(html.includes('grid-template-areas:"spacer month" "tabs tabs"'), 'cockpit controls should pin month selector to the top-right above tabs');
   assert(html.includes('grid-template-columns:repeat(4,minmax(0,1fr))!important'), 'location tabs should use equal-width grid columns');
   assert(html.includes('width:100%!important;\n  height:40px!important;'), 'location tab buttons should fill equal-width columns');
+  assert(html.includes('.cockpit-controls .select-wrap:hover'), 'cockpit month selector should keep its translucent background on hover');
+  assert(html.includes('html[data-theme="light"] .cockpit-controls .select-wrap:hover'), 'light theme should not turn the cockpit month selector white on hover');
   assert(html.includes('backdrop-filter:blur(18px) saturate(132%)'), 'cockpit summary should use a restrained glassmorphic background');
   assert(html.includes('Studio performance brief'), 'cockpit summary should use plain-English narrative labeling');
   assert(!html.includes('DeepSeek pending'), 'cockpit summary should not display a DeepSeek pending badge');
