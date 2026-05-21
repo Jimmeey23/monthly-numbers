@@ -167,9 +167,12 @@ function testDashboardCockpitHeaderContracts() {
   assert(html.includes('grid-template-columns:repeat(4,minmax(0,1fr))!important'), 'location tabs should use equal-width grid columns');
   assert(html.includes('width:100%!important;\n  height:40px!important;'), 'location tab buttons should fill equal-width columns');
   assert(html.includes('backdrop-filter:blur(18px) saturate(132%)'), 'cockpit summary should use a restrained glassmorphic background');
-  assert(html.includes('DeepSeek studio brief'), 'cockpit summary should identify the AI brief source');
+  assert(html.includes('Studio performance brief'), 'cockpit summary should use plain-English narrative labeling');
+  assert(!html.includes('DeepSeek pending'), 'cockpit summary should not display a DeepSeek pending badge');
   assert(html.includes('function renderCockpitSummary'), 'cockpit summary should render from the AI readout pipeline');
-  assert(html.includes("renderCockpitSummary(lines,'DeepSeek')"), 'DeepSeek responses should update the cockpit summary');
+  assert(html.includes('function cockpitSummaryText'), 'cockpit summary should compose a narrative paragraph');
+  assert(html.includes('The clearest operating driver was'), 'cockpit summary should read like a plain-English performance narrative');
+  assert(html.includes('renderCockpitSummary(lines);'), 'DeepSeek responses should update the cockpit summary');
   assert(html.includes("refreshAiReadout({force:true});"), 'studio/month changes should refresh AI readout data');
   assert(html.includes('const COCKPIT_IMAGES = ['), 'cockpit header should rotate through a curated image pool');
   assert(html.includes('--cockpit-image'), 'cockpit header image should be controlled by a CSS variable');

@@ -6993,16 +6993,6 @@ html[data-theme="dark"] .cockpit-header .cockpit-summary{
   letter-spacing:.14em;
   text-transform:uppercase;
 }
-.cockpit-summary-kicker em{
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:999px;
-  padding:3px 8px;
-  background:rgba(255,255,255,.08);
-  color:rgba(255,255,255,.72);
-  font-size:10px;
-  font-style:normal;
-  font-weight:850;
-}
 .cockpit-summary h2{
   margin:0;
   color:#fff;
@@ -7387,19 +7377,23 @@ function changeText(cur, prev, type='number'){
 }
 function readoutCacheKey(){ return `p57-ai-readout:${state.period}:${state.studio}`; }
 function cockpitSummaryHeadline(){
-  const s=current().summary;
-  return `${periodLabel()} performance: ${money(s.salesRev)} sales, ${pct(s.fillRate)} fill, ${num(s.newMembers)} first visits`;
+  const s=current().summary, prevKey=previousPeriod(), prev=prevKey ? APP.data[prevKey]?.[state.studio]?.summary : null;
+  const salesDirection=prev ? (Number(s.salesRev||0)>=Number(prev.salesRev||0) ? 'improved' : 'softened') : 'closed';
+  return `${periodLabel()} ${salesDirection} into ${money(s.salesRev)} sales`;
 }
 function cockpitSummaryText(lines){
-  return lines.slice(0,2).map(l=>normalizeGeneratedInsight(l).replace(/^key insight:\s*/i,'')).join(' ').replace(/\s+/g,' ').trim();
+  const c=current(), s=c.summary, prevKey=previousPeriod(), prev=prevKey ? APP.data[prevKey]?.[state.studio]?.summary : null;
+  const topFmt=[...c.formats].sort((a,b)=>b.revenue-a.revenue)[0]||{};
+  const movement=prev ? `Sales ${Number(s.salesRev||0)>=Number(prev.salesRev||0) ? 'moved up' : 'came down'} ${changeText(s.salesRev,prev.salesRev)}` : 'There is no prior-month comparison for this view';
+  return `${meta().full} delivered ${money(s.salesRev)} in ${periodLabel()}, with ${pct(s.fillRate)} fill across ${num(s.classes)} sessions and ${num(s.newMembers)} first visits. ${movement}. The clearest operating driver was ${topFmt.name||'the schedule mix'}, so the next read is whether that demand can be protected while improving conversion and retention.`;
 }
-function renderCockpitSummary(lines, source='Local fallback'){
+function renderCockpitSummary(lines){
   const el=$('#cockpitSummary');
   if(!el) return;
   const c=current(), s=c.summary, prevKey=previousPeriod(), prev=prevKey ? APP.data[prevKey]?.[state.studio]?.summary : null;
   const topFmt=[...c.formats].sort((a,b)=>b.revenue-a.revenue)[0]||{};
-  const body=trunc(cockpitSummaryText(lines)||`${meta().full} closed ${money(s.salesRev)} in ${periodLabel()} with ${pct(s.fillRate)} fill and ${num(s.newMembers)} first visits.`,360);
-  el.innerHTML=`<div class="cockpit-summary-copy"><div class="cockpit-summary-kicker"><span>DeepSeek studio brief</span><em>${esc(source)}</em></div><h2>${esc(cockpitSummaryHeadline())}</h2><p>${esc(body)}</p></div><div class="cockpit-summary-meta"><span>Sales movement</span><strong>${esc(prev?changeText(s.salesRev,prev.salesRev):'No prior month')}</strong><span>Priority driver</span><strong>${esc(topFmt.name||'Schedule mix')}</strong></div>`;
+  const body=cockpitSummaryText(lines)||`${meta().full} closed ${money(s.salesRev)} in ${periodLabel()} with ${pct(s.fillRate)} fill and ${num(s.newMembers)} first visits.`;
+  el.innerHTML=`<div class="cockpit-summary-copy"><div class="cockpit-summary-kicker"><span>Studio performance brief</span></div><h2>${esc(cockpitSummaryHeadline())}</h2><p>${esc(body)}</p></div><div class="cockpit-summary-meta"><span>Sales movement</span><strong>${esc(prev?changeText(s.salesRev,prev.salesRev):'No prior month')}</strong><span>Priority driver</span><strong>${esc(topFmt.name||'Schedule mix')}</strong></div>`;
 }
 function renderReadoutLines(lines){
   $('#readout').innerHTML=lines.slice(0,8).map((l,i)=>`<div class="readout-item"><div class="readout-num">${i+1}</div><div class="readout-text">${esc(normalizeGeneratedInsight(l).replace(/^key insight:\s*/i,''))}</div></div>`).join('');
@@ -7432,11 +7426,11 @@ function aiReadoutPayload(){
 function renderReadout(){
   const cached=safeStore.get(readoutCacheKey());
   if(cached){
-    try { const lines=JSON.parse(cached); if(Array.isArray(lines)&&lines.length){ renderReadoutLines(lines); renderCockpitSummary(lines,'DeepSeek cached'); return; } } catch {}
+    try { const lines=JSON.parse(cached); if(Array.isArray(lines)&&lines.length){ renderReadoutLines(lines); renderCockpitSummary(lines); return; } } catch {}
   }
   const localLines=localReadoutLines();
   renderReadoutLines(localLines);
-  renderCockpitSummary(localLines,'DeepSeek pending');
+  renderCockpitSummary(localLines);
 }
 async function refreshAiReadout({force=false}={}){
   if(!force) return;
@@ -7456,10 +7450,10 @@ async function refreshAiReadout({force=false}={}){
     if(lines.length){
       safeStore.set(readoutCacheKey(),JSON.stringify(lines));
       renderReadoutLines(lines);
-      renderCockpitSummary(lines,'DeepSeek');
+      renderCockpitSummary(lines);
     }
   }catch(e){
-    if(e.name!=='AbortError'){ renderReadoutLines(localLines); renderCockpitSummary(localLines,'Local fallback'); }
+    if(e.name!=='AbortError'){ renderReadoutLines(localLines); renderCockpitSummary(localLines); }
   }
 }
 function normalizeGeneratedInsight(text){
