@@ -169,8 +169,9 @@ function testDashboardCockpitHeaderContracts() {
   assert(html.includes('html[data-theme="light"] .cockpit-header .header-network > .network-card.tone-gold'), 'cockpit network cards should override global light-theme tone card backgrounds');
   assert(html.includes('content:none!important;'), 'cockpit network cards should suppress global card pseudo-layers');
   assert(html.includes('grid-template-columns:minmax(0,1fr) minmax(76px,30%)!important'), 'cockpit cards should use a shorter two-column metric/sparkline layout');
-  assert(html.includes('min-height:64px!important'), 'cockpit cards should be visually shorter than regular metric cards');
-  assert(html.includes('height:24px!important'), 'cockpit sparklines should be compact');
+  assert(html.includes('min-height:54px!important'), 'cockpit cards should be visually shorter than regular metric cards');
+  assert(html.includes('align-content:center!important'), 'cockpit cards should not leave unused bottom space');
+  assert(html.includes('height:20px!important'), 'cockpit sparklines should be compact');
   assert(html.includes('color:#fff!important;'), 'cockpit sparklines should render in white');
   assert(html.includes('.cockpit-header .network-card .spark-dot{\n  display:none!important;'), 'cockpit sparklines should not use dot-style animation');
   assert(html.includes('@keyframes cockpitSparkDraw'), 'network card sparklines should have cockpit-specific draw animation');

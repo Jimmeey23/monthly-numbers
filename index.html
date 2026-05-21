@@ -6965,9 +6965,9 @@ html[data-theme="dark"] .cockpit-header .header-network{
   margin-top:4px!important;
 }
 .cockpit-header .network-card{
-  min-height:64px!important;
-  padding:8px 10px 7px!important;
-  border-radius:14px!important;
+  min-height:54px!important;
+  padding:7px 10px 6px!important;
+  border-radius:12px!important;
   background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.045))!important;
   border-color:rgba(255,255,255,.20)!important;
   border-top:1px solid rgba(255,255,255,.34)!important;
@@ -6976,9 +6976,10 @@ html[data-theme="dark"] .cockpit-header .header-network{
   color:#fff!important;
   display:grid!important;
   grid-template-columns:minmax(0,1fr) minmax(76px,30%)!important;
-  grid-template-rows:auto auto!important;
-  column-gap:10px!important;
-  align-items:end!important;
+  grid-template-rows:min-content min-content!important;
+  gap:1px 10px!important;
+  align-items:center!important;
+  align-content:center!important;
   overflow:hidden!important;
 }
 .cockpit-header .network-card label,
@@ -6987,9 +6988,9 @@ html[data-theme="dark"] .cockpit-header .header-network{
 }
 .cockpit-header .network-card strong{
   color:#fff!important;
-  font-size:clamp(18px,1.35vw,23px)!important;
+  font-size:clamp(17px,1.25vw,22px)!important;
   line-height:1!important;
-  margin:2px 0 0!important;
+  margin:0!important;
   grid-column:1!important;
   grid-row:2!important;
   white-space:nowrap!important;
@@ -6997,19 +6998,22 @@ html[data-theme="dark"] .cockpit-header .header-network{
 .cockpit-header .network-card label{
   grid-column:1!important;
   grid-row:1!important;
+  align-self:end!important;
 }
 .cockpit-header .network-card small{
   grid-column:2!important;
   grid-row:1!important;
   justify-self:end!important;
+  align-self:end!important;
   text-align:right!important;
   font-size:9.5px!important;
+  line-height:1.1!important;
 }
 .cockpit-header .network-card .sparkline{
   grid-column:2!important;
   grid-row:2!important;
   width:100%!important;
-  height:24px!important;
+  height:20px!important;
   margin:0!important;
   align-self:center!important;
   color:rgba(255,255,255,.9)!important;
