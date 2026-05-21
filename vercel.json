@@ -1,9 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/",
+      "source": "/dashboard",
       "destination": "/P57_Interactive_Dashboard.html"
     }
   ]
 }
-
