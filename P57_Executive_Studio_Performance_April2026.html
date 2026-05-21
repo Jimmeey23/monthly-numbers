@@ -684,4 +684,8 @@ function openIndex(){ lastFocus=document.activeElement; renderFormulas(); docume
 function renderFormulas(){ const q=($('#formulaSearch')?.value||'').toLowerCase(); const rows=APP.formulas.filter(f=>(f.metric+f.formula+f.definition).toLowerCase().includes(q)); $('#formulaList').innerHTML=`<div class="empty">${rows.length} formula${rows.length===1?'':'s'} shown</div>` + (rows.map(f=>`<div class="formula-card"><strong>${f.metric}</strong><div>${f.definition}</div><code>${f.formula}</code></div>`).join('') || '<div class="empty">No matching formula found.</div>'); }
 function closeDrawers(){ const wasOpen=$('#overlay').classList.contains('open'); $('#overlay').classList.remove('open'); $('#drillPanel').classList.remove('open'); $('#indexDrawer').classList.remove('open'); document.body.classList.remove('no-scroll'); if(wasOpen && lastFocus?.focus){ lastFocus.focus({preventScroll:true}); } }
 document.addEventListener('DOMContentLoaded', init);
-</script></body></html>
+</script><script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body></html>
