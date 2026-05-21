@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/P57_Interactive_Dashboard.html"
+    }
+  ]
+}
