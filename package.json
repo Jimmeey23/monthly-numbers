@@ -1,11 +1,9 @@
 {
   "name": "reports",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "build": "node scripts/build-vercel.js",
-    "start": "node server.js",
-    "serve": "node server.js",
+    "serve": "node local-server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
