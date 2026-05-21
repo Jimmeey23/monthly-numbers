@@ -1,0 +1,160 @@
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const crypto = require('crypto');
+
+const ROOT = __dirname;
+const HTML_FILE = 'P57_Interactive_Dashboard.html';
+const MAX_BODY_BYTES = 48 * 1024;
+const cache = new Map();
+
+function loadEnv() {
+  const envPath = path.join(ROOT, '.env');
+  if (!fs.existsSync(envPath)) return;
+  const lines = fs.readFileSync(envPath, 'utf8').split(/\r?\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eq = trimmed.indexOf('=');
+    if (eq === -1) continue;
+    const key = trimmed.slice(0, eq).trim();
+    const value = trimmed.slice(eq + 1).trim().replace(/^['"]|['"]$/g, '');
+    if (key && process.env[key] === undefined) process.env[key] = value;
+  }
+}
+
+loadEnv();
+
+const PORT = Number(process.env.PORT || 4173);
+
+function sendJson(res, status, data) {
+  const body = JSON.stringify(data);
+  res.writeHead(status, {
+    'content-type': 'application/json; charset=utf-8',
+    'cache-control': 'no-store'
+  });
+  res.end(body);
+}
+
+function sendFile(res, filePath) {
+  fs.readFile(filePath, (err, body) => {
+    if (err) return sendJson(res, err.code === 'ENOENT' ? 404 : 500, { error: 'File not found' });
+    const ext = path.extname(filePath).toLowerCase();
+    const type = {
+      '.html': 'text/html; charset=utf-8',
+      '.js': 'text/javascript; charset=utf-8',
+      '.css': 'text/css; charset=utf-8',
+      '.json': 'application/json; charset=utf-8',
+      '.png': 'image/png',
+      '.jpg': 'image/jpeg',
+      '.jpeg': 'image/jpeg',
+      '.svg': 'image/svg+xml'
+    }[ext] || 'application/octet-stream';
+    res.writeHead(200, { 'content-type': type });
+    res.end(body);
+  });
+}
+
+function readJson(req) {
+  return new Promise((resolve, reject) => {
+    let size = 0;
+    let body = '';
+    req.on('data', chunk => {
+      size += chunk.length;
+      if (size > MAX_BODY_BYTES) {
+        reject(Object.assign(new Error('Request body too large'), { status: 413 }));
+        req.destroy();
+        return;
+      }
+      body += chunk;
+    });
+    req.on('end', () => {
+      try {
+        resolve(body ? JSON.parse(body) : {});
+      } catch {
+        reject(Object.assign(new Error('Invalid JSON'), { status: 400 }));
+      }
+    });
+    req.on('error', reject);
+  });
+}
+
+function cleanLines(text) {
+  return String(text || '')
+    .split(/\n+/)
+    .map(line => line.replace(/^[-*\d.)\s]+/, '').trim())
+    .filter(Boolean)
+    .slice(0, 8);
+}
+
+function validatePayload(payload) {
+  if (!payload || typeof payload !== 'object') return false;
+  if (typeof payload.month !== 'string' || typeof payload.studio !== 'string') return false;
+  if (!payload.current || typeof payload.current !== 'object') return false;
+  return true;
+}
+
+async function handleReadout(req, res) {
+  const apiKey = process.env.DEEPSEEK_API_KEY;
+  if (!apiKey) {
+    return sendJson(res, 503, { error: 'DEEPSEEK_API_KEY is not configured on the server.' });
+  }
+
+  try {
+    const payload = await readJson(req);
+    if (!validatePayload(payload)) return sendJson(res, 400, { error: 'Invalid readout payload.' });
+
+    const cacheKey = crypto.createHash('sha256').update(JSON.stringify(payload)).digest('hex');
+    const cached = cache.get(cacheKey);
+    if (cached) return sendJson(res, 200, { lines: cached, cached: true });
+
+    const upstream = await fetch('https://api.deepseek.com/chat/completions', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: 'deepseek-v4-flash',
+        temperature: 0.2,
+        max_tokens: 260,
+        messages: [
+          {
+            role: 'system',
+            content: 'Write 6 concise management readout bullets for a studio dashboard. No markdown. No bold text. Use practical business language. Compare current month with previous month where data is present.'
+          },
+          { role: 'user', content: JSON.stringify(payload) }
+        ]
+      })
+    });
+
+    if (!upstream.ok) {
+      const text = await upstream.text();
+      return sendJson(res, upstream.status, { error: 'DeepSeek request failed.', detail: text.slice(0, 500) });
+    }
+
+    const data = await upstream.json();
+    const lines = cleanLines(data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content);
+    if (!lines.length) return sendJson(res, 502, { error: 'DeepSeek returned an empty readout.' });
+
+    cache.set(cacheKey, lines);
+    return sendJson(res, 200, { lines, cached: false });
+  } catch (err) {
+    return sendJson(res, err.status || 500, { error: err.message || 'Readout generation failed.' });
+  }
+}
+
+const server = http.createServer((req, res) => {
+  const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+  if (req.method === 'POST' && url.pathname === '/api/management-readout') return handleReadout(req, res);
+  if (req.method !== 'GET' && req.method !== 'HEAD') return sendJson(res, 405, { error: 'Method not allowed' });
+
+  const requested = url.pathname === '/' ? HTML_FILE : decodeURIComponent(url.pathname.slice(1));
+  const resolved = path.resolve(ROOT, requested);
+  if (!resolved.startsWith(ROOT)) return sendJson(res, 403, { error: 'Forbidden' });
+  return sendFile(res, resolved);
+});
+
+server.listen(PORT, () => {
+  console.log(`P57 dashboard server running at http://localhost:${PORT}`);
+});
