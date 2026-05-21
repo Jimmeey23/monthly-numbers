@@ -83,6 +83,7 @@ function cleanLines(text) {
   return String(text || '')
     .split(/\n+/)
     .map(line => line.replace(/^[-*\d.)\s]+/, '').trim())
+    .map(normalizeRevenueUnits)
     .filter(Boolean)
     .slice(0, 8);
 }
@@ -94,6 +95,17 @@ function validatePayload(payload) {
   return true;
 }
 
+function validateTablePayload(payload) {
+  return Boolean(
+    payload &&
+    typeof payload === 'object' &&
+    typeof payload.tableId === 'string' &&
+    typeof payload.title === 'string' &&
+    Array.isArray(payload.headers) &&
+    Array.isArray(payload.rows)
+  );
+}
+
 function money(v) {
   v = Number(v || 0);
   const sign = v < 0 ? '-' : '';
@@ -102,6 +114,12 @@ function money(v) {
   if (v >= 100000) return `${sign}₹${(v / 100000).toFixed(1)}L`;
   if (v >= 1000) return `${sign}₹${(v / 1000).toFixed(1)}K`;
   return `${sign}₹${Math.round(v).toLocaleString('en-IN')}`;
+}
+
+function normalizeRevenueUnits(line) {
+  const revenueContext = /\b(sales|revenue|value|atv|auv|ltv|cash|billing|receipt|income|gross|net|rupee|inr|₹|rs\.?)\b/i;
+  if (!revenueContext.test(line)) return line;
+  return String(line).replace(/(?:₹|rs\.?|inr)?\s*(-?\d+(?:\.\d+)?)\s*(?:million|mn|m)\b/gi, (_, n) => money(Number(n) * 1000000));
 }
 
 function pct(v) {
@@ -127,6 +145,16 @@ function fallbackLines(payload) {
     `Leading signals: format ${leaders.format || '-'}, class ${leaders.class || '-'}, source ${leaders.source || '-'}, and trainer ${leaders.trainer || '-'}.`,
     `Use this readout as the baseline summary; DeepSeek can refresh it when the API returns a complete generated response.`
   ];
+}
+
+function cleanInsight(text) {
+  return normalizeRevenueUnits(String(text || '')
+    .split(/\n+/)
+    .map(line => line.replace(/^[-*\d.)\s]+/, '').trim())
+    .filter(Boolean)
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim()).slice(0, 360);
 }
 
 async function handleReadout(req, res) {
@@ -185,9 +213,63 @@ async function handleReadout(req, res) {
   }
 }
 
+async function handleTableInsight(req, res) {
+  const apiKey = process.env.DEEPSEEK_API_KEY;
+  if (!apiKey) {
+    return sendJson(res, 503, { error: 'DEEPSEEK_API_KEY is not configured on the server.' });
+  }
+
+  try {
+    const payload = await readJson(req);
+    if (!validateTablePayload(payload)) return sendJson(res, 400, { error: 'Invalid table insight payload.' });
+
+    const cacheKey = crypto.createHash('sha256').update(JSON.stringify(payload)).digest('hex');
+    const cached = cache.get(cacheKey);
+    if (cached) return sendJson(res, 200, { insight: cached, cached: true });
+
+    const upstream = await fetch('https://api.deepseek.com/chat/completions', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: 'deepseek-v4-flash',
+        temperature: 0.15,
+        max_tokens: 140,
+        stream: false,
+        thinking: { type: 'disabled' },
+        messages: [
+          {
+            role: 'system',
+            content: 'Write one concise dashboard table key insight. Start with "Key insight:". No markdown. Use only K, L, or Cr for any rupee/revenue values; never use million, mn, or m. Mention the main leader, gap, risk, or action implied by the table.'
+          },
+          { role: 'user', content: JSON.stringify(payload) }
+        ]
+      })
+    });
+
+    if (!upstream.ok) {
+      const text = await upstream.text();
+      console.error('DeepSeek table insight failed', upstream.status, text.slice(0, 500));
+      return sendJson(res, 200, { insight: payload.fallback || 'Key insight: Table data is available for review.', cached: false, fallback: true });
+    }
+
+    const data = await upstream.json();
+    let insight = cleanInsight(data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content);
+    if (!insight) insight = payload.fallback || 'Key insight: Table data is available for review.';
+    if (!/^key insight:/i.test(insight)) insight = `Key insight: ${insight}`;
+    cache.set(cacheKey, insight);
+    return sendJson(res, 200, { insight, cached: false });
+  } catch (err) {
+    return sendJson(res, err.status || 500, { error: err.message || 'Table insight generation failed.' });
+  }
+}
+
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   if (req.method === 'POST' && url.pathname === '/api/management-readout') return handleReadout(req, res);
+  if (req.method === 'POST' && url.pathname === '/api/table-insight') return handleTableInsight(req, res);
   if (req.method !== 'GET' && req.method !== 'HEAD') return sendJson(res, 405, { error: 'Method not allowed' });
 
   const requested = url.pathname === '/' ? HTML_FILE : decodeURIComponent(url.pathname.slice(1));

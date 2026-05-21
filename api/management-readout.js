@@ -39,6 +39,7 @@ function cleanLines(text) {
   return String(text || '')
     .split(/\n+/)
     .map(line => line.replace(/^[-*\d.)\s]+/, '').trim())
+    .map(normalizeRevenueUnits)
     .filter(Boolean)
     .slice(0, 8);
 }
@@ -62,6 +63,12 @@ function money(v) {
   if (v >= 100000) return `${sign}₹${(v / 100000).toFixed(1)}L`;
   if (v >= 1000) return `${sign}₹${(v / 1000).toFixed(1)}K`;
   return `${sign}₹${Math.round(v).toLocaleString('en-IN')}`;
+}
+
+function normalizeRevenueUnits(line) {
+  const revenueContext = /\b(sales|revenue|value|atv|auv|ltv|cash|billing|receipt|income|gross|net|rupee|inr|₹|rs\.?)\b/i;
+  if (!revenueContext.test(line)) return line;
+  return String(line).replace(/(?:₹|rs\.?|inr)?\s*(-?\d+(?:\.\d+)?)\s*(?:million|mn|m)\b/gi, (_, n) => money(Number(n) * 1000000));
 }
 
 function pct(v) {

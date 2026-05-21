@@ -2,9 +2,9 @@
   "name": "reports",
   "version": "1.0.0",
   "scripts": {
-    "build": "node scripts/build-vercel.js",
+    "build": "node scripts/build-sales-drill-index.js && node scripts/build-raw-drill-index.js && node scripts/build-vercel.js",
     "serve": "node local-server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/regression.js"
   },
   "keywords": [],
   "author": "",
