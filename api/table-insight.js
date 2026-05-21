@@ -58,7 +58,7 @@ function cleanInsight(text) {
     .filter(Boolean)
     .join(' ')
     .replace(/\s+/g, ' ')
-    .trim()).slice(0, 360);
+    .trim()).slice(0, 520);
 }
 
 function validatePayload(payload) {
@@ -70,6 +70,31 @@ function validatePayload(payload) {
     Array.isArray(payload.headers) &&
     Array.isArray(payload.rows)
   );
+}
+
+function tableContext(payload) {
+  const headers = payload.headers || [];
+  const rows = (payload.rows || []).slice(0, 8);
+  const numericColumns = headers.map((header, index) => {
+    const values = rows.map(row => {
+      const raw = Array.isArray(row) ? row[index] : '';
+      const value = Number(String(raw ?? '').replace(/[₹,%x,LKCr,\s]/gi, ''));
+      return Number.isFinite(value) ? value : null;
+    }).filter(v => v !== null);
+    if (!values.length) return null;
+    return {
+      header,
+      max: Math.max(...values),
+      min: Math.min(...values),
+      spread: Math.max(...values) - Math.min(...values)
+    };
+  }).filter(Boolean).sort((a, b) => b.spread - a.spread).slice(0, 3);
+  return {
+    tablePurpose: `Explain what ${payload.title} means for ${payload.studio || 'the selected studio'} in ${payload.month || 'the selected month'}.`,
+    likelyDecision: 'Identify the operating decision, risk, or follow-up action implied by the table.',
+    visibleRows: rows.length,
+    largestSpreads: numericColumns
+  };
 }
 
 module.exports = async function handler(req, res) {
@@ -94,16 +119,22 @@ module.exports = async function handler(req, res) {
       },
       body: JSON.stringify({
         model: 'deepseek-v4-flash',
-        temperature: 0.15,
-        max_tokens: 140,
+        temperature: 0.2,
+        max_tokens: 210,
         stream: false,
         thinking: { type: 'disabled' },
         messages: [
           {
             role: 'system',
-            content: 'Write one concise dashboard table key insight. Start with "Key insight:". No markdown. Use only K, L, or Cr for any rupee/revenue values; never use million, mn, or m. Mention the main leader, gap, risk, or action implied by the table.'
+            content: [
+              'Write one decision-grade dashboard table insight for studio operators.',
+              'Start with "Key insight:". No markdown. Use plain English.',
+              'Do not just name the top row or restate the table. Explain the pattern, why it matters, and the action or risk.',
+              'Use 2 short sentences, 35-60 words total. If there is a concentration, gap, weak conversion, churn risk, or scheduling opportunity, say so.',
+              'Use only K, L, or Cr for rupee values; never use million, mn, or m.'
+            ].join(' ')
           },
-          { role: 'user', content: JSON.stringify(payload) }
+          { role: 'user', content: JSON.stringify({ ...payload, context: tableContext(payload) }) }
         ]
       })
     });

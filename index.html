@@ -7386,7 +7386,7 @@ function changeText(cur, prev, type='number'){
   const pctDelta=base ? delta/base : 0;
   return `${delta>=0?'+':''}${(pctDelta*100).toFixed(1)}% vs prior month`;
 }
-function readoutCacheKey(){ return `p57-ai-readout:${state.period}:${state.studio}`; }
+function readoutCacheKey(){ return `p57-ai-readout:v2:${state.period}:${state.studio}`; }
 function cockpitSummaryHeadline(){
   const s=current().summary, prevKey=previousPeriod(), prev=prevKey ? APP.data[prevKey]?.[state.studio]?.summary : null;
   const salesDirection=prev ? (Number(s.salesRev||0)>=Number(prev.salesRev||0) ? 'improved' : 'softened') : 'closed';
@@ -7427,11 +7427,29 @@ function localReadoutLines(){
 function aiReadoutPayload(){
   const c=current(), s=c.summary, prevKey=previousPeriod(), prev=prevKey ? APP.data[prevKey]?.[state.studio]?.summary : null;
   const top = rows => rows?.[0] || {};
+  const byRevenue = rows => [...(rows||[])].sort((a,b)=>Number(b.revenue||0)-Number(a.revenue||0)).slice(0,3);
+  const renewalRate=Number(s.renewedMemberships||0)/Math.max(Number(s.expiringMemberships||0),1);
+  const leadYield=Number(s.newMembers||0)/Math.max(Number(s.leadCount||0),1);
   return {
     studio:meta().full, month:periodLabel(), previousMonth:prevKey?periodLabel(prevKey):null,
     current:{sales:s.salesRev, sessionRevenue:s.sessionRev, buyers:s.buyers, transactions:s.transactions, atv:s.atv, classAvg:s.classAvg, fill:s.fillRate, newMembers:s.newMembers, converted:s.converted, conversion:s.conversionRate, churn:s.churnRate, expiring:s.expiringMemberships, renewed:s.renewedMemberships},
     previous:prev?{sales:prev.salesRev, sessionRevenue:prev.sessionRev, classAvg:prev.classAvg, fill:prev.fillRate, newMembers:prev.newMembers, conversion:prev.conversionRate, churn:prev.churnRate}:null,
-    leaders:{format:top([...c.formats].sort((a,b)=>b.revenue-a.revenue)).name, class:top([...c.classes].sort((a,b)=>b.revenue-a.revenue)).Class, source:top([...c.sources].sort((a,b)=>b.newMembers-a.newMembers)).SourceClean, trainer:top(c.trainers).Trainer}
+    leaders:{
+      format:top(byRevenue(c.formats)),
+      class:top(byRevenue(c.classes)),
+      source:top([...(c.sources||[])].sort((a,b)=>Number(b.newMembers||0)-Number(a.newMembers||0))),
+      trainer:top(c.trainers)
+    },
+    ranked:{
+      formats:byRevenue(c.formats).map(r=>({name:r.name,revenue:r.revenue,classes:r.classes,avg:r.avg,fill:r.fill,converted:r.converted})),
+      sources:[...(c.sources||[])].sort((a,b)=>Number(b.newMembers||0)-Number(a.newMembers||0)).slice(0,3).map(r=>({source:r.SourceClean,newMembers:r.newMembers,converted:r.converted,retained:r.retained,conversionRate:r.conversionRate})),
+      churn:[...paidChurnRows(c)].sort((a,b)=>Number(b.churned||0)-Number(a.churned||0)).slice(0,3).map(r=>({membership:r.MembershipClean,expiring:r.expiring,churned:r.churned,renewed:r.renewed,churnRate:r.churnRate,avgSessionsPerMonth:r.avgSessionsPerMonth}))
+    },
+    risks:{
+      renewalRate,
+      leadYield,
+      primaryAction:`protect ${top(byRevenue(c.formats)).name||'the strongest format'}, improve follow-up from ${top([...(c.sources||[])].sort((a,b)=>Number(b.newMembers||0)-Number(a.newMembers||0))).SourceClean||'the leading source'}, and call high-risk expiring members`
+    }
   };
 }
 function renderReadout(){
@@ -7487,7 +7505,7 @@ function tableSnapshot(tableId){
   return {headers,rows};
 }
 function tableInsightCacheKey(tableId,snapshot){
-  return `p57-table-insight:${state.period}:${state.studio}:${tableId}:${stableHash(JSON.stringify(snapshot))}`;
+  return `p57-table-insight:v2:${state.period}:${state.studio}:${tableId}:${stableHash(JSON.stringify(snapshot))}`;
 }
 function setTableInsight(summaryId,text){
   const el=document.getElementById(summaryId);

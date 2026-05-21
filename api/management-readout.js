@@ -79,6 +79,7 @@ function fallbackLines(payload) {
   const current = payload.current || {};
   const previous = payload.previous || {};
   const leaders = payload.leaders || {};
+  const risks = payload.risks || {};
   const change = (key, type = 'number') => {
     if (previous[key] === undefined || previous[key] === null) return 'no prior-month comparator';
     const delta = Number(current[key] || 0) - Number(previous[key] || 0);
@@ -86,13 +87,16 @@ function fallbackLines(payload) {
     const base = Math.abs(Number(previous[key] || 0));
     return base ? `${delta >= 0 ? '+' : ''}${((delta / base) * 100).toFixed(1)}% vs prior month` : 'no prior-month comparator';
   };
+  const salesMove = change('sales');
+  const fillMove = change('fill', 'pct');
+  const conversionMove = change('conversion', 'pct');
   return [
-    `${payload.studio} closed ${payload.month} at ${money(current.sales)} sales, ${change('sales')}.`,
-    `Session revenue was ${money(current.sessionRevenue)}, with class average at ${Number(current.classAvg || 0).toFixed(1)} and fill at ${pct(current.fill)}.`,
-    `Acquisition produced ${Math.round(Number(current.newMembers || 0)).toLocaleString('en-IN')} first visits and ${Math.round(Number(current.converted || 0)).toLocaleString('en-IN')} conversions, ${change('conversion', 'pct')}.`,
-    `Churn risk was ${pct(current.churn)} across ${Math.round(Number(current.expiring || 0)).toLocaleString('en-IN')} expiring memberships.`,
-    `Leading signals: format ${leaders.format || '-'}, class ${leaders.class || '-'}, source ${leaders.source || '-'}, and trainer ${leaders.trainer || '-'}.`,
-    `Use this readout as the baseline summary; DeepSeek can refresh it when the API returns a complete generated response.`
+    `Read: ${payload.studio} ended ${payload.month} at ${money(current.sales)} sales, ${salesMove}, which makes revenue momentum the first operating story to explain.`,
+    `Driver: ${leaders.format?.name || leaders.format || '-'} appears to be carrying the schedule, so protect its best slots before adding lower-yield capacity.`,
+    `Demand: Fill was ${pct(current.fill)} with class average ${Number(current.classAvg || 0).toFixed(1)}, ${fillMove}; the issue is quality of occupancy, not only class count.`,
+    `Acquisition: ${Math.round(Number(current.newMembers || 0)).toLocaleString('en-IN')} first visits became ${Math.round(Number(current.converted || 0)).toLocaleString('en-IN')} conversions, ${conversionMove}, so follow-up quality needs as much attention as lead volume.`,
+    `Retention: Churn risk was ${pct(current.churn)} across ${Math.round(Number(current.expiring || 0)).toLocaleString('en-IN')} expiring memberships; prioritize members with low recent usage before expiry.`,
+    `Action: Focus the next week on ${risks.primaryAction || 'protecting high-demand formats, recovering weak conversion paths, and tightening renewal outreach'}.`
   ];
 }
 
@@ -125,7 +129,13 @@ module.exports = async function handler(req, res) {
         messages: [
           {
             role: 'system',
-            content: 'Write 6 concise management readout bullets for a studio dashboard. No markdown. No bold text. Use practical business language. Compare current month with previous month where data is present.'
+            content: [
+              'You are a senior Physique 57 India operations intelligence analyst writing for studio leadership.',
+              'Write exactly 6 plain-English management readout lines. No markdown. No bold text. No headings except these line prefixes: Read:, Driver:, Demand:, Acquisition:, Retention:, Action:.',
+              'Do not merely restate metrics. Explain what the numbers imply, why it matters, and what the team should do next.',
+              'Use current vs previous month only where provided. Call out tradeoffs, risks, constraints, and one concrete next action.',
+              'Each line should be 18-32 words. Use only K, L, or Cr for rupee values; never use million, mn, or m.'
+            ].join(' ')
           },
           { role: 'user', content: JSON.stringify(payload) }
         ]

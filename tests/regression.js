@@ -65,9 +65,19 @@ async function testManagementReadoutNormalizesRevenueUnits() {
 
 function testDashboardContainsCachedTableInsightRefresh() {
   const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  const managementApi = fs.readFileSync(path.join(__dirname, '..', 'api', 'management-readout.js'), 'utf8');
+  const tableApi = fs.readFileSync(path.join(__dirname, '..', 'api', 'table-insight.js'), 'utf8');
   assert(html.includes('/api/table-insight'), 'dashboard should call the table insight API');
   assert(html.includes('function refreshTableInsights'), 'dashboard should define cached table insight refresh');
   assert(html.includes('tableInsightCacheKey'), 'dashboard should cache table insights by table data key');
+  assert(html.includes('p57-ai-readout:v2'), 'management readout cache should be versioned after prompt upgrades');
+  assert(html.includes('p57-table-insight:v2'), 'table insight cache should be versioned after prompt upgrades');
+  assert(html.includes('ranked:{'), 'management readout payload should include ranked operating context');
+  assert(html.includes('primaryAction'), 'management readout payload should include an action-oriented risk cue');
+  assert(managementApi.includes('Do not merely restate metrics'), 'management prompt should require diagnosis beyond metric restatement');
+  assert(managementApi.includes('Read:, Driver:, Demand:, Acquisition:, Retention:, Action:'), 'management prompt should require decision-oriented readout structure');
+  assert(tableApi.includes('Do not just name the top row or restate the table'), 'table insight prompt should require interpretation beyond top-row restatement');
+  assert(tableApi.includes('function tableContext'), 'table insight API should enrich payloads with table context');
 }
 
 function testDashboardTooltipAndCellDrillContracts() {
