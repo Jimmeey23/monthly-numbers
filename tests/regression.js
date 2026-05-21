@@ -111,7 +111,9 @@ function testDashboardSalesSourceDrillContracts() {
 function testDashboardQuickNavAutoCollapses() {
   const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
   assert(html.includes('class="quick-nav is-collapsed"'), 'quick navigation should render collapsed by default');
-  assert(/\.quick-nav\.is-collapsed[\s\S]{0,90}:not\(:hover\):not\(:focus-within\)/.test(html), 'quick navigation should auto-expand on hover/focus');
+  assert(/\.quick-nav\.is-collapsed:not\(:hover\):not\(:focus-within\)/.test(html), 'quick navigation should auto-expand on hover/focus and collapse after hover/focus leaves');
+  assert(!html.includes('window.addEventListener(\'scroll\',expand'), 'quick navigation should not stay expanded because of scroll-triggered expansion');
+  assert(html.includes('jumpToSection(b.dataset.jump); b.blur();'), 'quick navigation should blur clicked buttons so it can auto-collapse after navigation');
   assert(html.includes('aria-label="Quick section navigation. Hover or focus to expand."'), 'quick navigation should describe expand behavior accessibly');
 }
 
@@ -131,6 +133,56 @@ function testDashboardOpportunityChurnAndTrainerFooterContracts() {
   assert(html.includes('one(trainerTotals.pax/Math.max(trainerTotals.active,1))'), 'trainer total Avg excl should be weighted attendance per active class');
 }
 
+function testDashboardDrillModalAndGrowthMovementContracts() {
+  const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  assert(html.includes('preferBasePrimary:true'), 'growth movement rows should promote metric breakdowns for value-cell drill-downs');
+  assert(html.includes('supportLabel:\'Seven-month trend history\''), 'growth movement drill-downs should keep trend history as a separate support section');
+  assert(html.includes('const useBasePrimary'), 'cell drill payloads should support base metric breakdowns as primary content');
+  assert(html.includes('Metric breakdown'), 'drill-down context should label metric breakdowns clearly');
+  assert(html.includes('drill-layout'), 'drill modal should use a structured layout wrapper');
+  assert(html.includes('drill-card primary'), 'drill modal should visually distinguish primary drill content');
+  assert(html.includes('Clicked-cell context'), 'drill modal should keep clicked-cell analytics visible');
+  assert(html.includes('Selected row values'), 'drill modal should show selected row values as a distinct section');
+  assert(html.includes('${drillAttr(kpiDrill(key,label))}'), 'summary insight cards should open KPI drill-downs');
+}
+
+function testDashboardRetentionWatchlistAndHeaderContracts() {
+  const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  assert(html.includes('id="riskWatchlistExplanation"'), 'retention risk watchlist should show a calculation note under the table');
+  assert(html.includes('expiring paid memberships multiplied by churn rate'), 'risk watchlist note should explain exposed-lapse ranking');
+  assert(html.includes('border-bottom:2px solid color-mix'), 'table headers should have a stronger bottom border');
+  assert(html.includes('font-weight:1000!important'), 'table headers should be more bold');
+}
+
+function testDashboardCockpitHeaderContracts() {
+  const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  assert(html.includes('class="topbar cockpit-header"'), 'header should be the image-backed cockpit surface');
+  assert(html.includes('class="cockpit-controls"'), 'month selector and studio tabs should live in the cockpit header');
+  assert(html.includes('class="network-strip header-network" id="networkCards"'), 'network cards should be merged into the cockpit header');
+  assert(!html.includes('Studio performance with drill-down analytics behind every number.'), 'old hero headline should be removed');
+  assert(html.includes('.cockpit-header,'), 'cockpit header should have dedicated styling');
+  assert(html.includes('.hero{\n  display:none!important;'), 'old hero section should not render as a separate block');
+  assert(html.includes('grid-template-areas:"spacer month" "tabs tabs"'), 'cockpit controls should pin month selector to the top-right above tabs');
+  assert(html.includes('grid-template-columns:repeat(4,minmax(0,1fr))!important'), 'location tabs should use equal-width grid columns');
+  assert(html.includes('width:100%!important;\n  height:40px!important;'), 'location tab buttons should fill equal-width columns');
+  assert(html.includes('backdrop-filter:blur(18px) saturate(145%)'), 'network cards should use a transparent glassmorphic background');
+  assert(html.includes('html[data-theme="light"] .cockpit-header .header-network > .network-card.tone-gold'), 'cockpit network cards should override global light-theme tone card backgrounds');
+  assert(html.includes('content:none!important;'), 'cockpit network cards should suppress global card pseudo-layers');
+  assert(html.includes('grid-template-columns:minmax(0,1fr) minmax(76px,30%)!important'), 'cockpit cards should use a shorter two-column metric/sparkline layout');
+  assert(html.includes('min-height:64px!important'), 'cockpit cards should be visually shorter than regular metric cards');
+  assert(html.includes('height:24px!important'), 'cockpit sparklines should be compact');
+  assert(html.includes('color:#fff!important;'), 'cockpit sparklines should render in white');
+  assert(html.includes('.cockpit-header .network-card .spark-dot{\n  display:none!important;'), 'cockpit sparklines should not use dot-style animation');
+  assert(html.includes('@keyframes cockpitSparkDraw'), 'network card sparklines should have cockpit-specific draw animation');
+  assert(html.includes('const COCKPIT_IMAGES = ['), 'cockpit header should rotate through a curated image pool');
+  assert(html.includes('--cockpit-image'), 'cockpit header image should be controlled by a CSS variable');
+  assert(html.includes('function setRandomCockpitImage'), 'cockpit header should choose random images at runtime');
+  assert(html.includes('window.setInterval(setRandomCockpitImage, 14000)'), 'cockpit header should keep changing images while the app is open');
+  assert(html.includes("netCard('Studio sales'"), 'cockpit cards should display selected-studio metrics');
+  assert(!html.includes("netCard('Network sales'"), 'cockpit cards should no longer display network-wide metrics');
+  assert(html.includes('sparkline(key,tone,network)'), 'cockpit cards should support studio-specific sparkline data');
+}
+
 (async () => {
   await testManagementReadoutNormalizesRevenueUnits();
   testDashboardContainsCachedTableInsightRefresh();
@@ -138,6 +190,9 @@ function testDashboardOpportunityChurnAndTrainerFooterContracts() {
   testDashboardSalesSourceDrillContracts();
   testDashboardQuickNavAutoCollapses();
   testDashboardOpportunityChurnAndTrainerFooterContracts();
+  testDashboardDrillModalAndGrowthMovementContracts();
+  testDashboardRetentionWatchlistAndHeaderContracts();
+  testDashboardCockpitHeaderContracts();
   console.log('Regression tests passed');
 })().catch(err => {
   console.error(err);
