@@ -2,7 +2,11 @@
   "rewrites": [
     {
       "source": "/dashboard",
-      "destination": "/P57_Interactive_Dashboard.html"
+      "destination": "/index.html"
+    },
+    {
+      "source": "/P57_Interactive_Dashboard.html",
+      "destination": "/index.html"
     }
   ]
 }
