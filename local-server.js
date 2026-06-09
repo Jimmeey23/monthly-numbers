@@ -5,21 +5,24 @@ const crypto = require('crypto');
 
 const ROOT = __dirname;
 const HTML_FILE = 'P57_Interactive_Dashboard.html';
-const MAX_BODY_BYTES = 48 * 1024;
+const MAX_BODY_BYTES = 180 * 1024;
 const cache = new Map();
+const openaiChatHandler = require('./api/openai-chat');
 
 function loadEnv() {
-  const envPath = path.join(ROOT, '.env');
-  if (!fs.existsSync(envPath)) return;
-  const lines = fs.readFileSync(envPath, 'utf8').split(/\r?\n/);
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#')) continue;
-    const eq = trimmed.indexOf('=');
-    if (eq === -1) continue;
-    const key = trimmed.slice(0, eq).trim();
-    const value = trimmed.slice(eq + 1).trim().replace(/^['"]|['"]$/g, '');
-    if (key && process.env[key] === undefined) process.env[key] = value;
+  for (const name of ['.env.local', '.env', '.env.development.local']) {
+    const envPath = path.join(ROOT, name);
+    if (!fs.existsSync(envPath)) continue;
+    const lines = fs.readFileSync(envPath, 'utf8').split(/\r?\n/);
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const eq = trimmed.indexOf('=');
+      if (eq === -1) continue;
+      const key = trimmed.slice(0, eq).trim();
+      const value = trimmed.slice(eq + 1).trim().replace(/^['"]|['"]$/g, '');
+      if (key && process.env[key] === undefined) process.env[key] = value;
+    }
   }
 }
 
@@ -270,6 +273,7 @@ const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   if (req.method === 'POST' && url.pathname === '/api/management-readout') return handleReadout(req, res);
   if (req.method === 'POST' && url.pathname === '/api/table-insight') return handleTableInsight(req, res);
+  if (req.method === 'POST' && url.pathname === '/api/openai-chat') return openaiChatHandler(req, res);
   if (req.method !== 'GET' && req.method !== 'HEAD') return sendJson(res, 405, { error: 'Method not allowed' });
 
   const requested = url.pathname === '/' ? HTML_FILE : decodeURIComponent(url.pathname.slice(1));

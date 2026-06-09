@@ -63,6 +63,49 @@ async function testManagementReadoutNormalizesRevenueUnits() {
   assert(text.includes('₹17.3L'), `readout should include formatted session value: ${text}`);
 }
 
+async function testOpenAiChatHandlerContracts() {
+  const originalKey = process.env.OPENAI_API_KEY;
+  const originalModel = process.env.OPENAI_MODEL;
+  const originalFetch = global.fetch;
+  delete process.env.OPENAI_API_KEY;
+  delete process.env.OPENAI_MODEL;
+  delete require.cache[require.resolve('../api/openai-chat.js')];
+  const handler = require('../api/openai-chat.js');
+
+  const missingRes = makeRes();
+  const missingDone = missingRes.wait();
+  await handler(makeReq({ question: 'What changed?', context: { studio: 'Supreme HQ' } }), missingRes);
+  const missingBody = await missingDone;
+  assert.strictEqual(missingRes.statusCode, 503, 'OpenAI chat should return setup status when no key exists');
+  assert(/OPENAI_API_KEY/.test(missingBody.error), 'missing-key response should mention OPENAI_API_KEY');
+
+  process.env.OPENAI_API_KEY = 'test-key';
+  global.fetch = async (url, options) => {
+    const body = JSON.parse(options.body);
+    assert.strictEqual(url, 'https://api.openai.com/v1/responses', 'chat should call the OpenAI Responses API');
+    assert.strictEqual(body.model, 'gpt-5', 'chat should default to GPT-5');
+    assert(body.instructions.includes('Physique 57 India'), 'chat instructions should keep the P57 operations role');
+    assert(body.input.includes('Supreme HQ'), 'chat request should include dashboard context');
+    return {
+      ok: true,
+      json: async () => ({ output_text: 'Sales are up because session revenue improved.' })
+    };
+  };
+  const okRes = makeRes();
+  const okDone = okRes.wait();
+  await handler(makeReq({ question: 'Why are sales up?', context: { studio: 'Supreme HQ', month: 'July 2025' } }), okRes);
+  const okBody = await okDone;
+  assert.strictEqual(okRes.statusCode, 200, 'OpenAI chat should return generated answers');
+  assert.strictEqual(okBody.model, 'gpt-5', 'OpenAI chat should expose the default model used');
+  assert(okBody.answer.includes('session revenue'), 'OpenAI chat should return the model answer');
+
+  if (originalKey === undefined) delete process.env.OPENAI_API_KEY;
+  else process.env.OPENAI_API_KEY = originalKey;
+  if (originalModel === undefined) delete process.env.OPENAI_MODEL;
+  else process.env.OPENAI_MODEL = originalModel;
+  global.fetch = originalFetch;
+}
+
 function testDashboardContainsCachedTableInsightRefresh() {
   const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
   const managementApi = fs.readFileSync(path.join(__dirname, '..', 'api', 'management-readout.js'), 'utf8');
@@ -167,15 +210,21 @@ function testDashboardRetentionWatchlistAndHeaderContracts() {
 function testDashboardCockpitHeaderContracts() {
   const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
   assert(html.includes('class="topbar cockpit-header"'), 'header should be the image-backed cockpit surface');
+  assert(html.includes('<html lang="en" data-theme="dark">'), 'dashboard should default to dark mode');
+  assert(html.includes("const THEME_STORE_KEY = 'p57-theme-v2';"), 'dark default should not be overridden by the previous light-theme storage key');
   assert(html.includes('class="cockpit-controls"'), 'month selector and studio tabs should live in the cockpit header');
   assert(html.includes('class="cockpit-summary" id="cockpitSummary"'), 'cockpit should show an AI studio summary instead of metric cards');
+  assert(!html.includes('id="dateStrong"'), 'cockpit should not render the active month badge in the title row');
   assert(!html.includes('id="networkCards"'), 'cockpit metric card container should be removed');
   assert(!html.includes('Studio performance with drill-down analytics behind every number.'), 'old hero headline should be removed');
   assert(html.includes('.cockpit-header,'), 'cockpit header should have dedicated styling');
   assert(html.includes('.hero{\n  display:none!important;'), 'old hero section should not render as a separate block');
-  assert(html.includes('grid-template-areas:"spacer month" "tabs tabs"'), 'cockpit controls should pin month selector to the top-right above tabs');
-  assert(html.includes('grid-template-columns:repeat(4,minmax(0,1fr))!important'), 'location tabs should use equal-width grid columns');
-  assert(html.includes('width:100%!important;\n  height:40px!important;'), 'location tab buttons should fill equal-width columns');
+  assert(html.includes('grid-template-areas:"title controls" "network network"'), 'cockpit brief should span the full hero width below the title/control row');
+  assert(html.includes('grid-template-columns:minmax(0,1fr)!important;'), 'title row should not reserve space for the removed month badge');
+  assert(html.includes('width:90%!important;'), 'dashboard should leave a little more side margin on desktop');
+  assert(html.includes('width:100%!important;'), 'studio performance brief should use the full available cockpit width');
+  assert(html.includes('grid-template-columns:repeat(2,minmax(0,1fr))!important'), 'location tabs should use a compact two-column control rail');
+  assert(html.includes('min-height:54px!important;'), 'location tab buttons should use a larger touch target in the control rail');
   assert(html.includes('.cockpit-controls .select-wrap:hover'), 'cockpit month selector should keep its translucent background on hover');
   assert(html.includes('html[data-theme="light"] .cockpit-controls .select-wrap:hover'), 'light theme should not turn the cockpit month selector white on hover');
   assert(html.includes('backdrop-filter:blur(18px) saturate(132%)'), 'cockpit summary should use a restrained glassmorphic background');
@@ -190,17 +239,21 @@ function testDashboardCockpitHeaderContracts() {
   assert(html.includes('--cockpit-image'), 'cockpit header image should be controlled by a CSS variable');
   assert(html.includes('function setRandomCockpitImage'), 'cockpit header should choose random images at runtime');
   assert(html.includes('window.setInterval(setRandomCockpitImage, 14000)'), 'cockpit header should keep changing images while the app is open');
+  assert(html.includes('id="aiChatPanel"'), 'dashboard should render the GPT-5 chat panel');
+  assert(html.includes('/api/openai-chat'), 'dashboard chat should call the local OpenAI route');
+  assert(html.includes('function dashboardChatContext'), 'dashboard should build live context for AI chat');
+  assert(html.includes('function bindAiChat'), 'dashboard should bind the AI chat interaction');
   assert(!html.includes("netCard('Studio sales'"), 'cockpit studio metric cards should be removed');
   assert(!html.includes("netCard('Network sales'"), 'cockpit network metric cards should remain removed');
-  assert(html.includes("'https://i.postimg.cc/zXdqh9LW/2L2A8422.jpg'"), 'cockpit image pool should include only approved image 1');
-  assert(html.includes("'https://i.postimg.cc/FKKQ1GN0/40d320-4ed6cb4eb34a4fd29ba8bd26aa62cb5a-mv2.jpg'"), 'cockpit image pool should include only approved image 2');
-  assert(html.includes("'https://i.postimg.cc/02xXdQTF/rohithsarcar-1773751081-3854824673662583672-7737080293-1.jpg'"), 'cockpit image pool should include only approved image 3');
-  assert(html.includes("'https://i.postimg.cc/Rh4nWjWY/Whats-App-Image-2025-04-03-at-11-03-13-AM-(1).jpg'"), 'cockpit image pool should include only approved image 4');
+  assert(html.includes("'assets/p57-cockpit-group.jpg'"), 'cockpit image pool should include the local group studio image');
+  assert(html.includes("'assets/p57-cockpit-kettlebell.jpg'"), 'cockpit image pool should include the local kettlebell image');
+  assert(html.includes("'assets/p57-cockpit-spin.jpg'"), 'cockpit image pool should include the local spin image');
   assert(!html.includes('hp-Img-1770172692.png'), 'cockpit image pool should not include removed images');
 }
 
 (async () => {
   await testManagementReadoutNormalizesRevenueUnits();
+  await testOpenAiChatHandlerContracts();
   testDashboardContainsCachedTableInsightRefresh();
   testDashboardTooltipAndCellDrillContracts();
   testDashboardSalesSourceDrillContracts();
