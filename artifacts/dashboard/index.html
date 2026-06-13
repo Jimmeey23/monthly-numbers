@@ -7525,7 +7525,7 @@ html[data-theme="dark"] .cockpit-header,
 <main class="dashboard">
 <section class="studio-head" aria-hidden="true"><div><div class="eyebrow" id="periodText"></div><h2></h2><p></p></div><div class="date-chip"><strong></strong><span></span></div></section>
 <section class="analytics-zone kpi-zone" id="nav-snapshot"><div class="zone-head"><div><span>Studio snapshot</span><h3>Priority operating KPIs</h3></div><p>Use this first layer to read commercial health before moving into drivers.</p></div><section class="metrics" id="metrics"></section><section class="insight-grid" id="insights"></section></section>
-<section class="analytics-zone executive-zone" id="nav-overview"><div class="zone-head"><div><span>Overview</span><h3>How we're doing</h3></div><p>See how key numbers have moved over time, what's driving them, and where revenue is coming from.</p></div><div class="executive-grid executive-single"><div class="panel studio-analytics-panel"><div class="panel-head studio-analytics-head"><div><h3>Studio Performance</h3><div class="panel-sub">Pick a metric to see how it's moved month by month</div></div><div class="segmented"><button class="trend-toggle active" data-metric="salesRev">Revenue</button><button class="trend-toggle" data-metric="buyers">Members</button><button class="trend-toggle" data-metric="conversionRate">Conversion</button><button class="trend-toggle" data-metric="churnedMemberships">Cancellations</button></div></div><div class="panel-summary" id="trendSummary"></div><div class="chart-box trend-chart-3d" id="trendChart"></div><div class="chart-readout" id="trendDetail"></div><div class="trend-readout-divider"><span>What this means</span><small>Plain-English read on the numbers above</small></div><div class="readout trend-inline-readout" id="readout"></div><div class="analytics-mix-break"><div class="analytics-mix-break-label">Where it's coming from</div><div class="mix-tabs-wrap"><div class="segmented"><button class="mix-toggle active" data-mix="sources">Sources</button><button class="mix-toggle" data-mix="classes">Classes</button><button class="mix-toggle" data-mix="formats">Formats</button><button class="mix-toggle" data-mix="products">Products</button><button class="mix-toggle" data-mix="categories">Categories</button><button class="mix-toggle" data-mix="instructors">Instructors</button><button class="mix-toggle" data-mix="dayparts">Dayparts</button><button class="mix-toggle" data-mix="churn">Churn</button></div></div></div><div class="panel-summary" id="mixChartSummary"></div><div class="chart-box analytics-mix-chart" id="mixChart"></div><div class="chart-readout" id="mixChartDetail"></div></div></div></section>
+<section class="analytics-zone executive-zone" id="nav-overview"><div class="zone-head"><div><span>Overview</span><h3>How we're doing</h3></div><p>See how key numbers have moved over time, what's driving them, and where revenue is coming from.</p></div><div class="executive-grid executive-single"><div class="panel studio-analytics-panel"><div class="panel-head studio-analytics-head"><div><h3>Studio Performance</h3><div class="panel-sub">Pick a metric to see how it's moved month by month</div></div><div class="segmented"><button class="trend-toggle active" data-metric="salesRev"><i class="tdot" style="background:#00c853"></i>Revenue</button><button class="trend-toggle" data-metric="atv"><i class="tdot" style="background:#7c3aed"></i>ATV</button><button class="trend-toggle" data-metric="auv"><i class="tdot" style="background:#1d4ed8"></i>AUV</button><button class="trend-toggle" data-metric="transactions"><i class="tdot" style="background:#0891b2"></i>Transactions</button><button class="trend-toggle" data-metric="buyers"><i class="tdot" style="background:#2563eb"></i>Members</button><button class="trend-toggle" data-metric="salesItems"><i class="tdot" style="background:#d97706"></i>Units</button><button class="trend-toggle" data-metric="discountValue"><i class="tdot" style="background:#dc2626"></i>Discounts</button></div></div><div class="panel-summary" id="trendSummary"></div><div class="chart-box trend-chart-3d" id="trendChart"></div><div class="chart-readout" id="trendDetail"></div><div class="trend-readout-divider"><span>What this means</span><small>Plain-English read on the numbers above</small></div><div class="readout trend-inline-readout" id="readout"></div><div class="analytics-mix-break"><div class="analytics-mix-break-label">Where it's coming from</div><div class="mix-tabs-wrap"><div class="segmented"><button class="mix-toggle active" data-mix="sources">Where from</button><button class="mix-toggle" data-mix="sessions">Sessions</button><button class="mix-toggle" data-mix="fillrate">Fill Rate</button><button class="mix-toggle" data-mix="instructors">Instructors</button><button class="mix-toggle" data-mix="timeslots">Time Slots</button><button class="mix-toggle" data-mix="retention">Retention</button></div></div></div><div class="panel-summary" id="mixChartSummary"></div><div class="chart-box analytics-mix-chart" id="mixChart"></div><div class="chart-readout" id="mixChartDetail"></div></div></div></section>
 <section class="analytics-zone revenue-zone" id="nav-revenue"><div class="zone-head"><div><span>Revenue intelligence</span><h3>Section 1: Sales movement, product mix and value concentration</h3></div><p>Revenue tables are grouped together so category, product, seller and spender signals can be read in one commercial view.</p></div><section class="section-kpis" id="revenueKpis"></section><div class="revenue-grid">
 <div class="panel business-panel"><div class="panel-head"><div><h3>Business Growth Tracker</h3><div class="panel-sub">Growth movement, revenue efficiency and opportunity queue</div></div></div><div class="panel-summary" id="businessSummary"></div><div class="business-metric-grid" id="businessMetricGrid"></div><div class="business-tables"><div><div class="mini-section-title">Growth movement</div><div class="table-wrap" id="growthTable"></div></div><div><div class="mini-section-title">Revenue and retention mix</div><div class="table-wrap" id="mixTable"></div><div class="business-explainer" id="businessMixExplanation"></div></div></div><div class="business-tables business-tables-secondary"><div><div class="mini-section-title">Growth opportunity queue</div><div class="table-wrap" id="opportunityTable"></div><div class="business-explainer" id="businessOpportunityExplanation"></div></div></div></div>
 <div class="revenue-side-grid"><div class="panel"><div class="panel-head"><div><h3>Sales Category Mix</h3><div class="panel-sub">Revenue concentration by category</div></div></div><div class="panel-summary" id="categorySummary"></div><div class="table-wrap" id="categoryTable"></div></div><div class="panel"><div class="panel-head"><div><h3>Membership / Product Sales</h3><div class="panel-sub">Product revenue, buyer count and AUV</div></div></div><div class="panel-summary" id="productSummary"></div><div class="table-wrap" id="productTable"></div></div></div><div class="panel rank-panel"><div class="panel-head"><div><h3>Top / Bottom Rankings</h3><div class="panel-sub">Switch the metric view to compare concentration and low-end drag</div></div><div class="segmented"><button class="rank-toggle active" data-rank="spenders">Spenders</button><button class="rank-toggle" data-rank="associates">Associates</button><button class="rank-toggle" data-rank="products">Products</button><button class="rank-toggle" data-rank="categories">Categories</button><button class="rank-toggle" data-rank="classes">Classes</button></div></div><div class="panel-summary" id="rankSummary"></div><div class="rank-grid" id="rankGrid"></div></div>
@@ -8110,22 +8110,23 @@ function renderTrend(){
   const key=state.trendMetric;
   const ps=lastPeriods();
   const vals=ps.map(p=>{
-    if(key==='discountValue') return (APP.data[p]?.[state.studio]?.categories||[]).reduce((a,r)=>a+(r.discountAmount||0),0);
-    return APP.data[p]?.[state.studio]?.summary?.[key]||0;
+    const d=APP.data[p]?.[state.studio];
+    if(!d) return 0;
+    if(key==='discountValue') return (d.categories||[]).reduce((a,r)=>a+(r.discountAmount||0),0);
+    return d.summary?.[key]||0;
   });
   const isPct=key==='conversionRate';
-  const isMoney=key==='salesRev'||key==='discountValue';
+  const isMoney=['salesRev','discountValue','atv','auv'].includes(key);
+  const isInt=['transactions','buyers','salesItems','checkedIn','newMembers','churnedMemberships'].includes(key);
   const fmt=v=>isPct?pct(v):isMoney?money(v):num(v);
   const maxV=Math.max(...vals,0.001), minV=Math.min(...vals,0), range=maxV-minV||1;
-  const W=900,H=290,PL=68,PR=24,PT=36,PB=44;
+  const W=900,H=280,PL=72,PR=24,PT=34,PB=42;
   const xOf=i=>PL+i*((W-PL-PR)/Math.max(ps.length-1,1));
   const yOf=v=>PT+(1-(v-minV)/range)*(H-PT-PB);
   const pts=vals.map((v,i)=>[xOf(i),yOf(v)]);
   const uid='tc'+Math.floor(Math.random()*99999);
-  /* per-metric neon color — fixed, not tied to up/down */
-  const COLORS={salesRev:'#00c853',buyers:'#1565c0',conversionRate:'#e65100',churnedMemberships:'#b71c1c',discountValue:'#6200ea',checkedIn:'#0097a7',newMembers:'#f57c00'};
+  const COLORS={salesRev:'#00c853',atv:'#7c3aed',auv:'#1d4ed8',transactions:'#0891b2',buyers:'#2563eb',salesItems:'#d97706',discountValue:'#dc2626',conversionRate:'#e65100',churnedMemberships:'#b91c1c'};
   const CLR=COLORS[key]||'#00c853';
-  const CLRa=CLR+'26'; /* 15% opacity hex */
   function smooth(ps2){
     if(ps2.length<2) return ps2.map(p=>`L${p[0]} ${p[1]}`).join(' ');
     const d=[];
@@ -8152,62 +8153,44 @@ function renderTrend(){
   const labelSet=new Set([0,ps.length-1]);
   if(Math.abs(peakI-0)>1&&Math.abs(peakI-(ps.length-1))>1) labelSet.add(peakI);
   if(Math.abs(troughI-0)>1&&Math.abs(troughI-(ps.length-1))>1&&troughI!==peakI) labelSet.add(troughI);
-  function labelY(y,i){ return y<PT+(H-PT-PB)*0.3?y+20:y-13; }
-  function labelAnchor(i){ return i<=1?'start':(i>=ps.length-2?'end':'middle'); }
-  function pillW(str){ return Math.max(str.length*6.5+14,38); }
+  function lY(y){ return y<PT+(H-PT-PB)*0.32?y+20:y-13; }
+  function lA(i){ return i<=1?'start':(i>=ps.length-2?'end':'middle'); }
+  function pW(str){ return Math.max(str.length*6.5+14,36); }
   const isUp=vals.at(-1)>=vals[0];
+  const prevVal=vals.length>1?vals[vals.length-2]:vals[0];
+  const vsPrior=vals.at(-1)-prevVal;
+  const vsPriorPct=prevVal?vsPrior/prevVal:0;
 
-  $('#trendChart').innerHTML=`<svg viewBox="0 0 ${W} ${H+44}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;display:block">
+  $('#trendChart').innerHTML=`<svg viewBox="0 0 ${W} ${H+40}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;display:block">
 <defs>
   <linearGradient id="ag${uid}" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="${CLR}" stop-opacity="0.18"/>
-    <stop offset="70%" stop-color="${CLR}" stop-opacity="0.06"/>
+    <stop offset="0%" stop-color="${CLR}" stop-opacity="0.14"/>
+    <stop offset="75%" stop-color="${CLR}" stop-opacity="0.04"/>
     <stop offset="100%" stop-color="${CLR}" stop-opacity="0"/>
   </linearGradient>
   <clipPath id="cp${uid}"><rect x="${PL}" y="${PT}" width="${W-PL-PR}" height="${H-PT-PB}"/></clipPath>
 </defs>
-
-<!-- Y grid lines & labels -->
 ${tickLines.map(({y,v})=>`
-  <line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-  <text x="${PL-10}" y="${(+y+4).toFixed(1)}" text-anchor="end" font-size="9.5" fill="#64748b" font-weight="700" font-family="inherit">${v}</text>
-`).join('')}
-
-<!-- Area fill (clipped) -->
-<g clip-path="url(#cp${uid})">
-  <path d="${areaPath}" fill="url(#ag${uid})"/>
-</g>
-
-<!-- Main line — crisp, no blur -->
+  <line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="rgba(0,0,0,0.05)" stroke-width="1" stroke-dasharray="${+y===PT?'none':'4 4'}"/>
+  <text x="${PL-10}" y="${(+y+4).toFixed(1)}" text-anchor="end" font-size="9" fill="#94a3b8" font-weight="700" font-family="inherit">${v}</text>`).join('')}
+<g clip-path="url(#cp${uid})"><path d="${areaPath}" fill="url(#ag${uid})"/></g>
 <path d="${linePath}" fill="none" stroke="${CLR}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp${uid})"/>
-
-<!-- Data point markers — solid neon with white ring for contrast -->
 ${pts.map(([x,y],i)=>{
-  const isLast=i===pts.length-1, isPeak=i===peakI, isTrough=i===troughI;
-  const r=isLast||isPeak||isTrough?5.5:3.5;
+  const r=labelSet.has(i)?5:3;
   const showLabel=labelSet.has(i);
-  const ly=labelY(y,i), anchor=labelAnchor(i);
-  const label=fmt(vals[i]);
-  const pw=pillW(label), ph=15;
-  const pillX=anchor==='start'?x-3:(anchor==='end'?x-pw+3:x-pw/2);
-  const pill=showLabel?`<rect x="${pillX.toFixed(1)}" y="${(ly-ph+2).toFixed(1)}" width="${pw}" height="${ph}" rx="7" fill="${CLR}" clip-path="url(#cp${uid})"/>
-    <text x="${(pillX+pw/2).toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" font-size="9" fill="#ffffff" font-weight="800" font-family="inherit" clip-path="url(#cp${uid})">${label}</text>`:'';
-  return `
-    <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r+3}" fill="${CLR}" fill-opacity="0.1" clip-path="url(#cp${uid})"/>
-    <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${CLR}" stroke="#ffffff" stroke-width="2.5" clip-path="url(#cp${uid})"
-      style="cursor:pointer" ${drillAttr({title:`${periodLabel(ps[i])} · ${fmt(vals[i])}`,summary:`${fmt(vals[i])} for ${periodLabel(ps[i])}.`,headers:['Month','Value'],rows:ps.map((m,j)=>[periodLabel(m),fmt(vals[j])]),formula:formulaFor(key)})}/>
-    ${pill}`;
+  const ly=lY(y), anchor=lA(i), label=fmt(vals[i]);
+  const pw=pW(label), ph=14;
+  const px=anchor==='start'?x-2:(anchor==='end'?x-pw+2:x-pw/2);
+  const pill=showLabel?`<rect x="${px.toFixed(1)}" y="${(ly-ph+2).toFixed(1)}" width="${pw}" height="${ph}" rx="7" fill="${CLR}"/><text x="${(px+pw/2).toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="800" font-family="inherit" clip-path="url(#cp${uid})">${label}</text>`:'';
+  return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r+3}" fill="${CLR}" fill-opacity="0.1" clip-path="url(#cp${uid})"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${CLR}" stroke="#fff" stroke-width="2" clip-path="url(#cp${uid})" style="cursor:pointer" ${drillAttr({title:`${periodLabel(ps[i])} · ${fmt(vals[i])}`,summary:`${fmt(vals[i])} for ${periodLabel(ps[i])}.`,headers:['Month','Value'],rows:ps.map((m,j)=>[periodLabel(m),fmt(vals[j])]),formula:formulaFor(key)||''})}/>  ${pill}`;
 }).join('')}
-
-<!-- Month labels -->
 ${ps.map((p,i)=>`<text x="${pts[i][0].toFixed(1)}" y="${H+12}" text-anchor="middle" font-size="8.5" fill="#94a3b8" font-weight="700" font-family="inherit">${periodLabel(p).split(' ')[0].slice(0,3)} '${(periodLabel(p).split(' ')[1]||'').slice(2)}</text>`).join('')}
-
-<!-- Baseline -->
 <line x1="${PL}" x2="${W-PR}" y1="${H-PB}" y2="${H-PB}" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
-
-<!-- Hero value + delta -->
-<text x="${PL}" y="20" font-size="15" fill="${CLR}" font-weight="900" font-family="inherit" letter-spacing="-0.03em">${fmt(vals.at(-1))}</text>
-<text x="${PL+104}" y="20" font-size="9.5" fill="#64748b" font-weight="700" font-family="inherit">${isUp?'↑ up':'↓ down'} ${isMoney?money(Math.abs(vals.at(-1)-vals[0])):isPct?((Math.abs(vals.at(-1)-vals[0])*100).toFixed(1)+'pp'):num(Math.abs(vals.at(-1)-vals[0]))} since start of view</text>
+<circle cx="${PL-4}" cy="${(H-PB).toFixed(1)}" r="3" fill="${CLR}" opacity="0.5"/>
+<text x="${PL}" y="20" font-size="16" fill="${CLR}" font-weight="900" font-family="inherit" letter-spacing="-0.03em">${fmt(vals.at(-1))}</text>
+<text x="${PL+2}" y="30" font-size="8.5" fill="#94a3b8" font-weight="700" font-family="inherit">this month</text>
+<text x="${PL+110}" y="20" font-size="11" fill="${vsPrior>=0?'#16a34a':'#dc2626'}" font-weight="900" font-family="inherit">${vsPrior>=0?'▲':'▼'} ${fmt(Math.abs(vsPrior))}</text>
+<text x="${PL+110}" y="30" font-size="8.5" fill="#94a3b8" font-weight="700" font-family="inherit">vs prior month</text>
 </svg>`;
 }
 
@@ -8215,20 +8198,29 @@ function renderTrendSummary(){
   const key=state.trendMetric;
   const ps=lastPeriods();
   const vals=ps.map(p=>{
-    if(key==='discountValue') return (APP.data[p]?.[state.studio]?.categories||[]).reduce((a,r)=>a+(r.discountAmount||0),0);
-    return APP.data[p]?.[state.studio]?.summary?.[key]||0;
+    const d=APP.data[p]?.[state.studio];
+    if(!d) return 0;
+    if(key==='discountValue') return (d.categories||[]).reduce((a,r)=>a+(r.discountAmount||0),0);
+    return d.summary?.[key]||0;
   });
   const isPct=key==='conversionRate';
-  const isMoney=key==='salesRev'||key==='discountValue';
+  const isMoney=['salesRev','discountValue','atv','auv'].includes(key);
   const fmt=v=>isPct?pct(v):isMoney?money(v):num(v);
   const max=Math.max(...vals), last=vals.at(-1), first=vals[0], avg=vals.reduce((a,b)=>a+b,0)/Math.max(vals.length,1);
-  const METRIC_NAMES={'salesRev':'Revenue','discountValue':'Discounts','buyers':'Members','checkedIn':'Visitors','newMembers':'First Timers','conversionRate':'Conversion','churnedMemberships':'Cancellations'};
-  const label=METRIC_NAMES[key]||key;
-  const delta=last-first;
+  const prevVal=vals.length>1?vals[vals.length-2]:first;
+  const NAMES={'salesRev':'Revenue','atv':'ATV','auv':'AUV','transactions':'Transactions','buyers':'Members','salesItems':'Units','discountValue':'Discounts','conversionRate':'Conversion','churnedMemberships':'Cancellations'};
+  const label=NAMES[key]||key;
+  const delta=last-first, vsPrior=last-prevVal;
   const deltaText=isPct?`${delta>=0?'+':''}${(delta*100).toFixed(1)}pp`:isMoney?`${delta>=0?'+':''}${money(delta)}`:`${delta>=0?'+':''}${num(delta)}`;
+  const priorText=isPct?`${vsPrior>=0?'+':''}${(vsPrior*100).toFixed(1)}pp`:isMoney?`${vsPrior>=0?'+':''}${money(vsPrior)}`:`${vsPrior>=0?'+':''}${num(vsPrior)}`;
   const trend=last>=first?'up':'down';
-  $('#trendSummary').innerHTML=`<b>${label} this month: ${fmt(last)}.</b> ${trend==='up'?`Up ${deltaText} since the start of this view`:`Down ${deltaText} since the start of this view`}. Best month was <b>${fmt(max)}</b>.`;
-  $('#trendDetail').innerHTML=detailTiles([['This month',fmt(last)],['Monthly average',fmt(avg)],['Best month',fmt(max)],['vs. start',deltaText]]);
+  $('#trendSummary').innerHTML=`<b>${label}:</b> At <b>${fmt(last)}</b> this month — <b>${priorText}</b> vs last month. Over this view, ${trend==='up'?'trending up':'tracking down'} with a period average of <b>${fmt(avg)}</b>.`;
+  $('#trendDetail').innerHTML=detailTiles([
+    ['This month',fmt(last)],
+    ['vs. prior month',priorText],
+    ['Period average',fmt(avg)],
+    ['Period best',fmt(max)]
+  ]);
 }
 
 
@@ -8237,72 +8229,71 @@ function renderFormatSummary(){ const rows=current().formats, metric=state.forma
 function renderFunnel(){ const s=current().summary, steps=[['CRM leads',s.leadCount],['First visits',s.newMembers],['Converted',s.converted],['Retained',s.retained]], max=Math.max(...steps.map(x=>x[1]),1), colors=['#2f6ed8','#1e9bbd','#c98d22','#15966b']; $('#funnelChart').innerHTML=`<svg viewBox="0 0 620 220">${steps.map((d,i)=>{const w=390*(d[1]/max), y=26+i*44, rate=i?d[1]/Math.max(steps[i-1][1],1):1; return `<text class="chart-label" x="0" y="${y+14}">${d[0]}</text><rect x="145" y="${y}" width="390" height="20" rx="10" fill="#e8eef7"/><rect class="bar-anim chart-bar" x="145" y="${y}" width="${w}" height="20" rx="10" fill="${colors[i]}" ${drillAttr({title:`Funnel step: ${d[0]}`,summary:`${d[0]} count is ${num(d[1])} for the selected month.`,headers:['Step','Value'],rows:steps.map(x=>[x[0],num(x[1])]),formula:'Lead funnel uses CRM lead count, new-member first visits, converted new members and retained new members.'})}></rect><text class="chart-value" x="552" y="${y+14}">${num(d[1])}</text><text class="axis" x="145" y="${y+35}">${i===0?'base volume':pct(rate)+' from prior step'}</text>`}).join('')}<text class="axis chart-axis-strong" x="145" y="208">Lead yield ${pct(s.newMembers/Math.max(s.leadCount,1))} • first-visit conversion ${pct(s.conversionRate)} • retained ${pct(s.retained/Math.max(s.newMembers,1))}</text></svg>`; $('#funnelSummary').innerHTML=`<b>Key insight:</b> The funnel converts <b>${pct(s.newMembers/Math.max(s.leadCount,1))}</b> of CRM leads into first visits and <b>${pct(s.conversionRate)}</b> of first visits into converted members.`; $('#funnelDetail').innerHTML=detailTiles([['Lead yield',pct(s.newMembers/Math.max(s.leadCount,1))],['Converted',num(s.converted)],['Retained',num(s.retained)],['Lead gap',num(Math.max(Number(s.leadCount||0)-Number(s.newMembers||0),0))]]); }
 function renderMixChart(){
   const c=current(), mode=state.mixMetric;
-  /* ---- horizontal bar chart helper ---- */
-  function hbarChart(rows, valueFn, fmtFn, colorFn, labelFn, height){
+  const palette=['#2563eb','#16a34a','#7c3aed','#d97706','#0891b2','#dc2626','#9333ea','#059669'];
+  const pal=i=>palette[i%palette.length];
+  function hbarChart(rows, valueFn, fmtFn, colorFn, labelFn){
+    if(!rows.length) return `<div class="empty">No data for this selection.</div>`;
     const maxV=Math.max(...rows.map(valueFn),1);
-    const rowH=40, padL=140, padR=60, padT=10, w=880;
-    const svgH=padT+rows.length*rowH+10;
+    const rowH=38, padL=148, padR=70, padT=8, w=880;
+    const svgH=padT+rows.length*rowH+8;
     return `<svg viewBox="0 0 ${w} ${svgH}" role="img">${rows.map((r,i)=>{
       const y=padT+i*rowH, v=valueFn(r), bw=(w-padL-padR)*(v/maxV);
-      return `<text font-size="10" font-weight="800" fill="var(--muted)" x="${padL-6}" y="${y+rowH/2+4}" text-anchor="end">${labelFn(r)}</text>
-              <rect x="${padL}" y="${y+8}" width="${(w-padL-padR).toFixed(1)}" height="22" rx="11" fill="var(--line2)"/>
-              <rect x="${padL}" y="${y+8}" width="${bw.toFixed(1)}" height="22" rx="11" fill="${colorFn(i,r)}" class="bar-anim"/>
-              <text font-size="10" font-weight="900" fill="var(--ink)" x="${padL+bw+6}" y="${y+rowH/2+4}">${fmtFn(r,v)}</text>`;
+      const pct100=(v/maxV*100).toFixed(0);
+      return `<text font-size="10" font-weight="800" fill="#475569" x="${padL-8}" y="${y+rowH/2+4}" text-anchor="end">${labelFn(r)}</text>
+              <rect x="${padL}" y="${y+9}" width="${(w-padL-padR).toFixed(1)}" height="20" rx="10" fill="#f1f5f9"/>
+              <rect x="${padL}" y="${y+9}" width="${Math.max(bw,4).toFixed(1)}" height="20" rx="10" fill="${colorFn(i,r)}" class="bar-anim" opacity="0.85"/>
+              <text font-size="10" font-weight="900" fill="#1e293b" x="${padL+bw+7}" y="${y+rowH/2+4}">${fmtFn(r,v)}</text>`;
     }).join('')}</svg>`;
   }
-  /* ---- palette ---- */
-  const palette=['var(--accent)','var(--blue)','var(--sage)','var(--plum)','var(--green)','var(--amber)','var(--red)','var(--muted)'];
-  const pal=(i)=>palette[i%palette.length];
 
-  /* ---- mode configs ---- */
   if(mode==='sources'){
     const rows=[...c.sources].sort((a,b)=>b.newMembers-a.newMembers).slice(0,10);
-    $('#mixChart').innerHTML=hbarChart(rows,r=>r.newMembers,r=>num(r.newMembers),pal,r=>r.SourceClean||r.source||'—',40);
-    $('#mixChartSummary').innerHTML=`<b>Key insight:</b> First-visit source mix ranked by new members acquired. Top source: <b>${rows[0]?.SourceClean||'—'}</b> with <b>${num(rows[0]?.newMembers||0)}</b> visitors.`;
-    $('#mixChartDetail').innerHTML=detailTiles([['Sources',num(rows.length)],['Total new',num(rows.reduce((a,r)=>a+r.newMembers,0))],['Top source',rows[0]?.SourceClean||'—'],['Top count',num(rows[0]?.newMembers||0)]]);
-  } else if(mode==='classes'){
-    const rows=[...c.classes].sort((a,b)=>b.revenue-a.revenue).slice(0,12);
-    $('#mixChart').innerHTML=hbarChart(rows,r=>r.revenue,r=>money(r.revenue),pal,r=>(r.Class||r.name||'—').slice(0,28),40);
-    $('#mixChartSummary').innerHTML=`<b>Key insight:</b> Class revenue leaders. Top class: <b>${rows[0]?.Class||'—'}</b> at <b>${money(rows[0]?.revenue||0)}</b>.`;
-    $('#mixChartDetail').innerHTML=detailTiles([['Classes',num(rows.length)],['Total rev',money(rows.reduce((a,r)=>a+r.revenue,0))],['Top class',(rows[0]?.Class||'—').slice(0,16)],['Top rev',money(rows[0]?.revenue||0)]]);
-  } else if(mode==='formats'){
-    const rows=[...c.formats].sort((a,b)=>b.revenue-a.revenue);
-    const fmtColors={'Barre 57':'var(--accent)','PowerCycle':'var(--blue)','Strength':'var(--plum)','Other':'var(--sage)'};
-    $('#mixChart').innerHTML=hbarChart(rows,r=>r.revenue,r=>money(r.revenue),(i,r)=>fmtColors[r.name]||pal(i),r=>r.name,48);
-    $('#mixChartSummary').innerHTML=`<b>Key insight:</b> Revenue by class format. Lead format: <b>${rows[0]?.name||'—'}</b> at <b>${money(rows[0]?.revenue||0)}</b> with ${pct(rows[0]?.fill||0)} fill.`;
-    $('#mixChartDetail').innerHTML=detailTiles(rows.map(r=>[r.name,money(r.revenue)]));
-  } else if(mode==='products'){
-    const rows=[...c.products].sort((a,b)=>b.revenue-a.revenue).slice(0,12);
-    $('#mixChart').innerHTML=hbarChart(rows,r=>r.revenue,r=>money(r.revenue),pal,r=>(r.Product||r.name||'—').slice(0,28),40);
-    $('#mixChartSummary').innerHTML=`<b>Key insight:</b> Product revenue mix. Top product: <b>${(rows[0]?.Product||'—').slice(0,20)}</b> at <b>${money(rows[0]?.revenue||0)}</b>.`;
-    $('#mixChartDetail').innerHTML=detailTiles([['Products',num(rows.length)],['Total rev',money(rows.reduce((a,r)=>a+r.revenue,0))],['Top product',(rows[0]?.Product||'—').slice(0,14)],['Top rev',money(rows[0]?.revenue||0)]]);
-  } else if(mode==='categories'){
-    const rows=[...c.categories].sort((a,b)=>b.revenue-a.revenue).slice(0,10);
-    $('#mixChart').innerHTML=hbarChart(rows,r=>r.revenue,r=>money(r.revenue),pal,r=>(r.category||r.Category||r.name||'—').slice(0,28),44);
-    const total=rows.reduce((a,r)=>a+r.revenue,0);
-    $('#mixChartSummary').innerHTML=`<b>Key insight:</b> Sales category concentration. Top category: <b>${(rows[0]?.category||rows[0]?.Category||'—').slice(0,20)}</b> at <b>${money(rows[0]?.revenue||0)}</b> (${pct((rows[0]?.revenue||0)/Math.max(total,1))} share).`;
-    $('#mixChartDetail').innerHTML=detailTiles([['Categories',num(rows.length)],['Total rev',money(total)],['Top share',pct((rows[0]?.revenue||0)/Math.max(total,1))],['Top cat',(rows[0]?.category||rows[0]?.Category||'—').slice(0,12)]]);
+    $('#mixChart').innerHTML=hbarChart(rows,r=>r.newMembers,(r,v)=>num(v),pal,r=>r.SourceClean||r.source||'—');
+    $('#mixChartSummary').innerHTML=`<b>New member sources this month.</b> Top acquisition channel: <b>${rows[0]?.SourceClean||'—'}</b> brought in <b>${num(rows[0]?.newMembers||0)}</b> first-time visitors.`;
+    $('#mixChartDetail').innerHTML=detailTiles([['Channels',num(rows.length)],['Total new',num(rows.reduce((a,r)=>a+r.newMembers,0))],['#1 source',rows[0]?.SourceClean||'—'],['#1 count',num(rows[0]?.newMembers||0)]]);
+  } else if(mode==='sessions'){
+    const rows=[...c.classes].sort((a,b)=>(b.attendance||b.checkedIn||0)-(a.attendance||a.checkedIn||0)).slice(0,12);
+    if(!rows.length){$('#mixChart').innerHTML=`<div class="empty">No session data.</div>`;return;}
+    $('#mixChart').innerHTML=hbarChart(rows,r=>r.attendance||r.checkedIn||r.count||0,(r,v)=>num(v),pal,r=>(r.Class||r.name||'—').slice(0,26));
+    const totalAtt=rows.reduce((a,r)=>a+(r.attendance||r.checkedIn||r.count||0),0);
+    $('#mixChartSummary').innerHTML=`<b>Session attendance by class.</b> Most attended: <b>${(rows[0]?.Class||rows[0]?.name||'—').slice(0,24)}</b> with <b>${num(rows[0]?.attendance||rows[0]?.checkedIn||0)}</b> check-ins.`;
+    $('#mixChartDetail').innerHTML=detailTiles([['Classes',num(rows.length)],['Total check-ins',num(totalAtt)],['Top class',(rows[0]?.Class||'—').slice(0,14)],['Top count',num(rows[0]?.attendance||rows[0]?.checkedIn||0)]]);
+  } else if(mode==='fillrate'){
+    const rows=[...c.formats].sort((a,b)=>(b.fill||0)-(a.fill||0));
+    if(!rows.length){$('#mixChart').innerHTML=`<div class="empty">No format data.</div>`;return;}
+    const fmtColors={'Barre 57':'#e65100','PowerCycle':'#0891b2','Strength':'#7c3aed','Other':'#16a34a'};
+    $('#mixChart').innerHTML=hbarChart(rows,r=>r.fill||0,(r,v)=>pct(v),(i,r)=>fmtColors[r.name]||pal(i),r=>r.name||'—');
+    const avgFill=rows.reduce((a,r)=>a+(r.fill||0),0)/Math.max(rows.length,1);
+    $('#mixChartSummary').innerHTML=`<b>Class fill rate by format.</b> Best filled: <b>${rows[0]?.name||'—'}</b> at <b>${pct(rows[0]?.fill||0)}</b>. Studio average fill: <b>${pct(avgFill)}</b>.`;
+    $('#mixChartDetail').innerHTML=detailTiles(rows.map(r=>[r.name||'—',pct(r.fill||0)]));
   } else if(mode==='instructors'){
-    const rows=[...(c.trainers||[])].sort((a,b)=>b.revenue-a.revenue).slice(0,12);
-    if(!rows.length){$('#mixChart').innerHTML=`<div class="empty">No instructor data for this selection.</div>`; $('#mixChartSummary').innerHTML=''; $('#mixChartDetail').innerHTML=''; return;}
-    $('#mixChart').innerHTML=hbarChart(rows,r=>r.revenue,r=>money(r.revenue),pal,r=>(r.name||r.Instructor||'—').slice(0,24),40);
-    $('#mixChartSummary').innerHTML=`<b>Key insight:</b> Instructor revenue mix. Top instructor: <b>${rows[0]?.name||'—'}</b> at <b>${money(rows[0]?.revenue||0)}</b>.`;
-    $('#mixChartDetail').innerHTML=detailTiles([['Instructors',num(rows.length)],['Total rev',money(rows.reduce((a,r)=>a+r.revenue,0))],['Top instructor',(rows[0]?.name||'—').slice(0,12)],['Top fill',pct(rows[0]?.fill||0)]]);
-  } else if(mode==='dayparts'){
-    const rows=[...(c.dayparts||[])].sort((a,b)=>b.revenue-a.revenue);
-    if(!rows.length){$('#mixChart').innerHTML=`<div class="empty">No daypart data for this selection.</div>`; $('#mixChartSummary').innerHTML=''; $('#mixChartDetail').innerHTML=''; return;}
-    const dpColors=['var(--amber)','var(--blue)','var(--plum)','var(--sage)'];
-    $('#mixChart').innerHTML=hbarChart(rows,r=>r.revenue,r=>money(r.revenue),(i)=>dpColors[i]||pal(i),r=>(r.daypart||r.name||'—'),52);
-    $('#mixChartSummary').innerHTML=`<b>Key insight:</b> Revenue by time-of-day slot. Peak: <b>${rows[0]?.daypart||rows[0]?.name||'—'}</b> at <b>${money(rows[0]?.revenue||0)}</b>.`;
-    $('#mixChartDetail').innerHTML=detailTiles(rows.map(r=>[(r.daypart||r.name||'—'),money(r.revenue)]));
-  } else if(mode==='churn'){
+    const rows=[...(c.trainers||[])].sort((a,b)=>(b.classes||b.count||0)-(a.classes||a.count||0)).slice(0,12);
+    if(!rows.length){$('#mixChart').innerHTML=`<div class="empty">No instructor data.</div>`;return;}
+    $('#mixChart').innerHTML=hbarChart(rows,r=>r.classes||r.count||0,(r,v)=>num(v)+' sessions',pal,r=>(r.name||r.Instructor||'—').slice(0,22));
+    const avgFill2=rows.reduce((a,r)=>a+(r.fill||0),0)/Math.max(rows.filter(r=>r.fill>0).length,1);
+    $('#mixChartSummary').innerHTML=`<b>Instructor workload by sessions.</b> Busiest: <b>${rows[0]?.name||'—'}</b> ran <b>${num(rows[0]?.classes||rows[0]?.count||0)}</b> sessions. Studio avg fill: <b>${pct(avgFill2)}</b>.`;
+    $('#mixChartDetail').innerHTML=detailTiles([['Instructors',num(rows.length)],['Total sessions',num(rows.reduce((a,r)=>a+(r.classes||r.count||0),0))],['Top instructor',(rows[0]?.name||'—').slice(0,12)],['Top sessions',num(rows[0]?.classes||rows[0]?.count||0)]]);
+  } else if(mode==='timeslots'){
+    const rows=[...(c.dayparts||[])].sort((a,b)=>(b.sessions||b.classes||b.attendance||b.checkedIn||0)-(a.sessions||a.classes||a.attendance||a.checkedIn||0));
+    if(!rows.length){$('#mixChart').innerHTML=`<div class="empty">No time slot data.</div>`;return;}
+    const dpColors=['#e65100','#0891b2','#7c3aed','#16a34a'];
+    const metric=r=>r.sessions||r.classes||r.attendance||r.checkedIn||r.count||0;
+    const metricFmt=(r,v)=>v?`${num(v)} sessions`:money(r.revenue||0);
+    const rows2=rows.map(r=>({...r, _v:metric(r)||r.revenue||0})).sort((a,b)=>b._v-a._v);
+    $('#mixChart').innerHTML=hbarChart(rows2,r=>r._v,metricFmt,(i)=>dpColors[i]||pal(i),r=>(r.daypart||r.name||'—'));
+    $('#mixChartSummary').innerHTML=`<b>Session demand by time of day.</b> Busiest slot: <b>${rows2[0]?.daypart||rows2[0]?.name||'—'}</b>.`;
+    $('#mixChartDetail').innerHTML=detailTiles(rows2.map(r=>[(r.daypart||r.name||'—'),`${num(r._v)} sessions`]));
+  } else if(mode==='retention'){
     const rows=[...c.lapsedTypes].sort((a,b)=>b.lapsed-a.lapsed).slice(0,10);
-    $('#mixChart').innerHTML=hbarChart(rows,r=>r.lapsed,(r,v)=>num(v),(i)=>`var(--${['red','amber','plum','blue','sage'][i]||'muted'})`,r=>(r.MembershipType||r.type||r.name||'—').slice(0,28),40);
-    $('#mixChartSummary').innerHTML=`<b>Key insight:</b> Churn by membership type. Highest lapse: <b>${(rows[0]?.MembershipType||'—').slice(0,20)}</b> with <b>${num(rows[0]?.lapsed||0)}</b> lapses.`;
-    $('#mixChartDetail').innerHTML=detailTiles([['Types',num(rows.length)],['Total lapsed',num(rows.reduce((a,r)=>a+r.lapsed,0))],['Top type',(rows[0]?.MembershipType||'—').slice(0,14)],['Top lapses',num(rows[0]?.lapsed||0)]]);
+    if(!rows.length){$('#mixChart').innerHTML=`<div class="empty">No retention data.</div>`;return;}
+    $('#mixChart').innerHTML=hbarChart(rows,r=>r.lapsed,(r,v)=>num(v)+' lapsed',(i)=>`${['#dc2626','#d97706','#7c3aed','#0891b2','#16a34a'][i]||pal(i)}`,r=>(r.MembershipType||r.type||r.name||'—').slice(0,28));
+    const totalLapsed=rows.reduce((a,r)=>a+r.lapsed,0);
+    $('#mixChartSummary').innerHTML=`<b>Member cancellations by membership type.</b> Highest lapse: <b>${(rows[0]?.MembershipType||'—').slice(0,20)}</b> with <b>${num(rows[0]?.lapsed||0)}</b> cancellations this month.`;
+    $('#mixChartDetail').innerHTML=detailTiles([['Types',num(rows.length)],['Total lapsed',num(totalLapsed)],['Top type',(rows[0]?.MembershipType||'—').slice(0,14)],['Top lapses',num(rows[0]?.lapsed||0)]]);
   }
-  setActive('.mix-toggle',state.mixMetric,'mix');
+  setActive('.mix-toggle',`[data-mix="${mode}"]`);
 }
+
 
 function renderTables(){ const c=current(); $('#formatTable').innerHTML=nestedFormatTable(c); $('#formatTableSummary').innerHTML=summarizeFormats(c.formats);
   $('#classTable').innerHTML=table(['Class','Fmt','Cls','Empty','Members','Avg','Fill','Late','Revenue'], c.classes.map(r=>{ const members=classUniqueMembers(r); return {cells:[trunc(r.Class,34),fmtPill(r.Format),num(r.classes),num(r.empty),members===null?'-':num(members),one(r.avg),barPct(r.fill),num(r.late),money(r.revenue)], drill:{title:r.Class,summary:`${r.Class} contributed ${money(r.revenue)} from ${num(r.classes)} sessions with ${num(r.empty)} empty classes and ${members===null?'unavailable':num(members)} unique members.`,headers:['Metric','Value'],rows:[['Format',r.Format],['Classes',num(r.classes)],['Empty classes',num(r.empty)],['Unique members',members===null?'-':num(members)],['Attendance',num(r.attendance)],['Capacity',num(r.capacity)],['Booked',num(r.booked)],['Fill',pct(r.fill)],['Late cancellations',num(r.late)],['Revenue / class',money(r.revPerClass)]],source:{kind:'sessionClass',value:r.Class}}}}).slice(0,12)); $('#classTableSummary').innerHTML=summarizeTop(c.classes,'Class','revenue','Top class');
@@ -9194,6 +9185,146 @@ section.executive-zone > .zone-head {
 .studio-analytics-panel > .chart-readout {
   padding-left: 22px !important;
   padding-right: 22px !important;
+}
+
+
+
+/* ── METRIC TAB COLOR DOTS ── */
+.trend-toggle .tdot {
+  display: inline-block !important;
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  margin-right: 5px !important;
+  vertical-align: middle !important;
+  flex-shrink: 0 !important;
+}
+.trend-toggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+}
+
+/* ── TREND METRIC TABS — scrollable row ── */
+.studio-analytics-head .segmented {
+  overflow-x: auto !important;
+  flex-wrap: nowrap !important;
+  max-width: calc(100% - 260px) !important;
+  scrollbar-width: none !important;
+}
+.studio-analytics-head .segmented::-webkit-scrollbar { display: none !important; }
+
+/* ── IMPROVED DETAIL STAT TILES ── */
+html .chart-readout,
+.chart-readout {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+  gap: 10px !important;
+  padding: 12px 22px 16px !important;
+}
+html .chart-stat,
+.chart-stat {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  padding: 12px 14px !important;
+}
+html .chart-stat span,
+.chart-stat span {
+  font-size: 10px !important;
+  color: #64748b !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .04em !important;
+  display: block !important;
+  margin-bottom: 5px !important;
+}
+html .chart-stat strong,
+.chart-stat strong {
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  color: #0f172a !important;
+  letter-spacing: -.02em !important;
+}
+
+/* ── MIX SECTION BREAK ── */
+.analytics-mix-break {
+  background: #f8fafc !important;
+  border-top: 2px solid #e2e8f0 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  padding: 13px 22px !important;
+  margin-top: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+.analytics-mix-break-label {
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+  color: #475569 !important;
+}
+.analytics-mix-break .mix-tabs-wrap {
+  flex: 1 !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+}
+
+/* ── MIX CHART AREA ── */
+.analytics-mix-chart,
+.studio-analytics-panel > .chart-box:not(.trend-chart-3d) {
+  padding: 10px 22px 12px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ── PANEL SUMMARY INSIDE ANALYTICS ── */
+.studio-analytics-panel > .panel-summary {
+  margin: 8px 22px 0 !important;
+  border-radius: 10px !important;
+  font-size: 12px !important;
+  padding: 9px 13px !important;
+}
+
+/* ── READOUT ITEMS ── */
+.studio-analytics-panel .readout {
+  padding: 4px 22px 12px !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 8px !important;
+}
+.studio-analytics-panel .readout-item {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  padding: 10px 12px !important;
+}
+
+/* ── WHAT THIS MEANS DIVIDER ── */
+.trend-readout-divider {
+  background: #fff !important;
+  border-top: 1px solid #e2e8f0 !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  padding: 10px 22px 9px !important;
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 8px !important;
+  margin: 4px 0 0 !important;
+}
+.trend-readout-divider span {
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+  color: #334155 !important;
+}
+.trend-readout-divider small {
+  font-size: 10px !important;
+  color: #94a3b8 !important;
 }
 
 </style>
