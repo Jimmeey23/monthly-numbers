@@ -1,3 +1,4 @@
 - [Dashboard detailTiles fix](dashboard-detailtiles.md) — `detailTiles` was called everywhere but never defined; inject before `let state = {`
 - [Dashboard CSS override placement](dashboard-css-override.md) — override block MUST be at end of file before `</body>`; studio CSS in lines 2000-7500 overrides `<head>` rules
 - [Dashboard chart design](dashboard-chart-design.md) — white bg, per-metric neon colors, no blur, 4 sales tabs, full-width panel via negative margins
+- [Dashboard APP/state globals](dashboard-globals.md) — main script uses `const APP` / `let state` (NOT window-accessible); must add `window.APP=APP;window.state=state;` just before the closing `</script>` at physical line ~8800

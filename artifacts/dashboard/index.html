@@ -8794,6 +8794,7 @@ function openIndex(){ lastFocus=document.activeElement; renderFormulas(); docume
 function renderFormulas(){ const q=($('#formulaSearch')?.value||'').toLowerCase(); const rows=APP.formulas.filter(f=>(f.metric+f.formula+f.definition).toLowerCase().includes(q)); $('#formulaList').innerHTML=`<div class="empty">${rows.length} formula${rows.length===1?'':'s'} shown</div>` + (rows.map(f=>`<div class="formula-card"><strong>${esc(f.metric)}</strong><div>${esc(f.definition)}</div><code>${esc(f.formula)}</code></div>`).join('') || '<div class="empty">No matching formula found.</div>'); }
 function closeDrawers(){ const wasOpen=$('#overlay').classList.contains('open'); $('#overlay').classList.remove('open'); $('#drillPanel').classList.remove('open'); $('#indexDrawer').classList.remove('open'); document.body.classList.remove('no-scroll'); if(wasOpen && lastFocus?.focus){ lastFocus.focus({preventScroll:true}); } }
 document.addEventListener('DOMContentLoaded', init);
+window.APP = APP; window.state = state;
 </script>
 <style id="p57-light-redesign-override">
 /* ============================================================
@@ -10290,22 +10291,510 @@ html[data-theme="dark"] .kpi-card:hover {
 }
 
 /* ── Light mode polish ────────────────────────────────────────────────────── */
+html[data-theme="light"] .metric-card,html[data-theme="light"] .network-card,html[data-theme="light"] .insight,html[data-theme="light"] .kpi-card{background:#fff!important;box-shadow:0 1px 3px rgba(0,0,0,.05),0 6px 20px rgba(20,28,38,.06)!important}
+html[data-theme="light"] .metric-card:hover,html[data-theme="light"] .network-card:hover,html[data-theme="light"] .insight:hover,html[data-theme="light"] .kpi-card:hover{box-shadow:0 4px 8px rgba(0,0,0,.06),0 16px 40px rgba(20,28,38,.09),0 0 0 1px color-mix(in srgb,var(--accent2) 25%,transparent)!important}
 
-html[data-theme="light"] .metric-card,
-html[data-theme="light"] .network-card,
-html[data-theme="light"] .insight,
-html[data-theme="light"] .kpi-card {
-  background: #fff !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 6px 20px rgba(20,28,38,.06) !important;
-}
+/* ── 5 per row on main KPI snapshot grid ── */
+#metrics.metrics{grid-template-columns:repeat(5,minmax(0,1fr))!important}
 
-html[data-theme="light"] .metric-card:hover,
-html[data-theme="light"] .network-card:hover,
-html[data-theme="light"] .insight:hover,
-html[data-theme="light"] .kpi-card:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,.06),
-              0 16px 40px rgba(20,28,38,.09),
-              0 0 0 1px color-mix(in srgb, var(--accent2) 25%, transparent) !important;
-}
+/* ── Animated MOM badge additions to existing metric cards ── */
+.mc-badge{display:inline-flex;align-items:center;gap:3px;border-radius:6px;padding:2px 7px;font-size:9.5px;font-weight:800;margin-top:5px;line-height:1.3}
+.mc-badge.badge-good{background:#dcfce7;color:#15803d}
+.mc-badge.badge-bad{background:#fee2e2;color:#dc2626}
+.mc-badge em{font-style:normal;font-size:8px;font-weight:700;opacity:.7;letter-spacing:.05em;background:rgba(0,0,0,.08);padding:1px 4px;border-radius:3px;margin-left:2px}
+html[data-theme="dark"] .mc-badge.badge-good{background:#052e16;color:#4ade80}
+html[data-theme="dark"] .mc-badge.badge-bad{background:#450a0a;color:#f87171}
+.mc-prev-val{font-size:9px;color:#9ca3af;font-weight:600;display:block;margin-top:2px}
+.mc-sparkline-inj{display:block;width:100%;height:24px;margin-top:5px;opacity:.75}
+
+/* ── Sales tab enhanced metric grid ── */
+.enh-metrics-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:0 0 14px}
+.mc-enh{position:relative;background:#fff;border:1px solid #e8ecf0;border-radius:14px;padding:15px 15px 11px;overflow:hidden;cursor:pointer;transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .22s cubic-bezier(.22,1,.36,1),border-color .22s;animation:mcIn .4s ease both}
+html[data-theme="dark"] .mc-enh{background:linear-gradient(160deg,#1e2127,#1b1d21);border-color:#2c3139}
+@keyframes mcIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.mc-enh:hover{transform:translateY(-4px);box-shadow:0 4px 12px rgba(0,0,0,.07),0 14px 36px rgba(0,0,0,.09),0 0 0 1.5px var(--mc-color,#6366f1)50;border-color:var(--mc-color,#6366f1)80}
+.mc-accent-bar{position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
+.mc-header-row{display:flex;justify-content:flex-end;margin-bottom:3px}
+.mc-icon-wrap{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:13px;font-weight:800}
+.mc-enh label{display:block;font-size:9px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#7c8b9a;margin:2px 0}
+html[data-theme="dark"] .mc-enh label{color:#8d96a0}
+.mc-value{display:block;font-size:21px;font-weight:800;letter-spacing:-.04em;line-height:1.1;color:#0f172a;margin:4px 0 5px}
+html[data-theme="dark"] .mc-value{color:#f3f4f6}
+.mc-sparkline-enh{display:block;width:100%;height:24px;margin-top:6px;opacity:.75}
+
+/* ── Enhanced panels ── */
+.enh-panel{background:#fff;border:1px solid #e8ecf0;border-radius:14px;padding:18px 20px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);margin-top:14px}
+html[data-theme="dark"] .enh-panel{background:#1b1d21;border-color:#2c3139}
+.enh-panel h3{font-size:15px;font-weight:800;letter-spacing:-.02em;color:#0f172a;margin:0}
+html[data-theme="dark"] .enh-panel h3{color:#f1f0eb}
+.enh-panel .enh-panel-sub{font-size:11px;color:#6b7280;font-weight:700;margin-top:3px}
+.enh-two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+
+/* ── 3D chart ── */
+.chart3d-wrap{width:100%;min-height:200px;margin:6px 0;overflow:visible}
+.chart3d-bar{cursor:pointer;transition:opacity .15s,filter .15s}
+.chart3d-bar:hover{opacity:.8;filter:brightness(1.12)}
+.chart-dot-int{cursor:pointer}
+.chart-toggle-group{display:flex;gap:6px;flex-wrap:wrap}
+.ctg-btn{border:1px solid #e5e7eb;background:#f9fafb;color:#374151;border-radius:8px;padding:5px 11px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit}
+.ctg-btn.active{background:#0f172a;color:#fff;border-color:#0f172a}
+.ctg-btn:hover:not(.active){background:#f3f4f6}
+html[data-theme="dark"] .ctg-btn{background:#22262b;border-color:#2c3139;color:#d1d5db}
+html[data-theme="dark"] .ctg-btn.active{background:#f5f3ed;color:#111;border-color:#f5f3ed}
+.chart-tooltip-box{position:fixed;background:#1e293b;color:#f8fafc;padding:7px 12px;border-radius:9px;font-size:11.5px;font-weight:700;pointer-events:none;z-index:9999;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.25);display:none;line-height:1.5}
+
+/* ── Enhanced tables ── */
+.enh-table-wrap{overflow:auto;border-radius:10px;border:1px solid #f1f3f5;margin-top:10px}
+.enh-table{width:100%;border-collapse:collapse;font-size:12px}
+.enh-table thead th{position:sticky;top:0;z-index:1;padding:9px 10px;font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#6b7280;background:#f9fafb;border-bottom:1px solid #e5e7eb;white-space:nowrap;text-align:right}
+.enh-table thead th:first-child{text-align:left}
+.enh-table tbody td{padding:9px 10px;border-bottom:1px solid #f3f4f6;color:#374151;text-align:right}
+.enh-table tbody td:first-child{font-weight:700;text-align:left}
+.enh-table tbody tr{cursor:pointer;transition:background .12s}
+.enh-table tbody tr:hover{background:#f8fafc}
+.enh-table tbody tr:last-child td{border-bottom:none}
+.enh-table tfoot td{padding:10px 10px;font-weight:800;font-size:12px;background:#f1f5f9;border-top:2px solid #e2e8f0;color:#1e293b;text-align:right}
+.enh-table tfoot td:first-child{text-align:left}
+html[data-theme="dark"] .enh-table thead th{background:#22262b;color:#8d96a0;border-color:#2c3139}
+html[data-theme="dark"] .enh-table tbody td{color:#d1d5db;border-color:#2c3139}
+html[data-theme="dark"] .enh-table tbody tr:hover{background:#22262b}
+html[data-theme="dark"] .enh-table tfoot td{background:#22262b;border-color:#2c3139;color:#f3f4f6}
+.pos-val{color:#15803d;font-weight:800}.neg-val{color:#dc2626;font-weight:800}.dim{color:#9ca3af;font-size:.9em}
+.prod-name{max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+
+/* ── MOM row accents ── */
+.mom-row-rev td:first-child{border-left:3px solid #10b981}.mom-row-txn td:first-child{border-left:3px solid #6366f1}
+.mom-row-buy td:first-child{border-left:3px solid #f59e0b}.mom-row-atv td:first-child{border-left:3px solid #ec4899}
+.mom-row-vis td:first-child{border-left:3px solid #0ea5e9}.mom-row-new td:first-child{border-left:3px solid #8b5cf6}
+.mom-row-fil td:first-child{border-left:3px solid #14b8a6}.mom-row-chu td:first-child{border-left:3px solid #ef4444}
+
+/* ── Zone head ── */
+.sales-zone-head{margin-bottom:16px}
+.sales-zone-head .zone-eyebrow{font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#d3b46a}
+.sales-zone-head h3{font-size:21px;font-weight:800;letter-spacing:-.025em;color:#0f172a;margin:4px 0 5px}
+html[data-theme="dark"] .sales-zone-head h3{color:#f1f0eb}
+.sales-zone-head p{font-size:12px;color:#64748b;margin:0}
+
+/* ── Location select ── */
+.loc-select-wrap{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:8px 10px}
+.loc-select-wrap span{font-size:10px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.loc-select-wrap select{border:0;background:transparent;color:var(--ink);outline:none;font-weight:800;font-size:12px;font-family:inherit;cursor:pointer}
+
+/* Responsive */
+@media(max-width:1100px){.enh-metrics-grid{grid-template-columns:repeat(3,1fr)}.enh-two-col{grid-template-columns:1fr}}
+@media(max-width:720px){.enh-metrics-grid{grid-template-columns:repeat(2,1fr)}#metrics.metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 </style>
+
+<div id="chart-tooltip" class="chart-tooltip-box"></div>
+
+<script>
+/* ═══ P57 Sales Dashboard Enhancement v2.0 ═══════════════════════════════ */
+(function(W){
+'use strict';
+
+/* ── Formatters ─────────────────────────────────────────────────────────── */
+function nv(x){return(x===null||x===undefined||isNaN(x))?0:Number(x)}
+function fmtCrLK(x){const a=Math.abs(nv(x));if(a>=1e7)return(nv(x)/1e7).toFixed(1)+' Cr';if(a>=1e5)return(nv(x)/1e5).toFixed(1)+' L';if(a>=1e3)return(nv(x)/1e3).toFixed(1)+'K';return nv(x).toFixed(0)}
+function R(x){return'₹'+fmtCrLK(x)}
+function Pct(x,d=1){return(nv(x)*100).toFixed(d)+'%'}
+function Nm(x){return nv(x).toLocaleString('en-IN',{maximumFractionDigits:0})}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+/* ── State accessors ─────────────────────────────────────────────────────── */
+function APP(){return W.APP}
+function ST(){return W.state||{}}
+function curData(){const s=ST();return APP().data?.[s.period]?.[s.studio]}
+function prevData(){const s=ST(),ps=APP().periods,idx=ps.findIndex(p=>p.key===s.period);if(idx<=0)return null;return APP().data?.[ps[idx-1].key]?.[s.studio]}
+function stLbl(k){return APP().studios.find(s=>s.key===k)?.name||k}
+function histVals(key,nPts){const s=ST(),ps=APP().periods,idx=ps.findIndex(p=>p.key===s.period);return ps.slice(Math.max(0,idx-nPts+1),idx+1).map(p=>nv(APP().data?.[p.key]?.[s.studio]?.summary?.[key]))}
+
+/* ── Sparkline SVG ───────────────────────────────────────────────────────── */
+function mkSpark(vals,col,cls){
+  if(!vals||vals.length<2)return`<svg class="${cls}" viewBox="0 0 80 24"></svg>`;
+  const min=Math.min(...vals),max=Math.max(...vals),rng=max-min||1;
+  const W2=80,H2=24;
+  const pts=vals.map((v,i)=>[(i/(vals.length-1))*W2,H2-2-((v-min)/rng)*(H2-4)]);
+  const area=`M${pts[0][0]},${pts[0][1]} ${pts.slice(1).map(p=>`L${p[0]},${p[1]}`).join(' ')} L${pts[pts.length-1][0]},${H2} L0,${H2} Z`;
+  const line=`M${pts.map(p=>p.join(',')).join(' L')}`;
+  const uid='sp'+Math.random().toString(36).slice(2,7);
+  return`<svg class="${cls}" viewBox="0 0 ${W2} ${H2}" preserveAspectRatio="none">
+    <defs><linearGradient id="${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${col}" stop-opacity=".3"/><stop offset="100%" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>
+    <path d="${area}" fill="url(#${uid})"/>
+    <path d="${line}" fill="none" stroke="${col}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="${pts[pts.length-1][0]}" cy="${pts[pts.length-1][1]}" r="2.5" fill="${col}"/>
+  </svg>`;
+}
+
+/* ── MOM badge HTML ──────────────────────────────────────────────────────── */
+function momBadge(curr,prv,isRev,isPct,inv){
+  if(prv===null||prv===undefined||prv===0)return'';
+  const diff=curr-prv,pct=(diff/Math.abs(prv))*100;
+  const good=inv?pct<=0:pct>=0;
+  const cls=good?'badge-good':'badge-bad',arrow=good?'↑':'↓';
+  const valStr=isRev?R(Math.abs(diff)):isPct?Math.abs(diff*100).toFixed(1)+'pp':Nm(Math.abs(diff));
+  return`<span class="mc-badge ${cls}">${arrow} ${Math.abs(pct).toFixed(1)}% · ${good?'+':'−'}${valStr} <em>MOM</em></span>`;
+}
+
+/* ── Dark mode check ─────────────────────────────────────────────────────── */
+function isDark(){return document.documentElement.getAttribute('data-theme')==='dark'}
+
+/* ── Tooltip ─────────────────────────────────────────────────────────────── */
+W.p57Tip=function(evt,text){const t=document.getElementById('chart-tooltip');if(!t)return;t.textContent=text;t.style.display='block';t.style.left=(evt.clientX+14)+'px';t.style.top=(evt.clientY-8)+'px'};
+W.p57TipHide=function(){const t=document.getElementById('chart-tooltip');if(t)t.style.display='none'};
+
+/* ── Drill-down panel ────────────────────────────────────────────────────── */
+W.p57EnhDrill=function(key,ctxLabel,metricLabel){
+  const dp=document.getElementById('drillPanel'),dt=document.getElementById('drillTitle'),
+        db=document.getElementById('drillBody'),ds=document.getElementById('drillSummary'),
+        ov=document.getElementById('overlay');
+  if(!dp||!dt)return;
+  const label=metricLabel||ctxLabel||key;
+  dt.textContent=label;
+  const s=ST(),ps=APP().periods,idx=ps.findIndex(p=>p.key===s.period);
+  const hist=ps.slice(Math.max(0,idx-11),idx+1).map((p,i,arr)=>{
+    const v=nv(APP().data?.[p.key]?.[s.studio]?.summary?.[key]);
+    const pv=i>0?nv(APP().data?.[arr[i-1].key]?.[s.studio]?.summary?.[key]):null;
+    const chg=pv&&pv!==0?((v-pv)/Math.abs(pv)*100):null;
+    return{lbl:p.label,v,pv,chg};
+  });
+  const isCur=['salesRev','sessionRev','atv','auv','revenuePerClass','newLtv'].includes(key);
+  const isPc=['fillRate','conversionRate','churnRate','retentionRate'].includes(key);
+  const fmt=isCur?R:isPc?Pct:Nm;
+  if(ds)ds.textContent=`12-month trend · ${stLbl(s.studio)} · ${label}`;
+  db.innerHTML=`<div class="enh-table-wrap" style="margin-top:8px"><table class="enh-table"><thead><tr>
+    <th>Period</th><th>Value</th><th>vs Prev</th><th>MOM %</th>
+  </tr></thead><tbody>${hist.map(h=>`<tr>
+    <td style="font-weight:700">${esc(h.lbl)}</td>
+    <td>${fmt(h.v)}</td>
+    <td>${h.pv!==null?`<span class="${h.v>=h.pv?'pos-val':'neg-val'}">${h.v>=h.pv?'+':''}${fmt(h.v-h.pv)}</span>`:'—'}</td>
+    <td>${h.chg!==null?`<span class="${h.chg>=0?'pos-val':'neg-val'}">${h.chg>=0?'▲':'▼'}${Math.abs(h.chg).toFixed(1)}%</span>`:'—'}</td>
+  </tr>`).join('')}</tbody></table></div>`;
+  dp.classList.add('open');ov.classList.add('open');document.body.classList.add('no-scroll');
+};
+
+/* ── 3D Bar Chart (SVG) ──────────────────────────────────────────────────── */
+function bar3D(id,labels,datasets,perBarColors){
+  const el=document.getElementById(id);if(!el)return;
+  const W2=Math.max(el.clientWidth||0,400),H2=230;
+  const PAD={t:26,r:14,b:44,l:58};
+  const pw=W2-PAD.l-PAD.r,ph=H2-PAD.t-PAD.b;
+  const allV=datasets.flatMap(d=>d.data).filter(v=>v>0);
+  const maxV=Math.max(...allV,1);
+  const nGrp=labels.length,nDs=datasets.length;
+  const grpW=pw/nGrp,barW=Math.min(Math.floor(grpW*(nDs>1?.36:.52)),44);
+  const DEP=6,DEPH=3;
+  const defCols=['#10b981','#6366f1','#0ea5e9','#f59e0b','#ec4899','#8b5cf6','#14b8a6','#f97316'];
+  const grd=isDark()?'#2a2f36':'#f1f3f5',axCol=isDark()?'#636b74':'#9ca3af';
+
+  let svg=`<svg viewBox="0 0 ${W2} ${H2}" width="100%" style="overflow:visible;display:block">`;
+  for(let i=0;i<=4;i++){
+    const y=PAD.t+(ph/4)*i,v=maxV*(1-i/4);
+    svg+=`<line x1="${PAD.l}" y1="${y}" x2="${PAD.l+pw}" y2="${y}" stroke="${grd}" stroke-width="1"/>`;
+    svg+=`<text x="${PAD.l-6}" y="${y+4}" text-anchor="end" font-size="9" fill="${axCol}" font-weight="600">${fmtCrLK(v)}</text>`;
+  }
+  labels.forEach((lbl,gi)=>{
+    datasets.forEach((ds,di)=>{
+      const v=nv(ds.data[gi]);if(v<=0)return;
+      const bh=(v/maxV)*ph;
+      const bx=PAD.l+gi*grpW+(di*(barW+2))+(grpW-nDs*(barW+2))/2+1;
+      const by=PAD.t+ph-bh;
+      const col=perBarColors?perBarColors[gi]:((ds.color)||defCols[di%defCols.length]);
+      const safeKey=esc(ds.key||'salesRev');
+      svg+=`<rect class="chart3d-bar" x="${bx}" y="${by}" width="${barW}" height="${bh}" fill="${col}" rx="3" opacity=".92"
+        onmouseenter="p57Tip(event,'${esc(String(lbl))}: ${fmtCrLK(v)}')" onmouseleave="p57TipHide()"
+        onclick="p57EnhDrill('${safeKey}','${esc(String(lbl))}','${esc(ds.label)}')" />`;
+      svg+=`<polygon points="${bx},${by} ${bx+barW},${by} ${bx+barW+DEP},${by-DEPH} ${bx+DEP},${by-DEPH}" fill="${col}" opacity=".6"/>`;
+      svg+=`<polygon points="${bx+barW},${by} ${bx+barW},${by+bh} ${bx+barW+DEP},${by+bh-DEPH} ${bx+barW+DEP},${by-DEPH}" fill="${col}" opacity=".35"/>`;
+      if(bh>16)svg+=`<text x="${bx+barW/2}" y="${by-5}" text-anchor="middle" font-size="8" fill="${col}" font-weight="700">${fmtCrLK(v)}</text>`;
+    });
+    const lx=PAD.l+gi*grpW+grpW/2;
+    svg+=`<text x="${lx}" y="${H2-5}" text-anchor="middle" font-size="8.5" fill="${axCol}" font-weight="600">${esc(String(lbl).slice(0,9))}</text>`;
+  });
+  svg+=`<line x1="${PAD.l}" y1="${PAD.t+ph}" x2="${PAD.l+pw}" y2="${PAD.t+ph}" stroke="${grd}" stroke-width="1.5"/>`;
+  svg+='</svg>';
+  el.innerHTML=svg;
+}
+
+/* ── 3D Line/Area Chart (SVG) ────────────────────────────────────────────── */
+function line3D(id,labels,datasets){
+  const el=document.getElementById(id);if(!el)return;
+  const W2=Math.max(el.clientWidth||0,400),H2=220;
+  const PAD={t:20,r:14,b:42,l:60};
+  const pw=W2-PAD.l-PAD.r,ph=H2-PAD.t-PAD.b;
+  const allV=datasets.flatMap(d=>d.data).filter(v=>!isNaN(v));
+  if(!allV.length)return;
+  const minV=Math.min(...allV),maxV=Math.max(...allV,1),rng=maxV-minV||1;
+  const px=i=>PAD.l+(i/(labels.length-1||1))*pw;
+  const py=v=>PAD.t+ph-((v-minV)/rng)*ph;
+  const grd=isDark()?'#1e2228':'#f3f4f6',axCol=isDark()?'#636b74':'#9ca3af';
+  let svg=`<svg viewBox="0 0 ${W2} ${H2}" width="100%" style="overflow:visible;display:block"><defs>`;
+  datasets.forEach((ds,di)=>svg+=`<linearGradient id="lg${di}x${id.slice(-3)}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${ds.color}" stop-opacity=".2"/><stop offset="100%" stop-color="${ds.color}" stop-opacity="0"/></linearGradient>`);
+  svg+='</defs>';
+  for(let i=0;i<=4;i++){
+    const y=PAD.t+(ph/4)*i,v=maxV-(i/4)*rng;
+    svg+=`<line x1="${PAD.l}" y1="${y}" x2="${PAD.l+pw}" y2="${y}" stroke="${grd}" stroke-width="1"/>`;
+    svg+=`<text x="${PAD.l-6}" y="${y+4}" text-anchor="end" font-size="9" fill="${axCol}" font-weight="600">${fmtCrLK(v)}</text>`;
+  }
+  datasets.forEach((ds,di)=>{
+    const pts=ds.data.map((v,i)=>[px(i),py(v)]);
+    const areaClose=`L${pts[pts.length-1][0]},${PAD.t+ph} L${pts[0][0]},${PAD.t+ph} Z`;
+    svg+=`<path d="M${pts.map(p=>p.join(',')).join(' L')} ${areaClose}" fill="url(#lg${di}x${id.slice(-3)})"/>`;
+    svg+=`<path d="M${pts.map(p=>p.join(',')).join(' L')}" fill="none" stroke="${ds.color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+    pts.forEach(([x,y],i)=>svg+=`<circle class="chart-dot-int" cx="${x}" cy="${y}" r="4" fill="${ds.color}" stroke="${isDark()?'#1b1d21':'white'}" stroke-width="2"
+      onmouseenter="p57Tip(event,'${esc(String(labels[i]))}: ${fmtCrLK(ds.data[i])}')" onmouseleave="p57TipHide()"
+      onclick="p57EnhDrill('${esc(ds.key||'')}','${esc(String(labels[i]))}','${esc(ds.label)}')" />`);
+  });
+  const step=Math.ceil(labels.length/8);
+  labels.forEach((l,i)=>{if(i%step===0||i===labels.length-1)svg+=`<text x="${px(i)}" y="${H2-4}" text-anchor="middle" font-size="8" fill="${axCol}" font-weight="600">${esc(String(l).slice(0,7))}</text>`;});
+  svg+='</svg>';
+  el.innerHTML=svg;
+}
+
+/* ── Table builder ───────────────────────────────────────────────────────── */
+function mkTbl(headers,rows,totals){
+  const ths=headers.map(h=>`<th>${esc(h)}</th>`).join('');
+  const trs=rows.map(r=>`<tr ${r.click?`onclick="${esc(r.click)}"`:''} class="${r.cls||''}">${r.cells.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
+  const tfr=totals?`<tfoot><tr>${totals.map(c=>`<td>${c}</td>`).join('')}</tr></tfoot>`:'';
+  return`<div class="enh-table-wrap"><table class="enh-table"><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody>${tfr}</table></div>`;
+}
+
+/* ── Enhance existing snapshot KPI cards (5/row + MOM badges + sparklines) ── */
+function enhanceSnapshotCards(){
+  const c=curData(),p=prevData();if(!c)return;
+  const sm=c.summary,pm=p?.summary,g=c.growth;
+  const isRev=k=>['salesRev','sessionRev','atv','auv','revenuePerClass','revenuePerAttendee','newLtv'].includes(k);
+  const isPct=k=>['fillRate','conversionRate','churnRate','retentionRate','leadWinRate','avgSessionsUsedPct','avgAttendanceRate'].includes(k);
+  const inv=k=>['churnRate','churnedMemberships','emptyClasses','noShows','lateCancels'].includes(k);
+  const metricColors={salesRev:'#10b981',sessionRev:'#6366f1',checkedIn:'#0ea5e9',newMembers:'#8b5cf6',fillRate:'#14b8a6',conversionRate:'#f59e0b',atv:'#ec4899',transactions:'#0284c7',buyers:'#f97316',churnRate:'#ef4444'};
+
+  document.querySelectorAll('#metrics .metric-card').forEach(card=>{
+    card.querySelectorAll('.mc-badge,.mc-prev-val,.mc-sparkline-inj').forEach(el=>el.remove());
+    const oc=card.getAttribute('onclick')||card.querySelector('[onclick]')?.getAttribute('onclick')||'';
+    const km=oc.match(/openMetricDrill\(['"]([^'"]+)['"]/)||oc.match(/drill\(['"]([^'"]+)['"]/);
+    const key=km?km[1]:null;
+    if(!key)return;
+    const curr=nv(sm[key]),prev2=pm?nv(pm[key]):null;
+    const col=metricColors[key]||'#6366f1';
+    // Badge
+    if(g&&g[key]!==null&&g[key]!==undefined&&prev2!==null){
+      const html=momBadge(curr,prev2,isRev(key),isPct(key),inv(key));
+      if(html){const sp=document.createElement('span');sp.innerHTML=html;const strong=card.querySelector('strong');if(strong&&sp.firstChild)strong.after(sp.firstChild);}
+    }
+    // Prev val
+    if(prev2!==null){
+      const pEl=document.createElement('span');pEl.className='mc-prev-val';
+      const fmt=isRev(key)?R:isPct(key)?Pct:Nm;
+      pEl.textContent='prev: '+fmt(prev2);card.appendChild(pEl);
+    }
+    // Sparkline
+    const sv=histVals(key,9);
+    const spDiv=document.createElement('div');spDiv.innerHTML=mkSpark(sv,col,'mc-sparkline-inj');
+    if(spDiv.firstChild)card.appendChild(spDiv.firstChild);
+  });
+}
+
+/* ── Build the full Sales / Revenue Analytics tab ────────────────────────── */
+function buildSalesTab(){
+  const c=curData(),p=prevData();if(!c)return;
+  const sm=c.summary,pm=p?.summary,g=c.growth;
+  const s=ST(),ps=APP().periods,curIdx=ps.findIndex(x=>x.key===s.period);
+
+  /* ── 10 metric cards ── */
+  const METRICS=[
+    {key:'salesRev',    label:'Net Revenue',    fmt:R,   isRev:true,  icon:'₹',  col:'#10b981'},
+    {key:'sessionRev',  label:'Session Revenue', fmt:R,   isRev:true,  icon:'◇',  col:'#6366f1'},
+    {key:'transactions',label:'Transactions',    fmt:Nm,              icon:'⇌',  col:'#0ea5e9'},
+    {key:'buyers',      label:'Unique Buyers',   fmt:Nm,              icon:'◎',  col:'#f59e0b'},
+    {key:'atv',         label:'Avg Txn Value',   fmt:R,   isRev:true,  icon:'⊕',  col:'#ec4899'},
+    {key:'salesItems',  label:'Units Sold',      fmt:Nm,              icon:'▣',  col:'#8b5cf6'},
+    {key:'auv',         label:'Avg Unit Value',  fmt:R,   isRev:true,  icon:'◈',  col:'#14b8a6'},
+    {key:'checkedIn',   label:'Total Visits',    fmt:Nm,              icon:'✓',  col:'#0284c7'},
+    {key:'newMembers',  label:'New Members',     fmt:Nm,              icon:'★',  col:'#7c3aed'},
+    {key:'churnRate',   label:'Churn Rate',      fmt:Pct, isPct:true,  icon:'↻',  col:'#dc2626',inv:true},
+  ];
+
+  const cats=(c.categories||[]).sort((a,b)=>b.revenue-a.revenue);
+  const totalDisc=cats.reduce((t,ct)=>t+nv(ct.discountAmount),0);
+
+  const cardsHtml=METRICS.map((m,i)=>{
+    const cv=nv(sm[m.key]),pv=pm?nv(pm[m.key]):null;
+    const hv=histVals(m.key,9);
+    return`<div class="mc-enh" style="--mc-color:${m.col};animation-delay:${i*.04}s"
+      onclick="p57EnhDrill('${m.key}','${esc(m.label)}','${esc(m.label)}')">
+      <div class="mc-accent-bar" style="background:linear-gradient(90deg,${m.col},${m.col}88)"></div>
+      <div class="mc-header-row"><div class="mc-icon-wrap" style="background:${m.col}1a;color:${m.col}">${m.icon}</div></div>
+      <label>${esc(m.label)}</label>
+      <span class="mc-value">${m.fmt(cv)}</span>
+      ${momBadge(cv,pv,m.isRev,m.isPct,m.inv)}
+      ${pv!==null?`<span class="mc-prev-val">prev: ${m.fmt(pv)}</span>`:''}
+      ${mkSpark(hv,m.col,'mc-sparkline-enh')}
+    </div>`;
+  }).join('');
+
+  /* ── MOM comparison table (last 6 periods) ── */
+  const MOM_CFG=[
+    {key:'salesRev',    lbl:'Net Revenue',   fmt:R,   isRev:true,  cls:'mom-row-rev'},
+    {key:'transactions',lbl:'Transactions',  fmt:Nm,               cls:'mom-row-txn'},
+    {key:'buyers',      lbl:'Unique Buyers', fmt:Nm,               cls:'mom-row-buy'},
+    {key:'atv',         lbl:'Avg Txn Value', fmt:R,   isRev:true,  cls:'mom-row-atv'},
+    {key:'checkedIn',   lbl:'Total Visits',  fmt:Nm,               cls:'mom-row-vis'},
+    {key:'newMembers',  lbl:'New Members',   fmt:Nm,               cls:'mom-row-new'},
+    {key:'fillRate',    lbl:'Fill Rate',     fmt:Pct, isPct:true,  cls:'mom-row-fil'},
+    {key:'churnRate',   lbl:'Churn Rate',    fmt:Pct, isPct:true,  cls:'mom-row-chu',inv:true},
+  ];
+  const momPs=ps.slice(Math.max(0,curIdx-5),curIdx+1);
+  const momHdrs=['Metric',...momPs.map(p=>p.label.replace(' 20',"'")),`MOM Δ`];
+  const momTrs=MOM_CFG.map(m=>{
+    const vals=momPs.map(p=>nv(APP().data?.[p.key]?.[s.studio]?.summary?.[m.key]));
+    const last=vals[vals.length-1]||0,ppv=vals.length>1?vals[vals.length-2]||0:0;
+    const chg=ppv?((last-ppv)/Math.abs(ppv)*100):null;
+    const good=m.inv?chg<=0:chg>=0;
+    const delta=chg!==null?`<span class="${good?'pos-val':'neg-val'}">${good?'▲':'▼'} ${Math.abs(chg).toFixed(1)}%</span>`:'—';
+    return`<tr class="${m.cls}"><td><strong>${esc(m.lbl)}</strong></td>${vals.map(v=>`<td style="text-align:right">${m.fmt(v)}</td>`).join('')}<td style="text-align:center">${delta}</td></tr>`;
+  }).join('');
+  const momTable=`<div class="enh-table-wrap"><table class="enh-table">
+    <thead><tr>${momHdrs.map((h,i)=>`<th style="${i>0&&i<momHdrs.length-1?'text-align:right':i===momHdrs.length-1?'text-align:center':''}">${esc(h)}</th>`).join('')}</tr></thead>
+    <tbody>${momTrs}</tbody></table></div>`;
+
+  /* ── Category table ── */
+  const catTot={rev:cats.reduce((t,c2)=>t+nv(c2.revenue),0),items:cats.reduce((t,c2)=>t+nv(c2.items),0),buyers:cats.reduce((t,c2)=>t+nv(c2.buyers),0),disc:cats.reduce((t,c2)=>t+nv(c2.discountAmount),0)};
+  const catRows=cats.map(ct=>({
+    cells:[esc(ct.Category),R(ct.revenue),(nv(ct.share)*100).toFixed(1)+'%',Nm(ct.items),Nm(ct.buyers),R(ct.atv||0),`${R(ct.discountAmount||0)} <span class="dim">(${Pct(ct.discountPct||0)})</span>`],
+    click:`p57EnhDrill('categories','${esc(ct.Category)}','${esc(ct.Category)}')`
+  }));
+  const catTable=mkTbl(['Category','Revenue','Share','Units','Buyers','Avg Ticket','Discount'],catRows,
+    ['Total',R(catTot.rev),'100%',Nm(catTot.items),Nm(catTot.buyers),'—',R(catTot.disc)]);
+
+  /* ── Product table ── */
+  const prods=(c.products||[]).sort((a,b)=>b.revenue-a.revenue).slice(0,12);
+  const pTot={rev:prods.reduce((t,p2)=>t+nv(p2.revenue),0),units:prods.reduce((t,p2)=>t+nv(p2.sales||0),0),buy:prods.reduce((t,p2)=>t+nv(p2.buyers),0),disc:prods.reduce((t,p2)=>t+nv(p2.discountAmount||0),0)};
+  const prodRows=prods.map(pr=>({
+    cells:[`<span class="prod-name" title="${esc(pr.Product)}">${esc(pr.Product)}</span>`,R(pr.revenue),Nm(pr.sales||0),Nm(pr.buyers),R(pr.atv||0),`${R(pr.discountAmount||0)} <span class="dim">(${Pct(pr.discountPct||0)})</span>`],
+    click:`p57EnhDrill('products','${esc(pr.Product)}','${esc(pr.Product)}')`
+  }));
+  const prodTable=mkTbl(['Product','Revenue','Units','Buyers','Avg Ticket','Discount'],prodRows,
+    ['Top 12',R(pTot.rev),Nm(pTot.units),Nm(pTot.buy),'—',R(pTot.disc)]);
+
+  /* ── Trend data ── */
+  const tPs=ps.slice(Math.max(0,curIdx-11),curIdx+1);
+  const tLbls=tPs.map(p=>p.label.slice(0,3)+"'"+p.key.slice(2,4));
+  const mkT=key=>tPs.map(p=>nv(APP().data?.[p.key]?.[s.studio]?.summary?.[key]));
+  W._p57Trend={
+    rev:{ds:[{label:'Net Revenue',key:'salesRev',color:'#10b981',data:mkT('salesRev')}],lbls:tLbls},
+    txn:{ds:[{label:'Transactions',key:'transactions',color:'#6366f1',data:mkT('transactions')}],lbls:tLbls},
+    vis:{ds:[{label:'Visits',key:'checkedIn',color:'#0ea5e9',data:mkT('checkedIn')}],lbls:tLbls},
+    new:{ds:[{label:'New Members',key:'newMembers',color:'#8b5cf6',data:mkT('newMembers')}],lbls:tLbls},
+    atv:{ds:[{label:'Avg Ticket',key:'atv',color:'#ec4899',data:mkT('atv')}],lbls:tLbls},
+  };
+
+  /* ── Inject HTML ── */
+  const zone=document.getElementById('nav-revenue');if(!zone)return;
+  zone.innerHTML=`
+    <div class="sales-zone-head">
+      <div class="zone-eyebrow">Sales Analytics</div>
+      <h3>Revenue, Transactions &amp; Product Performance</h3>
+      <p>Click any card, chart point or table row to drill into 12-month history.</p>
+    </div>
+
+    <div class="enh-metrics-grid">${cardsHtml}</div>
+
+    <div class="enh-panel">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px;flex-wrap:wrap">
+        <div><h3>Sales Trend</h3><div class="enh-panel-sub">Month-on-month movement · last 12 periods</div></div>
+        <div class="chart-toggle-group" id="salesChartToggle">
+          <button class="ctg-btn active" data-chart="rev">Revenue</button>
+          <button class="ctg-btn" data-chart="txn">Transactions</button>
+          <button class="ctg-btn" data-chart="vis">Visits</button>
+          <button class="ctg-btn" data-chart="new">New Members</button>
+          <button class="ctg-btn" data-chart="atv">Avg Ticket</button>
+        </div>
+      </div>
+      <div class="chart3d-wrap" id="salesTrendChart"></div>
+    </div>
+
+    <div class="enh-panel">
+      <h3>Month-on-Month Comparison</h3>
+      <div class="enh-panel-sub" style="margin-bottom:10px">Last 6 periods — key metrics side-by-side with MOM delta</div>
+      ${momTable}
+    </div>
+
+    <div class="enh-two-col">
+      <div class="enh-panel" style="margin-top:0">
+        <h3>Category Revenue Mix</h3>
+        <div class="enh-panel-sub" style="margin-bottom:8px">Revenue, units &amp; discount by category</div>
+        <div class="chart3d-wrap" id="catBarChart"></div>
+        ${catTable}
+      </div>
+      <div class="enh-panel" style="margin-top:0">
+        <h3>Top Products</h3>
+        <div class="enh-panel-sub" style="margin-bottom:8px">Best-performing products this period · click any row to drill</div>
+        ${prodTable}
+      </div>
+    </div>
+  `;
+
+  /* ── Render charts on next frame ── */
+  requestAnimationFrame(()=>{
+    line3D('salesTrendChart',W._p57Trend.rev.lbls,W._p57Trend.rev.ds);
+    const catCols=['#10b981','#6366f1','#0ea5e9','#f59e0b','#ec4899','#8b5cf6','#14b8a6'];
+    bar3D('catBarChart',
+      cats.slice(0,7).map(ct=>ct.Category.split(' ')[0]),
+      [{label:'Revenue',key:'salesRev',color:'#10b981',data:cats.slice(0,7).map(ct=>nv(ct.revenue))}],
+      catCols);
+    // Toggle handler
+    document.getElementById('salesChartToggle')?.addEventListener('click',function(e){
+      const btn=e.target.closest('.ctg-btn');if(!btn)return;
+      this.querySelectorAll('.ctg-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const td=W._p57Trend[btn.dataset.chart];if(!td)return;
+      line3D('salesTrendChart',td.lbls,td.ds);
+    });
+  });
+}
+
+/* ── Upgrade header: add location dropdown ───────────────────────────────── */
+function upgradeHeaderControls(){
+  const tabs=document.getElementById('studioTabs');
+  if(!tabs||tabs.dataset.enhanced)return;
+  tabs.dataset.enhanced='1';
+  const wrap=document.createElement('label');
+  wrap.className='loc-select-wrap';
+  wrap.innerHTML=`<span>Studio</span><select id="locationSelect">${
+    APP().studios.map(s2=>`<option value="${s2.key}" ${s2.key===ST().studio?'selected':''}>${esc(s2.name)}</option>`).join('')
+  }</select>`;
+  tabs.parentNode.insertBefore(wrap,tabs);
+  tabs.style.cssText='display:none!important';
+  document.getElementById('locationSelect')?.addEventListener('change',function(){
+    if(W.state)W.state.studio=this.value;
+    if(typeof W.render==='function')W.render();
+    setTimeout(()=>{enhanceSnapshotCards();buildSalesTab();},50);
+  });
+  document.getElementById('monthSelect')?.addEventListener('change',function(){
+    setTimeout(()=>{enhanceSnapshotCards();buildSalesTab();},50);
+  });
+}
+
+/* ── Init ────────────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded',function(){
+  if(!localStorage.getItem('p57-theme'))document.documentElement.setAttribute('data-theme','light');
+  setTimeout(function(){
+    upgradeHeaderControls();
+    enhanceSnapshotCards();
+    buildSalesTab();
+    // Wrap render() so enhancements re-run after each re-render
+    if(typeof W.render==='function'&&!W._p57Wrapped){
+      const orig=W.render;
+      W.render=function(){
+        orig.apply(this,arguments);
+        setTimeout(()=>{enhanceSnapshotCards();buildSalesTab();},35);
+      };
+      W._p57Wrapped=true;
+    }
+    // Re-draw charts on theme toggle
+    document.getElementById('themeFloat')?.addEventListener('click',()=>setTimeout(buildSalesTab,120));
+  },160);
+});
+
+})(window);
+</script>
 </body></html>
