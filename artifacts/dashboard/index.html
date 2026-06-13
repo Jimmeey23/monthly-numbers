@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="data:,"><title>Physique 57 | Executive Studio Performance Dashboard</title><style>
+<html lang="en" data-theme="light">
+<head>
+<script>document.documentElement.setAttribute("data-theme","light");</script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="data:,"><title>Physique 57 | Executive Studio Performance Dashboard</title><style>
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap');
 :root{--bg:#fff;--bg2:#f7f8fa;--panel:#fff;--panel2:#f4f6f8;--ink:#17181b;--muted:#666d78;--soft:#939aa5;--line:#e4e7ec;--line2:#eef1f4;--accent:#a8792a;--accent2:#d3b46a;--green:#167a5a;--red:#b5453d;--amber:#a97821;--blue:#416d9c;--plum:#7b5168;--sage:#4f7463;--shadow:0 20px 60px rgba(24,32,42,.08);--radius:18px;--focus:#17181b;--focusText:#fff;--tooltip:#17181b;--tooltipText:#fff}html[data-theme="dark"]{--bg:#101113;--bg2:#15171a;--panel:#1b1d21;--panel2:#22262b;--ink:#f5f3ed;--muted:#aeb4bd;--soft:#808894;--line:#2d3238;--line2:#262b31;--accent:#d3b46a;--accent2:#edd388;--green:#5bc199;--red:#e27368;--amber:#e0b55e;--blue:#80aee0;--plum:#d092ad;--sage:#8ab9a2;--shadow:0 24px 80px rgba(0,0,0,.34);--focus:#f5f3ed;--focusText:#111;--tooltip:#f5f3ed;--tooltipText:#111}*{box-sizing:border-box}body{margin:0;background:var(--bg2);color:var(--ink);font-family:'Instrument Sans',Inter,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;line-height:1.38;-webkit-font-smoothing:antialiased}button,select{font-family:inherit}.app{min-height:100vh}.topbar{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.86);backdrop-filter:blur(24px);border-bottom:1px solid var(--line);padding:13px 22px}html[data-theme="dark"] .topbar{background:rgba(16,17,19,.86)}.topbar-inner{max-width:1680px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}.brand{display:flex;align-items:center;gap:12px;white-space:nowrap}.brand-mark{width:38px;height:38px;border-radius:13px;background:var(--focus);color:var(--focusText);display:grid;place-items:center;font-weight:900;font-size:11px;letter-spacing:.05em;box-shadow:0 12px 28px rgba(0,0,0,.12)}.brand-title{font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:12px}.brand-sub{font-size:11px;color:var(--muted)}.studio-tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.studio-tab,.tool-btn,.segmented button{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;cursor:pointer;transition:transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease}.studio-tab{padding:9px 14px;font-weight:800;font-size:12px}.studio-tab:hover,.tool-btn:hover,.segmented button:hover{transform:translateY(-1px);box-shadow:0 12px 26px rgba(24,32,42,.08);border-color:var(--accent2)}.studio-tab.active,.segmented button.active{background:var(--focus);color:var(--focusText);border-color:var(--focus)}.controls{display:flex;gap:9px;align-items:center}.select-wrap{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;background:var(--panel);padding:8px 10px}.select-wrap span{font-size:10px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}select{border:0;background:transparent;color:var(--ink);outline:none;font-weight:900;font-size:12px}.tool-btn{padding:10px 12px;font-size:11px;font-weight:900}.dashboard{max-width:1680px;margin:0 auto;padding:22px}.hero{display:grid;grid-template-columns:1.05fr 1.85fr;gap:16px;margin-bottom:16px}.hero-card{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:25px 26px;box-shadow:var(--shadow);position:relative;overflow:hidden;animation:enter .55s ease both}.hero-card:after{content:'';position:absolute;right:-80px;top:-100px;width:260px;height:260px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent2) 46%,transparent)}.eyebrow{font-size:10px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}.hero h1{font-family:'Newsreader',serif;font-size:42px;line-height:.98;letter-spacing:-.04em;margin:0 0 12px}.hero p{margin:0;color:var(--muted);max-width:680px}.network-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.network-card,.metric-card,.insight,.panel,.drill-panel,.index-drawer{background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow)}.network-card{border-radius:22px;padding:18px;animation:enter .55s ease both}.network-card label,.metric-card label,.panel-label{display:block;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.network-card strong{display:block;font-size:30px;letter-spacing:-.05em;margin:9px 0 4px}.network-card small{color:var(--soft);font-weight:800}.studio-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:18px;margin:20px 0 13px}.studio-head h2{font-family:'Newsreader',serif;font-size:40px;line-height:1;margin:0 0 6px;letter-spacing:-.04em}.studio-head p{margin:0;color:var(--muted);font-weight:700}.date-chip{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:13px 15px;text-align:right;box-shadow:var(--shadow)}.date-chip strong{display:block}.date-chip span{font-size:11px;color:var(--muted);font-weight:800}.metrics{display:grid;grid-template-columns:repeat(8,1fr);gap:10px}.metric-card{border-radius:18px;padding:14px;cursor:pointer;position:relative;overflow:hidden;animation:enter .45s ease both;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}.metric-card:hover{transform:translateY(-3px);border-color:var(--accent2);box-shadow:0 24px 70px rgba(168,121,42,.15)}.metric-card:before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:var(--accent);opacity:.7}.metric-card strong{display:block;font-size:24px;letter-spacing:-.045em;margin:8px 0 7px}.sub{font-size:11px;color:var(--muted);font-weight:800}.trend{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:10px;font-weight:900}.trend.good{background:color-mix(in srgb,var(--green) 13%,transparent);color:var(--green)}.trend.bad{background:color-mix(in srgb,var(--red) 13%,transparent);color:var(--red)}.trend.neutral{background:color-mix(in srgb,var(--amber) 15%,transparent);color:var(--amber)}.insight-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0 16px}.insight{border-radius:18px;padding:14px;animation:enter .5s ease both}.insight span{font-size:11px;color:var(--muted);font-weight:800}.insight strong{display:block;font-size:22px;margin:5px 0 2px}.layout{display:grid;grid-template-columns:1.55fr 1fr;gap:14px}.stack{display:grid;gap:14px}.panel{border-radius:22px;padding:17px;min-width:0;animation:enter .55s ease both}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:11px}.panel h3{margin:0;font-size:15px;letter-spacing:-.02em}.panel-sub{font-size:11px;color:var(--muted);font-weight:800;margin-top:2px}.panel-summary{border-left:3px solid var(--accent2);background:var(--panel2);border-radius:12px;padding:10px 12px;margin:10px 0 12px;color:var(--muted);font-size:12px}.panel-summary b{color:var(--ink)}.segmented{display:flex;gap:5px;background:var(--panel2);border:1px solid var(--line2);border-radius:999px;padding:4px}.segmented button{padding:7px 10px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.drill-link{border:0;background:transparent;color:var(--accent);font-weight:900;font-size:11px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.chart-box{min-height:250px}.chart-box svg{width:100%;height:auto;overflow:visible}.gridline{stroke:var(--line2);stroke-width:1}.axis{font-size:10px;fill:var(--soft);font-weight:800}.chart-label{font-size:10px;fill:var(--muted);font-weight:900;text-transform:uppercase}.chart-value{font-size:11px;fill:var(--ink);font-weight:900}.line-main{fill:none;stroke:var(--focus);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1000;stroke-dashoffset:1000;animation:dash 1.3s ease forwards}.area-main{fill:var(--edge-blue);opacity:.1}.dot-main{fill:var(--focus);stroke:var(--panel);stroke-width:3}.bar-anim{transform-box:fill-box;transform-origin:left;animation:growX .8s ease forwards}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.table-wrap{overflow:auto}.data-table{width:100%;border-collapse:collapse}.data-table th{font-size:9px;color:var(--soft);font-weight:900;letter-spacing:.08em;text-transform:uppercase;text-align:right;border-bottom:1px solid var(--line);padding:8px 7px;white-space:nowrap}.data-table th:first-child{text-align:left}.data-table td{padding:8px 7px;border-bottom:1px solid var(--line2);text-align:right;font-size:12px;vertical-align:middle}.data-table td:first-child{text-align:left;font-weight:800}.data-table tr{cursor:pointer;transition:background .18s ease}.data-table tr:hover{background:var(--panel2)}.fmt-pill{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:10px;font-weight:900}.fmt-pill.barre{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}.fmt-pill.powercycle{background:color-mix(in srgb,var(--blue) 14%,transparent);color:var(--blue)}.fmt-pill.strength{background:color-mix(in srgb,var(--plum) 14%,transparent);color:var(--plum)}.mini-bar{height:6px;background:var(--line2);border-radius:999px;overflow:hidden;min-width:58px}.mini-bar i{display:block;height:100%;background:var(--focus);border-radius:999px;animation:growX .8s ease both}.rank-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.rank-box{background:var(--panel2);border:1px solid var(--line2);border-radius:16px;padding:12px}.rank-box h4{margin:0 0 8px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}.rank-box ul{list-style:none;margin:0;padding:0}.rank-box li{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:11px;cursor:pointer}.rank-box li:first-child{border-top:0}.rank-box b{white-space:nowrap}.readout{display:grid;gap:9px}.readout-item{display:flex;gap:10px;align-items:flex-start}.readout-num{width:23px;height:23px;border-radius:50%;background:var(--focus);color:var(--focusText);display:grid;place-items:center;font-size:10px;font-weight:900;flex:0 0 auto}.readout-text{font-size:12px;color:var(--muted)}.readout-text b{color:var(--ink)}.footer-note{margin:16px 0;color:var(--muted);font-size:11px;display:flex;justify-content:space-between;gap:20px}.overlay{position:fixed;inset:0;background:rgba(16,18,20,.38);backdrop-filter:blur(7px);z-index:110;opacity:0;pointer-events:none;transition:.25s}.overlay.open{opacity:1;pointer-events:auto}.drill-panel,.index-drawer{position:fixed;top:0;right:0;bottom:0;width:min(760px,96vw);z-index:120;border-radius:24px 0 0 24px;padding:22px;overflow:auto;transform:translateX(110%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}.drill-panel.open,.index-drawer.open{transform:translateX(0)}.drawer-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}.drawer-head h2{margin:0;font-family:'Newsreader',serif;font-size:30px;letter-spacing:-.04em}.drawer-close{border:1px solid var(--line);background:var(--panel2);color:var(--ink);width:34px;height:34px;border-radius:50%;font-size:20px;cursor:pointer}.formula-list{display:grid;gap:10px}.formula-card{border:1px solid var(--line);border-radius:16px;background:var(--panel2);padding:13px}.formula-card strong{display:block;margin-bottom:4px}.formula-card code{display:block;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px;margin:8px 0;color:var(--accent);white-space:normal}.search{width:100%;border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:999px;padding:12px 14px;margin:4px 0 14px;outline:none}.empty{color:var(--muted);padding:14px;border:1px dashed var(--line);border-radius:14px;background:var(--panel2)}[data-tooltip]{position:relative}[data-tooltip]:hover:after{content:attr(data-tooltip);position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);background:var(--tooltip);color:var(--tooltipText);padding:8px 10px;border-radius:10px;font-size:11px;font-weight:700;line-height:1.25;width:max-content;max-width:260px;z-index:200;box-shadow:0 14px 34px rgba(0,0,0,.18)}[data-tooltip]:hover:before{content:'';position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--tooltip);z-index:201}@keyframes enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}@keyframes growX{from{transform:scaleX(0)}to{transform:scaleX(1)}}@keyframes dash{to{stroke-dashoffset:0}}@media(max-width:1240px){.topbar-inner{grid-template-columns:1fr}.studio-tabs{justify-content:flex-start}.hero,.layout,.two-col,.three-col{grid-template-columns:1fr}.network-strip,.insight-grid{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:repeat(4,1fr)}.rank-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:720px){.dashboard{padding:16px 14px}.topbar{padding:12px 14px}.studio-tabs{overflow:auto;flex-wrap:nowrap}.studio-tab{white-space:nowrap}.controls{flex-wrap:wrap}.hero h1{font-size:34px}.network-strip,.insight-grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.metric-card strong{font-size:21px}.studio-head{grid-template-columns:1fr}.date-chip{text-align:left}.data-table{min-width:680px}.rank-grid{grid-template-columns:1fr}.panel{padding:14px}.footer-note{display:block}.topbar-inner{gap:12px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}@media print{.topbar,.overlay,.drill-panel,.index-drawer{display:none}.dashboard{max-width:none;padding:10mm}.hero{display:none}.layout{grid-template-columns:1fr}.panel,.metric-card,.network-card{box-shadow:none}.metrics{grid-template-columns:repeat(4,1fr)}}
 </style>
@@ -7525,7 +7526,7 @@ html[data-theme="dark"] .cockpit-header,
 <main class="dashboard">
 <section class="studio-head" aria-hidden="true"><div><div class="eyebrow" id="periodText"></div><h2></h2><p></p></div><div class="date-chip"><strong></strong><span></span></div></section>
 <section class="analytics-zone kpi-zone" id="nav-snapshot"><div class="zone-head"><div><span>Studio snapshot</span><h3>Priority operating KPIs</h3></div><p>Use this first layer to read commercial health before moving into drivers.</p></div><section class="metrics" id="metrics"></section><section class="insight-grid" id="insights"></section></section>
-<section class="analytics-zone executive-zone" id="nav-overview"><div class="zone-head"><div><span>Overview</span><h3>How we're doing</h3></div><p>See how key numbers have moved over time, what's driving them, and where revenue is coming from.</p></div><div class="executive-grid executive-single"><div class="panel studio-analytics-panel"><div class="panel-head studio-analytics-head"><div><h3>Studio Performance</h3><div class="panel-sub">Pick a metric to see how it's moved month by month</div></div><div class="segmented"><button class="trend-toggle active" data-metric="salesRev"><i class="tdot" style="background:#00c853"></i>Revenue</button><button class="trend-toggle" data-metric="atv"><i class="tdot" style="background:#7c3aed"></i>ATV</button><button class="trend-toggle" data-metric="auv"><i class="tdot" style="background:#1d4ed8"></i>AUV</button><button class="trend-toggle" data-metric="transactions"><i class="tdot" style="background:#0891b2"></i>Transactions</button><button class="trend-toggle" data-metric="buyers"><i class="tdot" style="background:#2563eb"></i>Members</button><button class="trend-toggle" data-metric="salesItems"><i class="tdot" style="background:#d97706"></i>Units</button><button class="trend-toggle" data-metric="discountValue"><i class="tdot" style="background:#dc2626"></i>Discounts</button></div></div><div class="panel-summary" id="trendSummary"></div><div class="chart-box trend-chart-3d" id="trendChart"></div><div class="chart-readout" id="trendDetail"></div><div class="trend-readout-divider"><span>What this means</span><small>Plain-English read on the numbers above</small></div><div class="readout trend-inline-readout" id="readout"></div><div class="analytics-mix-break"><div class="analytics-mix-break-label">Where it's coming from</div><div class="mix-tabs-wrap"><div class="segmented"><button class="mix-toggle active" data-mix="sources">Where from</button><button class="mix-toggle" data-mix="sessions">Sessions</button><button class="mix-toggle" data-mix="fillrate">Fill Rate</button><button class="mix-toggle" data-mix="instructors">Instructors</button><button class="mix-toggle" data-mix="timeslots">Time Slots</button><button class="mix-toggle" data-mix="retention">Retention</button></div></div></div><div class="panel-summary" id="mixChartSummary"></div><div class="chart-box analytics-mix-chart" id="mixChart"></div><div class="chart-readout" id="mixChartDetail"></div></div></div></section>
+<section class="analytics-zone executive-zone" id="nav-overview"><div class="zone-head"><div><span>Overview</span><h3>How we're doing</h3></div><p>See how key numbers have moved over time, what's driving them, and where revenue is coming from.</p></div><div class="executive-grid executive-single"><div class="panel studio-analytics-panel"><div class="panel-head studio-analytics-head"><div><h3>Studio Performance</h3><div class="panel-sub">Pick a metric to see how it's moved month by month</div></div><div class="segmented"><button class="trend-toggle active" data-metric="salesRev"><i class="tdot" style="background:#10b981"></i>Revenue</button><button class="trend-toggle" data-metric="sessionRev"><i class="tdot" style="background:#6366f1"></i>Earned Rev</button><button class="trend-toggle" data-metric="checkedIn"><i class="tdot" style="background:#0ea5e9"></i>Visits</button><button class="trend-toggle" data-metric="newMembers"><i class="tdot" style="background:#f59e0b"></i>New Visits</button><button class="trend-toggle" data-metric="conversionRate"><i class="tdot" style="background:#ec4899"></i>Conversion</button><button class="trend-toggle" data-metric="classAvg"><i class="tdot" style="background:#14b8a6"></i>Class Avg</button><button class="trend-toggle" data-metric="fillRate"><i class="tdot" style="background:#8b5cf6"></i>Fill Rate</button><button class="trend-toggle" data-metric="churnedMemberships"><i class="tdot" style="background:#ef4444"></i>Lapsed</button></div></div><div class="panel-summary" id="trendSummary"></div><div class="chart-box trend-chart-3d" id="trendChart"></div><div class="chart-readout" id="trendDetail"></div><div class="trend-readout-divider"><span>What this means</span><small>Plain-English read on the numbers above</small></div><div class="readout trend-inline-readout" id="readout"></div><div class="analytics-mix-break"><div class="analytics-mix-break-label">Where it's coming from</div><div class="mix-tabs-wrap"><div class="segmented"><button class="mix-toggle active" data-mix="sources">Where from</button><button class="mix-toggle" data-mix="sessions">Sessions</button><button class="mix-toggle" data-mix="fillrate">Fill Rate</button><button class="mix-toggle" data-mix="instructors">Instructors</button><button class="mix-toggle" data-mix="timeslots">Time Slots</button><button class="mix-toggle" data-mix="retention">Retention</button></div></div></div><div class="panel-summary" id="mixChartSummary"></div><div class="chart-box analytics-mix-chart" id="mixChart"></div><div class="chart-readout" id="mixChartDetail"></div></div></div></section>
 <section class="analytics-zone revenue-zone" id="nav-revenue"><div class="zone-head"><div><span>Revenue intelligence</span><h3>Section 1: Sales movement, product mix and value concentration</h3></div><p>Revenue tables are grouped together so category, product, seller and spender signals can be read in one commercial view.</p></div><section class="section-kpis" id="revenueKpis"></section><div class="revenue-grid">
 <div class="panel business-panel"><div class="panel-head"><div><h3>Business Growth Tracker</h3><div class="panel-sub">Growth movement, revenue efficiency and opportunity queue</div></div></div><div class="panel-summary" id="businessSummary"></div><div class="business-metric-grid" id="businessMetricGrid"></div><div class="business-tables"><div><div class="mini-section-title">Growth movement</div><div class="table-wrap" id="growthTable"></div></div><div><div class="mini-section-title">Revenue and retention mix</div><div class="table-wrap" id="mixTable"></div><div class="business-explainer" id="businessMixExplanation"></div></div></div><div class="business-tables business-tables-secondary"><div><div class="mini-section-title">Growth opportunity queue</div><div class="table-wrap" id="opportunityTable"></div><div class="business-explainer" id="businessOpportunityExplanation"></div></div></div></div>
 <div class="revenue-side-grid"><div class="panel"><div class="panel-head"><div><h3>Sales Category Mix</h3><div class="panel-sub">Revenue concentration by category</div></div></div><div class="panel-summary" id="categorySummary"></div><div class="table-wrap" id="categoryTable"></div></div><div class="panel"><div class="panel-head"><div><h3>Membership / Product Sales</h3><div class="panel-sub">Product revenue, buyer count and AUV</div></div></div><div class="panel-summary" id="productSummary"></div><div class="table-wrap" id="productTable"></div></div></div><div class="panel rank-panel"><div class="panel-head"><div><h3>Top / Bottom Rankings</h3><div class="panel-sub">Switch the metric view to compare concentration and low-end drag</div></div><div class="segmented"><button class="rank-toggle active" data-rank="spenders">Spenders</button><button class="rank-toggle" data-rank="associates">Associates</button><button class="rank-toggle" data-rank="products">Products</button><button class="rank-toggle" data-rank="categories">Categories</button><button class="rank-toggle" data-rank="classes">Classes</button></div></div><div class="panel-summary" id="rankSummary"></div><div class="rank-grid" id="rankGrid"></div></div>
@@ -8111,86 +8112,162 @@ function renderTrend(){
   const ps=lastPeriods();
   const vals=ps.map(p=>{
     const d=APP.data[p]?.[state.studio];
-    if(!d) return 0;
-    if(key==='discountValue') return (d.categories||[]).reduce((a,r)=>a+(r.discountAmount||0),0);
-    return d.summary?.[key]||0;
+    if(!d) return null;
+    return d.summary?.[key]??null;
   });
-  const isPct=key==='conversionRate';
-  const isMoney=['salesRev','discountValue','atv','auv'].includes(key);
-  const isInt=['transactions','buyers','salesItems','checkedIn','newMembers','churnedMemberships'].includes(key);
-  const fmt=v=>isPct?pct(v):isMoney?money(v):num(v);
-  const maxV=Math.max(...vals,0.001), minV=Math.min(...vals,0), range=maxV-minV||1;
-  const W=900,H=280,PL=72,PR=24,PT=34,PB=42;
+  const validVals=vals.filter(v=>v!==null).map(Number);
+  const fmtVals=vals.map(v=>v===null?null:Number(v));
+  const isPct=['conversionRate','fillRate'].includes(key);
+  const isMoney=['salesRev','sessionRev'].includes(key);
+  const fmt=v=>v===null?'—':isPct?pct(v):isMoney?money(v):one(v);
+  const maxV=Math.max(...validVals,0.001);
+  const minV=Math.min(...validVals,0);
+  const range=maxV-minV||1;
+
+  /* ── 3D CHART CONSTANTS ── */
+  const W=920, H=290, PL=68, PR=24, PT=44, PB=48;
+  const DX=10, DY=7; // 3D depth offset
   const xOf=i=>PL+i*((W-PL-PR)/Math.max(ps.length-1,1));
   const yOf=v=>PT+(1-(v-minV)/range)*(H-PT-PB);
-  const pts=vals.map((v,i)=>[xOf(i),yOf(v)]);
-  const uid='tc'+Math.floor(Math.random()*99999);
-  const COLORS={salesRev:'#00c853',atv:'#7c3aed',auv:'#1d4ed8',transactions:'#0891b2',buyers:'#2563eb',salesItems:'#d97706',discountValue:'#dc2626',conversionRate:'#e65100',churnedMemberships:'#b91c1c'};
-  const CLR=COLORS[key]||'#00c853';
-  function smooth(ps2){
-    if(ps2.length<2) return ps2.map(p=>`L${p[0]} ${p[1]}`).join(' ');
+  const uid='t3d'+Math.floor(Math.random()*99999);
+
+  /* ── COLORS ── */
+  const COLORS={salesRev:'#10b981',sessionRev:'#6366f1',checkedIn:'#0ea5e9',newMembers:'#f59e0b',conversionRate:'#ec4899',classAvg:'#14b8a6',fillRate:'#8b5cf6',churnedMemberships:'#ef4444'};
+  const CLR=COLORS[key]||'#10b981';
+  const CLR_DARK=CLR+'cc';
+
+  /* ── SMOOTH BEZIER PATH ── */
+  function smooth(pts2){
+    if(pts2.length<2) return pts2.map(p=>`L${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join('');
     const d=[];
-    for(let i=0;i<ps2.length;i++){
-      if(i===0){d.push(`M${ps2[0][0].toFixed(1)} ${ps2[0][1].toFixed(1)}`);continue;}
-      const p0=ps2[i-1],p1=ps2[i],p2=ps2[i+1]||p1,pm=ps2[i-2]||p0;
+    for(let i=0;i<pts2.length;i++){
+      if(i===0){d.push(`M${pts2[0][0].toFixed(1)} ${pts2[0][1].toFixed(1)}`);continue;}
+      const p0=pts2[i-1],p1=pts2[i],p2=pts2[i+1]||p1,pm=pts2[i-2]||p0;
       const cp1x=(p0[0]+(p1[0]-pm[0])*0.18).toFixed(1);
       const cp1y=(p0[1]+(p1[1]-pm[1])*0.18).toFixed(1);
       const cp2x=(p1[0]-(p2[0]-p0[0])*0.18).toFixed(1);
       const cp2y=(p1[1]-(p2[1]-p0[1])*0.18).toFixed(1);
       d.push(`C${cp1x} ${cp1y} ${cp2x} ${cp2y} ${p1[0].toFixed(1)} ${p1[1].toFixed(1)}`);
     }
-    return d.join(' ');
+    return d.join('');
   }
-  const linePath=smooth(pts);
-  const areaPath=`${linePath} L${pts.at(-1)[0]} ${H-PB} L${pts[0][0]} ${H-PB} Z`;
+
+  const validPts=fmtVals.map((v,i)=>v!==null?[xOf(i),yOf(v)]:null).filter(Boolean);
+  const linePath=smooth(validPts);
+  const areaPath=`${linePath} L${validPts.at(-1)[0].toFixed(1)} ${(H-PB).toFixed(1)} L${validPts[0][0].toFixed(1)} ${(H-PB).toFixed(1)} Z`;
+
+  /* ── 3D SHADOW LINE (offset behind main) ── */
+  const shadowPts=validPts.map(([x,y])=>[x+DX,y+DY]);
+  const shadowPath=smooth(shadowPts);
+  const shadowAreaPath=`${shadowPath} L${shadowPts.at(-1)[0].toFixed(1)} ${(H-PB+DY).toFixed(1)} L${shadowPts[0][0].toFixed(1)} ${(H-PB+DY).toFixed(1)} Z`;
+
+  /* ── TICK LINES ── */
   const ticks=5;
-  const tickLines=Array.from({length:ticks+1},(_,i)=>{
-    const t=i/ticks, y=(PT+t*(H-PT-PB)).toFixed(1), v=fmt(maxV-(maxV-minV)*t);
+  const tickData=Array.from({length:ticks+1},(_,i)=>{
+    const t=i/ticks, y=PT+t*(H-PT-PB), v=fmt(maxV-(maxV-minV)*t);
     return {y,v};
   });
-  const peakI=vals.indexOf(Math.max(...vals));
-  const troughI=vals.indexOf(Math.min(...vals));
-  const labelSet=new Set([0,ps.length-1]);
-  if(Math.abs(peakI-0)>1&&Math.abs(peakI-(ps.length-1))>1) labelSet.add(peakI);
-  if(Math.abs(troughI-0)>1&&Math.abs(troughI-(ps.length-1))>1&&troughI!==peakI) labelSet.add(troughI);
-  function lY(y){ return y<PT+(H-PT-PB)*0.32?y+20:y-13; }
-  function lA(i){ return i<=1?'start':(i>=ps.length-2?'end':'middle'); }
-  function pW(str){ return Math.max(str.length*6.5+14,36); }
-  const isUp=vals.at(-1)>=vals[0];
-  const prevVal=vals.length>1?vals[vals.length-2]:vals[0];
-  const vsPrior=vals.at(-1)-prevVal;
-  const vsPriorPct=prevVal?vsPrior/prevVal:0;
 
-  $('#trendChart').innerHTML=`<svg viewBox="0 0 ${W} ${H+40}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;display:block">
+  /* ── LABEL SET: first, last, peak, trough ── */
+  const peakI=fmtVals.reduce((best,v,i)=>v!==null&&(best===-1||v>fmtVals[best])?i:best,-1);
+  const troughI=fmtVals.reduce((best,v,i)=>v!==null&&(best===-1||v<fmtVals[best])?i:best,-1);
+  const labelSet=new Set([0,ps.length-1]);
+  if(Math.abs(peakI)>1&&Math.abs(peakI-(ps.length-1))>1) labelSet.add(peakI);
+  if(Math.abs(troughI-0)>1&&Math.abs(troughI-(ps.length-1))>1&&troughI!==peakI) labelSet.add(troughI);
+
+  /* ── DELTA ── */
+  const last=fmtVals.at(-1)??0, first=fmtVals[0]??0;
+  const prev=fmtVals.length>1?(fmtVals[fmtVals.length-2]??last):last;
+  const vsPrior=last-prev;
+  const isUp=last>=first;
+
+  function pillLabel(label,x,y,clr){
+    const pw=Math.max(label.length*6.5+14,36), ph=15;
+    const px=Math.min(Math.max(x-pw/2,PL),W-PR-pw);
+    const ly=y<PT+40?y+22:y-20;
+    return `<rect x="${px.toFixed(1)}" y="${(ly-ph+2).toFixed(1)}" width="${pw}" height="${ph}" rx="8" fill="${clr}" opacity="0.93"/>
+            <text x="${(px+pw/2).toFixed(1)}" y="${(ly+1).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="800" font-family="inherit">${label}</text>`;
+  }
+
+  $('#trendChart').innerHTML=`<svg viewBox="0 0 ${W} ${H+44}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;display:block">
 <defs>
   <linearGradient id="ag${uid}" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="${CLR}" stop-opacity="0.14"/>
-    <stop offset="75%" stop-color="${CLR}" stop-opacity="0.04"/>
+    <stop offset="0%" stop-color="${CLR}" stop-opacity="0.22"/>
+    <stop offset="60%" stop-color="${CLR}" stop-opacity="0.07"/>
     <stop offset="100%" stop-color="${CLR}" stop-opacity="0"/>
   </linearGradient>
-  <clipPath id="cp${uid}"><rect x="${PL}" y="${PT}" width="${W-PL-PR}" height="${H-PT-PB}"/></clipPath>
+  <linearGradient id="sg${uid}" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="${CLR}" stop-opacity="0.07"/>
+    <stop offset="100%" stop-color="${CLR}" stop-opacity="0"/>
+  </linearGradient>
+  <filter id="glow${uid}" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur stdDeviation="3" result="blur"/>
+    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+  </filter>
+  <filter id="shadow${uid}" x="-10%" y="-10%" width="130%" height="130%">
+    <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="${CLR}" flood-opacity="0.18"/>
+  </filter>
+  <clipPath id="cp${uid}"><rect x="${PL}" y="${PT-6}" width="${W-PL-PR}" height="${H-PT-PB+6}"/></clipPath>
 </defs>
-${tickLines.map(({y,v})=>`
-  <line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="rgba(0,0,0,0.05)" stroke-width="1" stroke-dasharray="${+y===PT?'none':'4 4'}"/>
-  <text x="${PL-10}" y="${(+y+4).toFixed(1)}" text-anchor="end" font-size="9" fill="#94a3b8" font-weight="700" font-family="inherit">${v}</text>`).join('')}
-<g clip-path="url(#cp${uid})"><path d="${areaPath}" fill="url(#ag${uid})"/></g>
-<path d="${linePath}" fill="none" stroke="${CLR}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp${uid})"/>
-${pts.map(([x,y],i)=>{
-  const r=labelSet.has(i)?5:3;
-  const showLabel=labelSet.has(i);
-  const ly=lY(y), anchor=lA(i), label=fmt(vals[i]);
-  const pw=pW(label), ph=14;
-  const px=anchor==='start'?x-2:(anchor==='end'?x-pw+2:x-pw/2);
-  const pill=showLabel?`<rect x="${px.toFixed(1)}" y="${(ly-ph+2).toFixed(1)}" width="${pw}" height="${ph}" rx="7" fill="${CLR}"/><text x="${(px+pw/2).toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="800" font-family="inherit" clip-path="url(#cp${uid})">${label}</text>`:'';
-  return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r+3}" fill="${CLR}" fill-opacity="0.1" clip-path="url(#cp${uid})"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${CLR}" stroke="#fff" stroke-width="2" clip-path="url(#cp${uid})" style="cursor:pointer" ${drillAttr({title:`${periodLabel(ps[i])} · ${fmt(vals[i])}`,summary:`${fmt(vals[i])} for ${periodLabel(ps[i])}.`,headers:['Month','Value'],rows:ps.map((m,j)=>[periodLabel(m),fmt(vals[j])]),formula:formulaFor(key)||''})}/>  ${pill}`;
+
+<!-- 3D perspective floor grid -->
+${Array.from({length:4},(_,i)=>{
+  const y=(PT+(i+1)*((H-PT-PB)/4)).toFixed(1);
+  return `<line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="rgba(0,0,0,0.04)" stroke-width="1" stroke-dasharray="4 4"/>`;
 }).join('')}
-${ps.map((p,i)=>`<text x="${pts[i][0].toFixed(1)}" y="${H+12}" text-anchor="middle" font-size="8.5" fill="#94a3b8" font-weight="700" font-family="inherit">${periodLabel(p).split(' ')[0].slice(0,3)} '${(periodLabel(p).split(' ')[1]||'').slice(2)}</text>`).join('')}
-<line x1="${PL}" x2="${W-PR}" y1="${H-PB}" y2="${H-PB}" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
-<circle cx="${PL-4}" cy="${(H-PB).toFixed(1)}" r="3" fill="${CLR}" opacity="0.5"/>
-<text x="${PL}" y="20" font-size="16" fill="${CLR}" font-weight="900" font-family="inherit" letter-spacing="-0.03em">${fmt(vals.at(-1))}</text>
-<text x="${PL+2}" y="30" font-size="8.5" fill="#94a3b8" font-weight="700" font-family="inherit">this month</text>
-<text x="${PL+110}" y="20" font-size="11" fill="${vsPrior>=0?'#16a34a':'#dc2626'}" font-weight="900" font-family="inherit">${vsPrior>=0?'▲':'▼'} ${fmt(Math.abs(vsPrior))}</text>
-<text x="${PL+110}" y="30" font-size="8.5" fill="#94a3b8" font-weight="700" font-family="inherit">vs prior month</text>
+
+<!-- 3D perspective vertical dividers (subtle) -->
+${ps.map((_,i)=>{
+  const x=xOf(i).toFixed(1);
+  return `<line x1="${x}" x2="${x}" y1="${PT}" y2="${H-PB}" stroke="rgba(0,0,0,0.025)" stroke-width="1"/>`;
+}).join('')}
+
+<!-- 3D shadow area (depth layer) -->
+<g clip-path="url(#cp${uid})">
+  <path d="${shadowAreaPath}" fill="url(#sg${uid})"/>
+  <path d="${shadowPath}" fill="none" stroke="${CLR}" stroke-width="1.5" stroke-opacity="0.2" stroke-linecap="round"/>
+</g>
+
+<!-- Main area fill -->
+<g clip-path="url(#cp${uid})">
+  <path d="${areaPath}" fill="url(#ag${uid})"/>
+</g>
+
+<!-- Glow line (behind main) -->
+<path d="${linePath}" fill="none" stroke="${CLR}" stroke-width="8" stroke-opacity="0.12" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow${uid})" clip-path="url(#cp${uid})"/>
+
+<!-- Main crisp line -->
+<path d="${linePath}" fill="none" stroke="${CLR}" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp${uid})" filter="url(#shadow${uid})"/>
+
+<!-- Y-axis labels -->
+${tickData.map(({y,v})=>`<text x="${PL-10}" y="${(+y+4).toFixed(1)}" text-anchor="end" font-size="9" fill="#94a3b8" font-weight="700" font-family="inherit">${v}</text>`).join('')}
+
+<!-- Baseline -->
+<line x1="${PL}" x2="${W-PR}" y1="${H-PB}" y2="${H-PB}" stroke="rgba(0,0,0,0.07)" stroke-width="1.5"/>
+
+<!-- Data points with 3D halos -->
+${fmtVals.map((v,i)=>{
+  if(v===null) return '';
+  const x=xOf(i), y=yOf(v);
+  const showLabel=labelSet.has(i);
+  const isPeak=i===peakI, isTrough=i===troughI;
+  const r=isPeak||isTrough?5.5:3.5;
+  const pill=showLabel?pillLabel(fmt(v),x,y,isPeak?CLR:isTrough?'#94a3b8':CLR):'';
+  return `<!-- point ${i} -->
+  <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r+5}" fill="${CLR}" fill-opacity="0.08" clip-path="url(#cp${uid})"/>
+  <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r+2}" fill="${CLR}" fill-opacity="0.15" clip-path="url(#cp${uid})"/>
+  <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${CLR}" stroke="#ffffff" stroke-width="2.5" clip-path="url(#cp${uid})" filter="url(#shadow${uid})"/>
+  ${pill}`;
+}).join('')}
+
+<!-- X-axis month labels -->
+${ps.map((p,i)=>`<text x="${xOf(i).toFixed(1)}" y="${H+14}" text-anchor="middle" font-size="8.5" fill="#94a3b8" font-weight="700" font-family="inherit">${periodLabel(p).split(' ')[0].slice(0,3)}'${(periodLabel(p).split(' ')[1]||'').slice(2)}</text>`).join('')}
+
+<!-- Header: current value + delta -->
+<text x="${PL}" y="18" font-size="22" fill="${CLR}" font-weight="900" font-family="inherit" letter-spacing="-0.04em">${fmt(last)}</text>
+<text x="${PL}" y="30" font-size="9" fill="#94a3b8" font-weight="700" font-family="inherit" letter-spacing="0.04em">THIS MONTH</text>
+<text x="${PL+140}" y="19" font-size="12" fill="${vsPrior>=0?'#10b981':'#ef4444'}" font-weight="900" font-family="inherit">${vsPrior>=0?'▲':'▼'} ${fmt(Math.abs(vsPrior))}</text>
+<text x="${PL+140}" y="30" font-size="9" fill="#94a3b8" font-weight="700" font-family="inherit">VS PRIOR MONTH</text>
 </svg>`;
 }
 
@@ -8199,26 +8276,38 @@ function renderTrendSummary(){
   const ps=lastPeriods();
   const vals=ps.map(p=>{
     const d=APP.data[p]?.[state.studio];
-    if(!d) return 0;
-    if(key==='discountValue') return (d.categories||[]).reduce((a,r)=>a+(r.discountAmount||0),0);
-    return d.summary?.[key]||0;
-  });
-  const isPct=key==='conversionRate';
-  const isMoney=['salesRev','discountValue','atv','auv'].includes(key);
-  const fmt=v=>isPct?pct(v):isMoney?money(v):num(v);
-  const max=Math.max(...vals), last=vals.at(-1), first=vals[0], avg=vals.reduce((a,b)=>a+b,0)/Math.max(vals.length,1);
-  const prevVal=vals.length>1?vals[vals.length-2]:first;
-  const NAMES={'salesRev':'Revenue','atv':'ATV','auv':'AUV','transactions':'Transactions','buyers':'Members','salesItems':'Units','discountValue':'Discounts','conversionRate':'Conversion','churnedMemberships':'Cancellations'};
-  const label=NAMES[key]||key;
-  const delta=last-first, vsPrior=last-prevVal;
-  const deltaText=isPct?`${delta>=0?'+':''}${(delta*100).toFixed(1)}pp`:isMoney?`${delta>=0?'+':''}${money(delta)}`:`${delta>=0?'+':''}${num(delta)}`;
-  const priorText=isPct?`${vsPrior>=0?'+':''}${(vsPrior*100).toFixed(1)}pp`:isMoney?`${vsPrior>=0?'+':''}${money(vsPrior)}`:`${vsPrior>=0?'+':''}${num(vsPrior)}`;
-  const trend=last>=first?'up':'down';
-  $('#trendSummary').innerHTML=`<b>${label}:</b> At <b>${fmt(last)}</b> this month — <b>${priorText}</b> vs last month. Over this view, ${trend==='up'?'trending up':'tracking down'} with a period average of <b>${fmt(avg)}</b>.`;
+    if(!d) return null;
+    return d.summary?.[key]??null;
+  }).filter(v=>v!==null).map(Number);
+  const isPct=['conversionRate','fillRate'].includes(key);
+  const isMoney=['salesRev','sessionRev'].includes(key);
+  const fmt=v=>isPct?pct(v):isMoney?money(v):one(v);
+  const last=vals.at(-1)??0, first=vals[0]??0;
+  const avg=vals.reduce((a,b)=>a+b,0)/Math.max(vals.length,1);
+  const max=Math.max(...vals,0), prev=vals.length>1?vals[vals.length-2]:first;
+  const vsPrior=last-prev;
+  const priorTxt=isPct?`${vsPrior>=0?'+':''}${(vsPrior*100).toFixed(1)}pp`:isMoney?`${vsPrior>=0?'+':''}${money(vsPrior)}`:`${vsPrior>=0?'+':''}${one(vsPrior)}`;
+
+  /* ── 1-LINE METRIC EXPLANATION ── */
+  const DEFS={
+    salesRev:{label:'Revenue',calc:'Total sales receipts collected in the month',trend:'Higher is better — tracks total commercial output'},
+    sessionRev:{label:'Earned Revenue',calc:'Revenue from class sessions only (excludes retail & memberships)',trend:'Reflects how hard your schedule is working'},
+    checkedIn:{label:'Visits',calc:'Total members who checked into any class',trend:'Measures physical footfall and schedule engagement'},
+    newMembers:{label:'New Visits',calc:'First-time visitors who walked in for their inaugural class',trend:'Leading indicator of pipeline and marketing reach'},
+    conversionRate:{label:'Conversion',calc:'New visits who purchased a membership ÷ total new visits',trend:'Measures how well front-desk converts first-timers'},
+    classAvg:{label:'Class Average',calc:'Total check-ins ÷ number of classes run',trend:'How full your average class is — target 8+ for healthy yield'},
+    fillRate:{label:'Fill Rate',calc:'Total check-ins ÷ total capacity across all scheduled classes',trend:'Capacity utilisation — above 55% is strong for boutique studios'},
+    churnedMemberships:{label:'Lapsed',calc:'Members whose memberships expired and were not renewed',trend:'Lower is better — high lapse signals retention risk'}
+  };
+  const def=DEFS[key]||{label:key,calc:'',trend:''};
+  const trendDir=last>=first?'trending up':'trending down';
+  const oneliner=`${def.calc}. ${def.trend}. Currently ${trendDir} with a ${ps.length}-month average of ${fmt(avg)}.`;
+
+  $('#trendSummary').innerHTML=`<span style="font-weight:900;color:#0f172a">${def.label}:</span> ${oneliner}`;
   $('#trendDetail').innerHTML=detailTiles([
     ['This month',fmt(last)],
-    ['vs. prior month',priorText],
-    ['Period average',fmt(avg)],
+    ['vs. prior',priorTxt],
+    ['Period avg',fmt(avg)],
     ['Period best',fmt(max)]
   ]);
 }
