@@ -1,0 +1,2 @@
+- [Dashboard detailTiles fix](dashboard-detailtiles.md) — `detailTiles` was called everywhere but never defined; injected before `let state = {`
+- [Dashboard CSS override placement](dashboard-css-override.md) — override block MUST be at end of file before `</body>`; studio CSS in lines 2000-7500 overrides `<head>` rules
