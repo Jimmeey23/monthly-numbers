@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" role="img" aria-label="Physique 57 studio practice space">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#152b78"/>
+      <stop offset=".55" stop-color="#08195f"/>
+      <stop offset="1" stop-color="#050d36"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" x2="1">
+      <stop offset="0" stop-color="#1c367f" stop-opacity=".28"/>
+      <stop offset=".55" stop-color="#f7fbff" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#0d1d60" stop-opacity=".2"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".22" cy=".18" r=".7">
+      <stop offset="0" stop-color="#5de1ef" stop-opacity=".36"/>
+      <stop offset=".42" stop-color="#395bc5" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#07124a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="700" fill="url(#bg)"/>
+  <rect width="1600" height="700" fill="url(#glow)"/>
+  <path d="M0 470c240-42 462-50 686-17 260 38 520 35 914-40v287H0z" fill="url(#floor)"/>
+  <g fill="none" stroke-linecap="round">
+    <path d="M150 392h1180" stroke="#edf7ff" stroke-opacity=".28" stroke-width="8"/>
+    <path d="M205 392v164M478 392v164M752 392v164M1025 392v164M1298 392v164" stroke="#edf7ff" stroke-opacity=".18" stroke-width="6"/>
+    <path d="M148 558h1188" stroke="#edf7ff" stroke-opacity=".11" stroke-width="5"/>
+  </g>
+  <g opacity=".92">
+    <circle cx="1130" cy="238" r="32" fill="#f7fbff"/>
+    <path d="M1112 274c38-18 72-18 104 0l-15 96h-75z" fill="#7ee2ea"/>
+    <path d="M1076 362c42-39 82-58 121-56" fill="none" stroke="#f7fbff" stroke-opacity=".82" stroke-width="15" stroke-linecap="round"/>
+    <path d="M1199 370c-13 50-30 92-51 126" fill="none" stroke="#f7fbff" stroke-opacity=".84" stroke-width="15" stroke-linecap="round"/>
+    <path d="M1161 370c-37 43-70 76-101 99" fill="none" stroke="#f7fbff" stroke-opacity=".72" stroke-width="13" stroke-linecap="round"/>
+  </g>
+  <g opacity=".7">
+    <circle cx="927" cy="263" r="26" fill="#f7fbff"/>
+    <path d="M906 296c33-15 63-15 91 0l-15 78h-62z" fill="#355fd0"/>
+    <path d="M881 377c33-30 67-45 101-44" fill="none" stroke="#f7fbff" stroke-opacity=".72" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <g fill="#ffffff" opacity=".92" font-family="Arial, Helvetica, sans-serif" font-weight="800">
+    <text x="126" y="160" font-size="74">P57</text>
+    <text x="128" y="212" font-size="24" opacity=".72">BARRE • STRENGTH • METHOD</text>
+  </g>
+  <g fill="#ffffff" opacity=".12">
+    <circle cx="1370" cy="150" r="74"/>
+    <circle cx="1450" cy="225" r="28"/>
+    <circle cx="1260" cy="104" r="18"/>
+  </g>
+</svg>
