@@ -8577,13 +8577,25 @@ body { background: #f1f3f6 !important; color: #0a0c10 !important; }
 .topbar { background: rgba(255,255,255,.97) !important; box-shadow: 0 1px 0 #cbd0d8 !important; backdrop-filter: blur(8px) !important; }
 html[data-theme="dark"] .topbar { background: rgba(255,255,255,.97) !important; }
 
-/* 4. UNIFORM MAX-WIDTH */
-.topbar-inner, .dashboard { max-width: 1720px !important; }
+/* 4. UNIFORM MAX-WIDTH — lock every container to 1720px */
+.topbar-inner,
+.dashboard {
+  max-width: 1720px !important;
+  /* Neutralise studio-specific 1560px overrides */
+}
+/* Extra specificity to beat studio-scoped .dashboard{max-width:1560px!important} rules */
+html .dashboard,
+html[data-theme="light"] .dashboard,
+html[data-theme="dark"] .dashboard {
+  max-width: 1720px !important;
+  padding-left: 22px !important;
+  padding-right: 22px !important;
+}
 
-/* 5. COCKPIT HEADER — keep dark photo but make it taller (the hero image)  */
+/* 5. COCKPIT HEADER — keep dark photo, taller, horizontal padding = 22px to match .dashboard */
 .cockpit-header {
   min-height: 440px !important;
-  padding: 36px 32px 32px !important;
+  padding: 28px 22px 24px !important;
 }
 
 /* 6. COCKPIT INNER — single column (needs matching specificity) */
