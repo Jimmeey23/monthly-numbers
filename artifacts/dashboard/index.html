@@ -10797,4 +10797,248 @@ document.addEventListener('DOMContentLoaded',function(){
 
 })(window);
 </script>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     UIVERSE CARD REDESIGN — all .metric-card and .mc-enh
+     ══════════════════════════════════════════════════════════════════════ -->
+<style id="uiverse-card-v1">
+@keyframes cardFadeUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes mcValueIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes mcFillBar {
+  from { width: 0% }
+  to   { width: var(--mc-fill-w, 60%) }
+}
+@keyframes mcFillPulse {
+  0%,100% { filter: brightness(1) }
+  50%     { filter: brightness(1.18) }
+}
+@keyframes mcDotPulse {
+  0%,100% {
+    transform: scale(1);
+    box-shadow: 0 2px 6px var(--mc-dot-shadow, rgba(16,185,129,.35));
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 4px 13px var(--mc-dot-shadow, rgba(16,185,129,.48));
+  }
+}
+
+/* ── Card shell ─────────────────────────────────────────────────────────── */
+.metric-card,
+.mc-enh {
+  background: linear-gradient(180deg, #ffffff 0%, #f9f9f9 100%) !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08) !important;
+  border-radius: 28px !important;
+  border: 1px solid rgba(0,0,0,.05) !important;
+  padding: 1.3rem 1.4rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  overflow: visible !important;
+  animation: cardFadeUp 0.8s cubic-bezier(0.25,1,0.5,1) both !important;
+  transition: transform 0.45s ease, box-shadow 0.45s ease !important;
+}
+html[data-theme="dark"] .metric-card,
+html[data-theme="dark"] .mc-enh {
+  background: linear-gradient(180deg, #1e2028 0%, #14161b 100%) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.36) !important;
+  border-color: rgba(255,255,255,.06) !important;
+}
+
+/* remove old top stripe */
+.metric-card:before { display: none !important; }
+
+/* ── Hover lift ─────────────────────────────────────────────────────────── */
+.metric-card:hover,
+.mc-enh:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 16px 32px rgba(0,0,0,.12) !important;
+}
+html[data-theme="dark"] .metric-card:hover,
+html[data-theme="dark"] .mc-enh:hover {
+  box-shadow: 0 16px 32px rgba(0,0,0,.48) !important;
+}
+
+/* ── Label row ──────────────────────────────────────────────────────────── */
+.metric-card label,
+.mc-enh label,
+.mc-enh .mc-label {
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  letter-spacing: .09em !important;
+  text-transform: uppercase !important;
+  color: #666d78 !important;
+  margin-bottom: 0 !important;
+}
+html[data-theme="dark"] .metric-card label,
+html[data-theme="dark"] .mc-enh label,
+html[data-theme="dark"] .mc-enh .mc-label {
+  color: #aeb4bd !important;
+}
+
+/* ── Pulsing dot (injected by JS as .mc-dot) ────────────────────────────── */
+.mc-dot {
+  flex: 0 0 auto !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, var(--mc-c1,#34d399), var(--mc-c2,#10b981)) !important;
+  box-shadow: 0 2px 6px var(--mc-dot-shadow, rgba(16,185,129,.35)) !important;
+  animation: mcDotPulse 2.4s ease-in-out infinite !important;
+  display: inline-block !important;
+}
+
+/* ── Big value ──────────────────────────────────────────────────────────── */
+.metric-card strong,
+.mc-enh strong,
+.mc-enh .mc-val {
+  display: block !important;
+  font-size: 2.05rem !important;
+  line-height: 1.1 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.03em !important;
+  color: #111827 !important;
+  margin: 10px 0 5px !important;
+  opacity: 0 !important;
+  animation: mcValueIn 0.8s ease forwards 0.3s !important;
+}
+html[data-theme="dark"] .metric-card strong,
+html[data-theme="dark"] .mc-enh strong,
+html[data-theme="dark"] .mc-enh .mc-val {
+  color: #f0ede8 !important;
+}
+
+/* ── Range bar (injected by JS as .mc-range > .mc-fill) ─────────────────── */
+.mc-range {
+  position: relative !important;
+  background: #e5e5ea !important;
+  width: 100% !important;
+  height: 0.5rem !important;
+  border-radius: 9999px !important;
+  overflow: hidden !important;
+  margin-top: auto !important;
+  flex-shrink: 0 !important;
+  margin-top: 10px !important;
+}
+html[data-theme="dark"] .mc-range {
+  background: rgba(255,255,255,.1) !important;
+}
+.mc-fill {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  height: 100% !important;
+  width: 0 !important;
+  border-radius: inherit !important;
+  background: linear-gradient(90deg, var(--mc-c1,#34d399), var(--mc-c2,#10b981)) !important;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.15) !important;
+  animation: mcFillBar 1.6s ease forwards 0.55s,
+             mcFillPulse 4s ease-in-out infinite 2.2s !important;
+}
+
+/* ── Per-card colour palettes cycling by nth-child ───────────────────────── */
+.metrics > .metric-card:nth-child(5n+1),
+.enh-metrics-grid > .mc-enh:nth-child(5n+1) {
+  --mc-c1:#34d399; --mc-c2:#10b981; --mc-dot-shadow:rgba(16,185,129,.40);
+}
+.metrics > .metric-card:nth-child(5n+2),
+.enh-metrics-grid > .mc-enh:nth-child(5n+2) {
+  --mc-c1:#60a5fa; --mc-c2:#3b82f6; --mc-dot-shadow:rgba(59,130,246,.40);
+}
+.metrics > .metric-card:nth-child(5n+3),
+.enh-metrics-grid > .mc-enh:nth-child(5n+3) {
+  --mc-c1:#fbbf24; --mc-c2:#f59e0b; --mc-dot-shadow:rgba(245,158,11,.40);
+}
+.metrics > .metric-card:nth-child(5n+4),
+.enh-metrics-grid > .mc-enh:nth-child(5n+4) {
+  --mc-c1:#f87171; --mc-c2:#ef4444; --mc-dot-shadow:rgba(239,68,68,.40);
+}
+.metrics > .metric-card:nth-child(5n+5),
+.enh-metrics-grid > .mc-enh:nth-child(5n+5) {
+  --mc-c1:#a78bfa; --mc-c2:#8b5cf6; --mc-dot-shadow:rgba(139,92,246,.40);
+}
+
+/* ── Staggered entrance delays ───────────────────────────────────────────── */
+.metrics > .metric-card:nth-child(1)  { animation-delay: 0s   }
+.metrics > .metric-card:nth-child(2)  { animation-delay: .06s }
+.metrics > .metric-card:nth-child(3)  { animation-delay: .12s }
+.metrics > .metric-card:nth-child(4)  { animation-delay: .18s }
+.metrics > .metric-card:nth-child(5)  { animation-delay: .24s }
+.metrics > .metric-card:nth-child(6)  { animation-delay: .30s }
+.metrics > .metric-card:nth-child(7)  { animation-delay: .36s }
+.metrics > .metric-card:nth-child(8)  { animation-delay: .42s }
+.metrics > .metric-card:nth-child(9)  { animation-delay: .48s }
+.metrics > .metric-card:nth-child(10) { animation-delay: .54s }
+.enh-metrics-grid > .mc-enh:nth-child(1)  { animation-delay: .04s }
+.enh-metrics-grid > .mc-enh:nth-child(2)  { animation-delay: .10s }
+.enh-metrics-grid > .mc-enh:nth-child(3)  { animation-delay: .16s }
+.enh-metrics-grid > .mc-enh:nth-child(4)  { animation-delay: .22s }
+.enh-metrics-grid > .mc-enh:nth-child(5)  { animation-delay: .28s }
+.enh-metrics-grid > .mc-enh:nth-child(6)  { animation-delay: .34s }
+.enh-metrics-grid > .mc-enh:nth-child(7)  { animation-delay: .40s }
+.enh-metrics-grid > .mc-enh:nth-child(8)  { animation-delay: .46s }
+.enh-metrics-grid > .mc-enh:nth-child(9)  { animation-delay: .52s }
+.enh-metrics-grid > .mc-enh:nth-child(10) { animation-delay: .58s }
+</style>
+
+<script>
+(function(){
+  function decorateCards(){
+    document.querySelectorAll('.metric-card, .mc-enh').forEach(function(card){
+      // 1. Pulsing dot into label
+      var lbl = card.querySelector('label, .mc-label');
+      if(lbl && !lbl.querySelector('.mc-dot')){
+        var dot = document.createElement('span');
+        dot.className = 'mc-dot';
+        lbl.insertBefore(dot, lbl.firstChild);
+      }
+      // 2. Animated range bar at bottom
+      if(!card.querySelector('.mc-range')){
+        var badge = card.querySelector('.trend, .mc-badge');
+        var txt   = badge ? badge.textContent : '';
+        var m     = txt.match(/([-+]?\d+\.?\d*)%/);
+        var pct   = m ? parseFloat(m[1]) : 0;
+        var fillW = Math.min(95, Math.max(8, 50 + pct * 1.8));
+        var range = document.createElement('div');
+        range.className = 'mc-range';
+        var fill  = document.createElement('div');
+        fill.className = 'mc-fill';
+        range.appendChild(fill);
+        range.style.setProperty('--mc-fill-w', fillW + '%');
+        card.appendChild(range);
+      } else {
+        // Refresh fill width if badge value changed
+        var badge2 = card.querySelector('.trend, .mc-badge');
+        var txt2   = badge2 ? badge2.textContent : '';
+        var m2     = txt2.match(/([-+]?\d+\.?\d*)%/);
+        var pct2   = m2 ? parseFloat(m2[1]) : 0;
+        var fw2    = Math.min(95, Math.max(8, 50 + pct2 * 1.8));
+        var rng    = card.querySelector('.mc-range');
+        if(rng) rng.style.setProperty('--mc-fill-w', fw2 + '%');
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    setTimeout(decorateCards, 280);
+    var obs = new MutationObserver(function(muts){
+      var hit = muts.some(function(m){ return m.addedNodes.length || m.removedNodes.length; });
+      if(hit) setTimeout(decorateCards, 60);
+    });
+    ['metrics','nav-revenue','nav-snapshot'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) obs.observe(el, {childList:true, subtree:true});
+    });
+  });
+})();
+</script>
 </body></html>
