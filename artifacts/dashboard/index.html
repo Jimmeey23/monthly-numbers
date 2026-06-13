@@ -7525,10 +7525,7 @@ html[data-theme="dark"] .cockpit-header,
 <main class="dashboard">
 <section class="studio-head" aria-hidden="true"><div><div class="eyebrow" id="periodText"></div><h2></h2><p></p></div><div class="date-chip"><strong></strong><span></span></div></section>
 <section class="analytics-zone kpi-zone" id="nav-snapshot"><div class="zone-head"><div><span>Studio snapshot</span><h3>Priority operating KPIs</h3></div><p>Use this first layer to read commercial health before moving into drivers.</p></div><section class="metrics" id="metrics"></section><section class="insight-grid" id="insights"></section></section>
-<section class="analytics-zone executive-zone" id="nav-overview"><div class="zone-head"><div><span>Executive view</span><h3>Overview: Performance story and management readout</h3></div><p>Performance trend with management commentary, followed by mix distribution across all operating dimensions.</p></div><div class="executive-grid">
-<div class="panel trend-panel"><div class="panel-head"><div><h3>Performance Trend</h3><div class="panel-sub">Trend view with linked point drill-down</div></div><div class="segmented"><button class="trend-toggle active" data-metric="salesRev">Sales</button><button class="trend-toggle" data-metric="discountValue">Discount</button><button class="trend-toggle" data-metric="buyers">Unique Members</button><button class="trend-toggle" data-metric="checkedIn">Visitors</button><button class="trend-toggle" data-metric="newMembers">New Visits</button><button class="trend-toggle" data-metric="conversionRate">Conversion</button><button class="trend-toggle" data-metric="churnedMemberships">Lapsed</button></div></div><div class="panel-summary" id="trendSummary"></div><div class="chart-box trend-chart-3d" id="trendChart"></div><div class="chart-readout" id="trendDetail"></div><div class="trend-readout-divider"><span>Management Readout</span><small>Written interpretation of the selected view</small></div><div class="readout trend-inline-readout" id="readout"></div></div>
-<div class="panel mix-panel"><div class="panel-head"><div><h3>Studio Mix Explorer</h3><div class="panel-sub">Revenue, demand and risk distribution across all key dimensions</div></div><div class="mix-tabs-wrap"><div class="segmented"><button class="mix-toggle active" data-mix="sources">Sources</button><button class="mix-toggle" data-mix="classes">Classes</button><button class="mix-toggle" data-mix="formats">Formats</button><button class="mix-toggle" data-mix="products">Products</button><button class="mix-toggle" data-mix="categories">Categories</button><button class="mix-toggle" data-mix="instructors">Instructors</button><button class="mix-toggle" data-mix="dayparts">Dayparts</button><button class="mix-toggle" data-mix="churn">Churn</button></div></div></div><div class="panel-summary" id="mixChartSummary"></div><div class="chart-box" id="mixChart"></div><div class="chart-readout" id="mixChartDetail"></div></div>
-</div></section>
+<section class="analytics-zone executive-zone" id="nav-overview"><div class="zone-head"><div><span>Overview</span><h3>How we're doing</h3></div><p>See how key numbers have moved over time, what's driving them, and where revenue is coming from.</p></div><div class="executive-grid executive-single"><div class="panel studio-analytics-panel"><div class="panel-head studio-analytics-head"><div><h3>Studio Performance</h3><div class="panel-sub">Pick a metric to see how it's moved month by month</div></div><div class="segmented"><button class="trend-toggle active" data-metric="salesRev">Sales</button><button class="trend-toggle" data-metric="discountValue">Discounts</button><button class="trend-toggle" data-metric="buyers">Members</button><button class="trend-toggle" data-metric="checkedIn">Visitors</button><button class="trend-toggle" data-metric="newMembers">First Timers</button><button class="trend-toggle" data-metric="conversionRate">Conversion</button><button class="trend-toggle" data-metric="churnedMemberships">Cancellations</button></div></div><div class="panel-summary" id="trendSummary"></div><div class="chart-box trend-chart-3d" id="trendChart"></div><div class="chart-readout" id="trendDetail"></div><div class="trend-readout-divider"><span>What this means</span><small>Plain-English read on the numbers above</small></div><div class="readout trend-inline-readout" id="readout"></div><div class="analytics-mix-break"><div class="analytics-mix-break-label">Where it's coming from</div><div class="mix-tabs-wrap"><div class="segmented"><button class="mix-toggle active" data-mix="sources">Sources</button><button class="mix-toggle" data-mix="classes">Classes</button><button class="mix-toggle" data-mix="formats">Formats</button><button class="mix-toggle" data-mix="products">Products</button><button class="mix-toggle" data-mix="categories">Categories</button><button class="mix-toggle" data-mix="instructors">Instructors</button><button class="mix-toggle" data-mix="dayparts">Dayparts</button><button class="mix-toggle" data-mix="churn">Churn</button></div></div></div><div class="panel-summary" id="mixChartSummary"></div><div class="chart-box analytics-mix-chart" id="mixChart"></div><div class="chart-readout" id="mixChartDetail"></div></div></div></section>
 <section class="analytics-zone revenue-zone" id="nav-revenue"><div class="zone-head"><div><span>Revenue intelligence</span><h3>Section 1: Sales movement, product mix and value concentration</h3></div><p>Revenue tables are grouped together so category, product, seller and spender signals can be read in one commercial view.</p></div><section class="section-kpis" id="revenueKpis"></section><div class="revenue-grid">
 <div class="panel business-panel"><div class="panel-head"><div><h3>Business Growth Tracker</h3><div class="panel-sub">Growth movement, revenue efficiency and opportunity queue</div></div></div><div class="panel-summary" id="businessSummary"></div><div class="business-metric-grid" id="businessMetricGrid"></div><div class="business-tables"><div><div class="mini-section-title">Growth movement</div><div class="table-wrap" id="growthTable"></div></div><div><div class="mini-section-title">Revenue and retention mix</div><div class="table-wrap" id="mixTable"></div><div class="business-explainer" id="businessMixExplanation"></div></div></div><div class="business-tables business-tables-secondary"><div><div class="mini-section-title">Growth opportunity queue</div><div class="table-wrap" id="opportunityTable"></div><div class="business-explainer" id="businessOpportunityExplanation"></div></div></div></div>
 <div class="revenue-side-grid"><div class="panel"><div class="panel-head"><div><h3>Sales Category Mix</h3><div class="panel-sub">Revenue concentration by category</div></div></div><div class="panel-summary" id="categorySummary"></div><div class="table-wrap" id="categoryTable"></div></div><div class="panel"><div class="panel-head"><div><h3>Membership / Product Sales</h3><div class="panel-sub">Product revenue, buyer count and AUV</div></div></div><div class="panel-summary" id="productSummary"></div><div class="table-wrap" id="productTable"></div></div></div><div class="panel rank-panel"><div class="panel-head"><div><h3>Top / Bottom Rankings</h3><div class="panel-sub">Switch the metric view to compare concentration and low-end drag</div></div><div class="segmented"><button class="rank-toggle active" data-rank="spenders">Spenders</button><button class="rank-toggle" data-rank="associates">Associates</button><button class="rank-toggle" data-rank="products">Products</button><button class="rank-toggle" data-rank="categories">Categories</button><button class="rank-toggle" data-rank="classes">Classes</button></div></div><div class="panel-summary" id="rankSummary"></div><div class="rank-grid" id="rankGrid"></div></div>
@@ -8112,155 +8109,133 @@ function lastPeriods(n=7){ const idx=APP.periods.findIndex(p=>p.key===state.peri
 function renderTrend(){
   const key=state.trendMetric;
   const ps=lastPeriods();
-  /* resolve value — discountValue is derived from categories[], others from summary */
   const vals=ps.map(p=>{
     if(key==='discountValue') return (APP.data[p]?.[state.studio]?.categories||[]).reduce((a,r)=>a+(r.discountAmount||0),0);
     return APP.data[p]?.[state.studio]?.summary?.[key]||0;
   });
   const isPct=key==='conversionRate';
   const isMoney=key==='salesRev'||key==='discountValue';
-  const isInt=!isPct&&!isMoney;
   const fmt=v=>isPct?pct(v):isMoney?money(v):num(v);
   const maxV=Math.max(...vals,0.001), minV=Math.min(...vals,0), range=maxV-minV||1;
-  const W=900,H=310,PL=60,PR=20,PT=36,PB=44;
+  const W=900,H=300,PL=64,PR=24,PT=38,PB=46;
   const xOf=i=>PL+i*((W-PL-PR)/Math.max(ps.length-1,1));
   const yOf=v=>PT+(1-(v-minV)/range)*(H-PT-PB);
   const pts=vals.map((v,i)=>[xOf(i),yOf(v)]);
   const uid='tc'+Math.floor(Math.random()*99999);
   const isUp=vals.at(-1)>=vals[0];
-  /* colour palette — gold for up, red-rose for down */
-  const HUE=isUp?['#d3b46a','#a8792a','rgba(211,180,106,']  :['#e27368','#b5453d','rgba(226,115,104,'];
+  /* darker neon palette — cyan for growth, magenta for decline */
+  const HUE=isUp
+    ?['#00c4e0','#006b8a','rgba(0,196,224,']
+    :['#e0005c','#8a0038','rgba(224,0,92,'];
   const [CLR,CLR2,CLRa]=HUE;
-  /* smooth cubic bezier through points */
-  function smooth(pts){
-    if(pts.length<2) return pts.map(p=>`L${p[0]} ${p[1]}`).join(' ');
+  function smooth(ps2){
+    if(ps2.length<2) return ps2.map(p=>`L${p[0]} ${p[1]}`).join(' ');
     const d=[];
-    for(let i=0;i<pts.length;i++){
-      if(i===0){d.push(`M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`);continue;}
-      const p0=pts[i-1],p1=pts[i],p2=pts[i+1]||p1,pm=pts[i-2]||p0;
-      const cp1x=(p0[0]+(p1[0]-pm[0])*0.2).toFixed(1);
-      const cp1y=(p0[1]+(p1[1]-pm[1])*0.2).toFixed(1);
-      const cp2x=(p1[0]-(p2[0]-p0[0])*0.2).toFixed(1);
-      const cp2y=(p1[1]-(p2[1]-p0[1])*0.2).toFixed(1);
+    for(let i=0;i<ps2.length;i++){
+      if(i===0){d.push(`M${ps2[0][0].toFixed(1)} ${ps2[0][1].toFixed(1)}`);continue;}
+      const p0=ps2[i-1],p1=ps2[i],p2=ps2[i+1]||p1,pm=ps2[i-2]||p0;
+      const cp1x=(p0[0]+(p1[0]-pm[0])*0.18).toFixed(1);
+      const cp1y=(p0[1]+(p1[1]-pm[1])*0.18).toFixed(1);
+      const cp2x=(p1[0]-(p2[0]-p0[0])*0.18).toFixed(1);
+      const cp2y=(p1[1]-(p2[1]-p0[1])*0.18).toFixed(1);
       d.push(`C${cp1x} ${cp1y} ${cp2x} ${cp2y} ${p1[0].toFixed(1)} ${p1[1].toFixed(1)}`);
     }
     return d.join(' ');
   }
   const linePath=smooth(pts);
-  /* tube offset paths for 3-D ribbon illusion */
-  const tubeTop=smooth(pts.map(([x,y])=>[x,y-4.5]));
-  const tubeBot=smooth(pts.map(([x,y])=>[x,y+4.5]));
-  const tubeShadow=smooth(pts.map(([x,y])=>[x+2,y+8]));
-  /* area fill path */
+  const tubeTop=smooth(pts.map(([x,y])=>[x,y-3.5]));
+  const tubeBot=smooth(pts.map(([x,y])=>[x,y+3.5]));
   const areaPath=`${linePath} L${pts.at(-1)[0]} ${H-PB} L${pts[0][0]} ${H-PB} Z`;
-  /* reflection path (flipped below baseline) */
-  const reflPts=pts.map(([x,y])=>[x, (H-PB)*2-y]);
-  const reflPath=smooth(reflPts);
-  const reflArea=`${reflPath} L${reflPts.at(-1)[0]} ${H-PB} L${reflPts[0][0]} ${H-PB} Z`;
-  /* y-axis ticks */
   const ticks=5;
   const tickLines=Array.from({length:ticks+1},(_,i)=>{
     const t=i/ticks, y=(PT+t*(H-PT-PB)).toFixed(1), v=fmt(maxV-(maxV-minV)*t);
     return {y,v};
   });
-  /* find peak and trough */
   const peakI=vals.indexOf(Math.max(...vals));
   const troughI=vals.indexOf(Math.min(...vals));
+  /* smart label set — avoid crowding first/last with peak/trough */
+  const labelSet=new Set([0,ps.length-1]);
+  if(Math.abs(peakI-0)>1&&Math.abs(peakI-(ps.length-1))>1) labelSet.add(peakI);
+  if(Math.abs(troughI-0)>1&&Math.abs(troughI-(ps.length-1))>1) labelSet.add(troughI);
+  /* label y: if point in top quarter → label below point, else label above */
+  function labelY(y){ return y<PT+(H-PT-PB)*0.28?y+22:y-14; }
+  function labelAnchor(i){ return i<=1?'start':(i>=ps.length-2?'end':'middle'); }
+  /* approximate text width to size the pill bg */
+  function pillW(str){ return Math.max(str.length*7+12, 40); }
 
-  $('#trendChart').innerHTML=`<svg viewBox="0 0 ${W} ${H+60}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;display:block">
+  $('#trendChart').innerHTML=`<svg viewBox="0 0 ${W} ${H+52}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;display:block">
 <defs>
   <linearGradient id="ag${uid}" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="${CLR}" stop-opacity="0.45"/>
-    <stop offset="40%" stop-color="${CLR}" stop-opacity="0.18"/>
-    <stop offset="100%" stop-color="${CLR}" stop-opacity="0.01"/>
-  </linearGradient>
-  <linearGradient id="rg${uid}" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="${CLR}" stop-opacity="0.09"/>
+    <stop offset="0%" stop-color="${CLR}" stop-opacity="0.32"/>
+    <stop offset="55%" stop-color="${CLR}" stop-opacity="0.1"/>
     <stop offset="100%" stop-color="${CLR}" stop-opacity="0"/>
   </linearGradient>
   <linearGradient id="tg${uid}" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="rgba(255,255,255,0.55)"/>
-    <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    <stop offset="0%" stop-color="rgba(255,255,255,0.6)"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0.05)"/>
   </linearGradient>
   <radialGradient id="ball${uid}" cx="35%" cy="35%" r="65%">
-    <stop offset="0%" stop-color="rgba(255,255,255,0.9)"/>
-    <stop offset="40%" stop-color="${CLR}"/>
+    <stop offset="0%" stop-color="rgba(255,255,255,0.95)"/>
+    <stop offset="45%" stop-color="${CLR}"/>
     <stop offset="100%" stop-color="${CLR2}"/>
   </radialGradient>
-  <filter id="glow${uid}" x="-30%" y="-60%" width="160%" height="220%">
-    <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+  <filter id="glow${uid}" x="-40%" y="-80%" width="180%" height="260%">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
     <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
   </filter>
-  <filter id="sg${uid}" x="-10%" y="-10%" width="120%" height="130%">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="b"/>
-    <feOffset dx="3" dy="6" result="off"/>
-    <feFlood flood-color="${CLR2}" flood-opacity="0.25" result="clr"/>
-    <feComposite in="clr" in2="off" operator="in" result="shadow"/>
-    <feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-  <filter id="blur2${uid}"><feGaussianBlur stdDeviation="2"/></filter>
   <clipPath id="cp${uid}"><rect x="${PL}" y="${PT}" width="${W-PL-PR}" height="${H-PT-PB}"/></clipPath>
-  <clipPath id="rcp${uid}"><rect x="${PL}" y="${H-PB}" width="${W-PL-PR}" height="60"/></clipPath>
 </defs>
 
 <!-- Y grid lines & labels -->
 ${tickLines.map(({y,v})=>`
-  <line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="rgba(255,255,255,0.055)" stroke-width="1"/>
-  <text x="${PL-8}" y="${(+y+4).toFixed(1)}" text-anchor="end" font-size="9.5" fill="rgba(255,255,255,0.35)" font-weight="700" font-family="inherit">${v}</text>
+  <line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="${PL-9}" y="${(+y+4).toFixed(1)}" text-anchor="end" font-size="9" fill="rgba(255,255,255,0.4)" font-weight="700" font-family="inherit">${v}</text>
 `).join('')}
 
-<!-- Vertical pillar lines from each point to floor -->
-${pts.map(([x,y],i)=>`<line x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="${y.toFixed(1)}" y2="${H-PB}" stroke="${CLRa}0.12)" stroke-width="1" stroke-dasharray="3 3"/>`).join('')}
-
-<!-- Area gradient fill clipped -->
+<!-- Area fill -->
 <g clip-path="url(#cp${uid})">
   <path d="${areaPath}" fill="url(#ag${uid})"/>
 </g>
 
-<!-- Reflection below baseline clipped -->
-<g clip-path="url(#rcp${uid})">
-  <path d="${reflArea}" fill="url(#rg${uid})" transform="translate(0,${2*(H-PB)}) scale(1,-1)"/>
-</g>
+<!-- Tube bottom (depth layer) -->
+<path d="${tubeBot}" fill="none" stroke="${CLR2}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" clip-path="url(#cp${uid})"/>
 
-<!-- Tube shadow (depth layer) -->
-<path d="${tubeShadow}" fill="none" stroke="${CLR2}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity="0.18" filter="url(#blur2${uid})" clip-path="url(#cp${uid})"/>
+<!-- Main line -->
+<path d="${linePath}" fill="none" stroke="${CLR}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp${uid})"/>
 
-<!-- Tube bottom (dark underside) -->
-<path d="${tubeBot}" fill="none" stroke="${CLR2}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.55" clip-path="url(#cp${uid})"/>
+<!-- Neon glow (subtle) -->
+<path d="${linePath}" fill="none" stroke="${CLR}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow${uid})" opacity="0.45" clip-path="url(#cp${uid})"/>
 
-<!-- Main tube surface -->
-<path d="${linePath}" fill="none" stroke="${CLR}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#sg${uid})" clip-path="url(#cp${uid})"/>
+<!-- Tube highlight -->
+<path d="${tubeTop}" fill="none" stroke="url(#tg${uid})" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.75" clip-path="url(#cp${uid})"/>
 
-<!-- Tube highlight (bright top edge) -->
-<path d="${tubeTop}" fill="none" stroke="url(#tg${uid})" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" clip-path="url(#cp${uid})"/>
-
-<!-- Glow layer -->
-<path d="${linePath}" fill="none" stroke="${CLR}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow${uid})" opacity="0.6" clip-path="url(#cp${uid})"/>
-
-<!-- 3D sphere data points -->
+<!-- Data points + labels -->
 ${pts.map(([x,y],i)=>{
   const isLast=i===pts.length-1, isPeak=i===peakI, isTrough=i===troughI;
-  const r=isLast?7:isPeak||isTrough?6:4;
-  const showLabel=isLast||isPeak||isTrough||(i===0);
-  const labelY=y<PT+20?y+18:y-10;
-  const labelAnchor=i<2?'start':(i>pts.length-3?'end':'middle');
+  const r=isLast?6.5:isPeak||isTrough?5.5:3.5;
+  const showLabel=labelSet.has(i);
+  const ly=labelY(y), anchor=labelAnchor(i);
+  const label=fmt(vals[i]);
+  const pw=pillW(label), ph=15;
+  const pillX=anchor==='start'?x-4:(anchor==='end'?x-pw+4:x-pw/2);
+  const pill=showLabel?`<rect x="${pillX.toFixed(1)}" y="${(ly-ph+2).toFixed(1)}" width="${pw}" height="${ph}" rx="${ph/2}" fill="rgba(12,16,28,0.82)" clip-path="url(#cp${uid})"/>
+    <text x="${x.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" font-size="9" fill="rgba(255,255,255,0.95)" font-weight="800" font-family="inherit" clip-path="url(#cp${uid})">${label}</text>`:'';
   return `
-    <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r+4}" fill="${CLRa}0.15)" clip-path="url(#cp${uid})"/>
-    <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="url(#ball${uid})" stroke="${CLR}" stroke-width="1.2" filter="url(#glow${uid})" clip-path="url(#cp${uid})"
+    <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r+3.5}" fill="${CLRa}0.12)" clip-path="url(#cp${uid})"/>
+    <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="url(#ball${uid})" stroke="${CLR}" stroke-width="1" filter="url(#glow${uid})" clip-path="url(#cp${uid})"
       style="cursor:pointer" ${drillAttr({title:`${periodLabel(ps[i])} · ${fmt(vals[i])}`,summary:`${fmt(vals[i])} for ${periodLabel(ps[i])}.`,headers:['Month','Value'],rows:ps.map((m,j)=>[periodLabel(m),fmt(vals[j])]),formula:formulaFor(key)})}/>
-    ${showLabel?`<rect x="${(x-(labelAnchor==='start'?-2:labelAnchor==='end'?46:24)).toFixed(1)}" y="${(labelY-12).toFixed(1)}" width="48" height="16" rx="8" fill="rgba(10,12,18,0.72)" clip-path="url(#cp${uid})"/>
-    <text x="${x.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="${labelAnchor}" font-size="9.5" fill="rgba(255,255,255,0.92)" font-weight="900" font-family="inherit" clip-path="url(#cp${uid})">${fmt(vals[i])}</text>`:''}`;
+    ${pill}`;
 }).join('')}
 
 <!-- Month labels -->
-${ps.map((p,i)=>`<text x="${pts[i][0].toFixed(1)}" y="${H+14}" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.38)" font-weight="700" font-family="inherit">${periodLabel(p).split(' ')[0].slice(0,3)} '${periodLabel(p).split(' ')[1]?.slice(2)||''}</text>`).join('')}
+${ps.map((p,i)=>`<text x="${pts[i][0].toFixed(1)}" y="${H+13}" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,0.38)" font-weight="700" font-family="inherit">${periodLabel(p).split(' ')[0].slice(0,3)} '${(periodLabel(p).split(' ')[1]||'').slice(2)}</text>`).join('')}
 
 <!-- Baseline -->
-<line x1="${PL}" x2="${W-PR}" y1="${H-PB}" y2="${H-PB}" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+<line x1="${PL}" x2="${W-PR}" y1="${H-PB}" y2="${H-PB}" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
 
-<!-- Current value hero -->
-<text x="${PL}" y="20" font-size="13" fill="${CLR}" font-weight="900" font-family="inherit" letter-spacing="-0.02em">${fmt(vals.at(-1))}</text>
-<text x="${PL+90}" y="20" font-size="10" fill="rgba(255,255,255,0.38)" font-weight="700" font-family="inherit">current · ${isUp?'↑':'↓'} ${isMoney?money(Math.abs(vals.at(-1)-vals[0])):isPct?(Math.abs(vals.at(-1)-vals[0])*100).toFixed(1)+'pp':num(Math.abs(vals.at(-1)-vals[0]))} vs start</text>
+<!-- Hero value + context -->
+<text x="${PL}" y="22" font-size="14" fill="${CLR}" font-weight="900" font-family="inherit" letter-spacing="-0.02em">${fmt(vals.at(-1))}</text>
+<text x="${PL+96}" y="22" font-size="9.5" fill="rgba(255,255,255,0.42)" font-weight="700" font-family="inherit">this month · ${isUp?'↑ up':'↓ down'} ${isMoney?money(Math.abs(vals.at(-1)-vals[0])):isPct?((Math.abs(vals.at(-1)-vals[0])*100).toFixed(1)+'pp'):num(Math.abs(vals.at(-1)-vals[0]))} since start</text>
 </svg>`;
 }
 
@@ -8274,12 +8249,14 @@ function renderTrendSummary(){
   const isPct=key==='conversionRate';
   const isMoney=key==='salesRev'||key==='discountValue';
   const fmt=v=>isPct?pct(v):isMoney?money(v):num(v);
-  const max=Math.max(...vals), min=Math.min(...vals), last=vals.at(-1), first=vals[0], avg=vals.reduce((a,b)=>a+b,0)/Math.max(vals.length,1);
-  const label=$(`.trend-toggle[data-metric="${key}"]`)?.textContent||key;
+  const max=Math.max(...vals), last=vals.at(-1), first=vals[0], avg=vals.reduce((a,b)=>a+b,0)/Math.max(vals.length,1);
+  const METRIC_NAMES={'salesRev':'Sales','discountValue':'Discounts','buyers':'Members','checkedIn':'Visitors','newMembers':'First Timers','conversionRate':'Conversion','churnedMemberships':'Cancellations'};
+  const label=METRIC_NAMES[key]||key;
   const delta=last-first;
   const deltaText=isPct?`${delta>=0?'+':''}${(delta*100).toFixed(1)}pp`:isMoney?`${delta>=0?'+':''}${money(delta)}`:`${delta>=0?'+':''}${num(delta)}`;
-  $('#trendSummary').innerHTML=`<b>Key insight:</b> ${label} is currently <b>${fmt(last)}</b>. Window ranged from <b>${fmt(min)}</b> to <b>${fmt(max)}</b>, ${last>=first?'improving':'softening'} vs the first visible month.`;
-  $('#trendDetail').innerHTML=detailTiles([['Current',fmt(last)],['Window avg',fmt(avg)],['Window high',fmt(max)],['Change',deltaText]]);
+  const trend=last>=first?'up':'down';
+  $('#trendSummary').innerHTML=`<b>${label} this month: <b>${fmt(last)}</b>.</b> ${trend==='up'?'Tracking above':'Below'} where this period started — ${trend==='up'?`up ${isMoney?money(delta):isPct?((delta*100).toFixed(1)+'pp'):num(delta)} from the first month`:`down ${isMoney?money(Math.abs(delta)):isPct?((Math.abs(delta)*100).toFixed(1)+'pp'):num(Math.abs(delta))} from the first month`}. Best month in this view was <b>${fmt(max)}</b>.`;
+  $('#trendDetail').innerHTML=detailTiles([['This month',fmt(last)],['Monthly average',fmt(avg)],['Best month',fmt(max)],['vs. start',deltaText]]);
 }
 
 
@@ -9069,5 +9046,138 @@ html .mix-panel .chart-box {
 html .mix-panel .chart-box svg {
   min-height: 310px !important;
 }
+
+
+/* ── COMBINED ANALYTICS PANEL ── */
+.executive-single {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+}
+.studio-analytics-panel {
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+.studio-analytics-head {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  padding: 18px 20px !important;
+  border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+}
+
+/* ── CHART BG — lighter glassmorphic dark ── */
+html .trend-chart-3d,
+.trend-chart-3d {
+  background: rgba(14,20,38,0.88) !important;
+  backdrop-filter: blur(20px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.5) !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 0 0 1px rgba(255,255,255,0.04) !important;
+  margin: 0 !important;
+  padding: 16px 14px 10px !important;
+}
+
+/* Glassmorphic inner depth ring */
+.trend-chart-3d::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 1px !important;
+  border-radius: 13px !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  pointer-events: none !important;
+}
+.chart-box.trend-chart-3d { position: relative !important; }
+
+/* ── MIX SECTION BREAK ── */
+.analytics-mix-break {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  padding: 16px 20px 14px !important;
+  border-top: 1px solid rgba(0,0,0,0.06) !important;
+  margin-top: 8px !important;
+  background: rgba(0,0,0,0.018) !important;
+}
+.analytics-mix-break-label {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: .04em !important;
+  text-transform: uppercase !important;
+  color: #454d5a !important;
+}
+
+/* ── READOUT DIVIDER ── */
+.trend-readout-divider {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 8px !important;
+  padding: 12px 20px 8px !important;
+  border-top: 1px solid rgba(0,0,0,0.06) !important;
+}
+.trend-readout-divider span {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: .04em !important;
+  text-transform: uppercase !important;
+  color: #0a0c10 !important;
+}
+.trend-readout-divider small {
+  font-size: 10px !important;
+  color: #6b7280 !important;
+}
+
+/* ── MIX CHART BOX ── */
+.analytics-mix-chart {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 4px 12px 8px !important;
+}
+
+/* ── DETAIL TILES ── */
+html .chart-readout,
+.chart-readout {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+  gap: 8px !important;
+  padding: 10px 16px 14px !important;
+}
+html .chart-stat,
+.chart-stat {
+  background: rgba(0,0,0,0.025) !important;
+  border: 1px solid rgba(0,0,0,0.07) !important;
+  border-radius: 10px !important;
+  padding: 10px 12px !important;
+  color: #0a0c10 !important;
+}
+html .chart-stat span,
+.chart-stat span {
+  font-size: 9px !important;
+  color: #6b7280 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .03em !important;
+  display: block !important;
+  margin-bottom: 4px !important;
+}
+html .chart-stat strong,
+.chart-stat strong {
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  color: #0a0c10 !important;
+}
+
+/* ── READOUT ITEMS inside analytics panel ── */
+.studio-analytics-panel .readout-item {
+  background: rgba(248,249,251,0.8) !important;
+  border: 1px solid rgba(0,0,0,0.07) !important;
+}
+
 </style>
 </body></html>
