@@ -7759,7 +7759,35 @@ function smoothPath(pts){ return pts.map((p,i)=>{ if(i===0) return `M${p[0].toFi
 function sparkline(key,tone='gold',network=false){ const vals=sparkValues(key,network), max=Math.max(...vals,1), min=Math.min(...vals,0), range=max-min||1, w=190,h=42,pad=4; const pts=vals.map((v,i)=>[pad+i*((w-pad*2)/(Math.max(vals.length-1,1))),h-pad-((v-min)/range)*(h-pad*2)]); const path=smoothPath(pts); const area=`M${pts[0][0]} ${h-pad} `+path.slice(1)+` L${pts.at(-1)[0]} ${h-pad} Z`; const dir=vals.at(-1)>=vals[0]?'up':'down'; return `<svg class="sparkline ${dir} tone-${tone}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path class="spark-area" d="${area}"/><path class="spark-line spark-shadow" d="${path}"/><path class="spark-line" d="${path}"/>${pts.filter((_,i)=>i%3===0||i===pts.length-1).map(p=>`<circle class="spark-dot" cx="${p[0]}" cy="${p[1]}" r="2.1"/>`).join('')}</svg>`; }
 function miniSpark(key,tone='blue'){ const vals=sparkValues(key,false), max=Math.max(...vals,1), min=Math.min(...vals,0), range=max-min||1, w=130,h=30,pad=3; const pts=vals.map((v,i)=>[pad+i*((w-pad*2)/(Math.max(vals.length-1,1))),h-pad-((v-min)/range)*(h-pad*2)]); const path=smoothPath(pts); const area=`M${pts[0][0]} ${h-pad} `+path.slice(1)+` L${pts.at(-1)[0]} ${h-pad} Z`; const dir=vals.at(-1)>=vals[0]?'up':'down'; return `<svg class="business-spark ${dir} tone-${tone}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path class="spark-area" d="${area}"/><path class="spark-line" d="${path}"/><circle class="spark-dot" cx="${pts.at(-1)[0]}" cy="${pts.at(-1)[1]}" r="2"/></svg>`; }
 function trend(metric, good){ const g=current().growth?.[metric]; if(g===null||g===undefined) return `<span class="trend neutral">n/a</span>`; const pp=['fillRate','conversionRate','retentionRate','leadWinRate','churnRate','avgSessionsUsedPct','avgAttendanceRate'].includes(metric); const label=pp?`${g>=0?'+':''}${(g*100).toFixed(1)}pp`:`${g>=0?'+':''}${(g*100).toFixed(1)}%`; const cls=Math.abs(g)<0.0005?'neutral':((g>0&&good==='up')||(g<0&&good==='down')?'good':'bad'); return `<span class="trend ${cls}">${label}</span>`; }
-function kpi(label,value,t,sub,key,tip,tone='gold'){ return `<div class="metric-card tone-${tone}" ${drillAttr(kpiDrill(key,label))}><label>${label}</label><strong>${value}</strong>${t}<div class="sub">${sub}</div>${sparkline(key,tone,false)}</div>`; }
+/* ── kpi performance-benchmark-card style ── */
+const KPI_META={salesRev:{icon:'₹',t:[1000000,2000000,3500000,5000000],max:6000000},sessionRev:{icon:'⚡',t:[700000,1500000,2500000,4000000],max:5000000},atv:{icon:'🛒',t:[2500,4000,6000,9000],max:10000},purchaseFrequency:{icon:'🔄',t:[1.5,2,2.5,3.5],max:4},revenuePerClass:{icon:'🏷',t:[3000,6000,10000,15000],max:16000},classAvg:{icon:'👥',t:[5,8,11,14],max:16},fillRate:{icon:'📊',t:[.35,.5,.65,1],max:1},checkedIn:{icon:'✓',t:[500,1000,2000,3000],max:3500},lateCancels:{icon:'⚠',t:[20,50,100,150],max:160,inv:true},newMembers:{icon:'★',t:[30,60,100,150],max:180},converted:{icon:'✅',t:[15,30,50,75],max:90},conversionRate:{icon:'%',t:[.2,.35,.5,.75],max:.8},retentionRate:{icon:'🔒',t:[.3,.5,.7,1],max:1},leadYield:{icon:'📈',t:[.1,.2,.35,.5],max:.6},churnRate:{icon:'📉',t:[.2,.35,.5,.75],max:.8,inv:true},activeMemberships:{icon:'👤',t:[100,200,400,600],max:700},renewedMemberships:{icon:'♻',t:[20,50,100,150],max:180},expiringMemberships:{icon:'⏰',t:[20,50,100,150],max:180},avgSessionsUsedPct:{icon:'📅',t:[.3,.5,.7,1],max:1}};
+function networkBenchmark(key){const months=APP.periods.slice(-6).map(p=>p.key),stus=APP.studios.map(s=>s.key),vals=[];for(const m of months)for(const s of stus){const v=APP.data?.[m]?.[s]?.summary?.[key];if(v!=null&&!isNaN(v))vals.push(Number(v));}return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0;}
+function kpi(label,value,t,sub,key,tip,tone='gold'){
+  const meta=KPI_META[key]||{icon:'◉',t:[.25,.5,.75,1],max:1};
+  const c=current(),s=c.summary;
+  const rawVal=s[key]!=null?Number(s[key]):0;
+  const benchVal=networkBenchmark(key);
+  const maxBar=Math.max(meta.max,rawVal*1.05,benchVal*1.05);
+  const fillPct=Math.min((rawVal/maxBar)*100,100).toFixed(1);
+  const benchPct=Math.min((benchVal/maxBar)*100,100).toFixed(1);
+  const isPct=['fillRate','conversionRate','retentionRate','leadYield','churnRate','avgSessionsUsedPct'].includes(key);
+  const isMoney=['salesRev','sessionRev','atv','revenuePerClass'].includes(key);
+  const fmtB=isPct?pct(benchVal):isMoney?money(benchVal):one(benchVal);
+  const segs=[(meta.t[0]/maxBar*100).toFixed(1),((meta.t[1]-meta.t[0])/maxBar*100).toFixed(1),((meta.t[2]-meta.t[1])/maxBar*100).toFixed(1),((maxBar-meta.t[2])/maxBar*100).toFixed(1)];
+  const [c1,c2,c3,c4]=meta.inv?['#22c55e','#eab308','#f97316','#ef4444']:['#ef4444','#f97316','#eab308','#22c55e'];
+  return `<div class="metric-card mc-v2 tone-${tone}" ${drillAttr(kpiDrill(key,label))}>
+  <div class="mc-hd"><span class="mc-icon">${meta.icon}</span><label>${label}</label></div>
+  <div class="mc-main"><strong class="mc-val">${value}</strong>${t}</div>
+  <div class="mc-bar-wrap">
+    <div class="mc-track"><div class="mc-fill" style="width:${fillPct}%"></div><div class="mc-marker" style="left:${benchPct}%"></div></div>
+    <div class="mc-bmeta"><span>Network avg</span><span>${fmtB}</span></div>
+  </div>
+  <div class="mc-segs">
+    <div class="mc-seg-bar"><div style="width:${segs[0]}%;background:${c1};border-radius:4px 0 0 4px"></div><div style="width:${segs[1]}%;background:${c2}"></div><div style="width:${segs[2]}%;background:${c3}"></div><div style="width:${segs[3]}%;background:${c4};border-radius:0 4px 4px 0"></div></div>
+    <div class="mc-seg-lbls"><span>Poor</span><span>Fair</span><span>Good</span><span>Strong</span></div>
+  </div>
+  <div class="mc-foot"><span class="mc-sub-txt">${sub}</span>${sparkline(key,tone,false)}</div>
+</div>`; }
 function insight(label,value,sub,key,tone='gold'){ return `<div class="insight tone-${tone}" ${drillAttr(kpiDrill(key,label))}><span>${label}</span><strong>${value}</strong><span>${sub}</span>${sparkline(key,tone,false)}</div>`; }
 function kpiDrill(key,label){
   const c=current(), s=c.summary;
@@ -9797,5 +9825,196 @@ html .trend-toggle, html .mix-toggle {
   padding: 6px 10px !important;
 }
 
+
+/* ══════════════════════════════════════════════
+   PERFORMANCE-BENCHMARK CARD REDESIGN (mc-v2)
+   Replaces plain metric tiles with the full
+   value + trend + benchmark bar + level scale design
+   ══════════════════════════════════════════════ */
+
+.metrics,.metric-card-grid{
+  display:grid !important;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr)) !important;
+  gap:12px !important;
+}
+
+.mc-v2{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:0 !important;
+  padding:14px 15px 12px !important;
+  min-height:0 !important;
+  cursor:pointer !important;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease !important;
+  position:relative !important;
+  overflow:visible !important;
+}
+.mc-v2:hover{
+  transform:translateY(-3px) !important;
+  border-color:var(--accent2) !important;
+  box-shadow:0 18px 50px rgba(0,0,0,.12) !important;
+}
+.mc-v2:before{display:none !important;}
+
+/* ── header: icon + label ── */
+.mc-hd{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-bottom:8px;
+}
+.mc-icon{
+  font-size:13px;
+  line-height:1;
+  opacity:.7;
+  flex:0 0 auto;
+}
+.mc-hd label{
+  font-size:9.5px !important;
+  font-weight:900 !important;
+  letter-spacing:.1em !important;
+  text-transform:uppercase !important;
+  color:var(--muted) !important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  cursor:pointer;
+}
+
+/* ── value + trend row ── */
+.mc-main{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  margin-bottom:11px;
+}
+.mc-val{
+  font-size:22px !important;
+  font-weight:900 !important;
+  letter-spacing:-.04em !important;
+  line-height:1 !important;
+  color:var(--ink) !important;
+  margin:0 !important;
+}
+.mc-main .trend{
+  font-size:9.5px !important;
+  padding:2px 6px !important;
+}
+
+/* ── benchmark progress bar ── */
+.mc-bar-wrap{
+  margin-bottom:10px;
+}
+.mc-track{
+  position:relative;
+  height:7px;
+  background:var(--line2);
+  border-radius:999px;
+  overflow:visible;
+  margin-bottom:5px;
+}
+.mc-fill{
+  position:absolute;
+  left:0; top:0; bottom:0;
+  background:var(--focus);
+  border-radius:999px;
+  transition:width .8s cubic-bezier(.2,.8,.2,1);
+}
+.mc-marker{
+  position:absolute;
+  top:-4px;
+  bottom:-4px;
+  width:2px;
+  background:var(--ink);
+  border-radius:2px;
+  transform:translateX(-50%);
+  opacity:.55;
+}
+.mc-marker:after{
+  content:'';
+  position:absolute;
+  bottom:-5px;
+  left:50%;
+  transform:translateX(-50%);
+  border:4px solid transparent;
+  border-top-color:var(--ink);
+  opacity:.55;
+}
+.mc-bmeta{
+  display:flex;
+  justify-content:space-between;
+  font-size:9px;
+  font-weight:700;
+  color:var(--soft);
+  letter-spacing:.03em;
+}
+
+/* ── performance level segments ── */
+.mc-segs{
+  margin-bottom:9px;
+}
+.mc-seg-bar{
+  display:flex;
+  height:5px;
+  border-radius:4px;
+  overflow:hidden;
+  gap:1px;
+  margin-bottom:4px;
+}
+.mc-seg-bar div{
+  height:100%;
+  min-width:4px;
+}
+.mc-seg-lbls{
+  display:flex;
+  justify-content:space-between;
+  font-size:8.5px;
+  font-weight:700;
+  color:var(--soft);
+  letter-spacing:.03em;
+}
+
+/* ── footer: sub text + sparkline ── */
+.mc-foot{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:6px;
+  margin-top:auto;
+  padding-top:6px;
+  border-top:1px solid var(--line2);
+}
+.mc-sub-txt{
+  font-size:10px;
+  color:var(--muted);
+  font-weight:700;
+  line-height:1.3;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.mc-v2 .sparkline{
+  flex:0 0 auto;
+  width:60px !important;
+  height:30px !important;
+}
+
+/* tone-specific bar fill colors */
+.mc-v2.tone-blue   .mc-fill{ background:#416d9c; }
+.mc-v2.tone-gold   .mc-fill{ background:#a8792a; }
+.mc-v2.tone-sage   .mc-fill{ background:#4f7463; }
+.mc-v2.tone-plum   .mc-fill{ background:#7b5168; }
+.mc-v2.tone-cyan   .mc-fill{ background:#2a7a8c; }
+.mc-v2.tone-red    .mc-fill{ background:#b5453d; }
+
+/* keep sparkline inside mc-v2 tight */
+.mc-v2 svg.sparkline{ width:60px !important; height:28px !important; }
+
+@media(max-width:720px){
+  .metrics{
+    grid-template-columns:repeat(2,1fr) !important;
+  }
+}
 </style>
 </body></html>
