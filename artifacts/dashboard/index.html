@@ -8291,7 +8291,7 @@ function renderMixChart(){
     $('#mixChartSummary').innerHTML=`<b>Member cancellations by membership type.</b> Highest lapse: <b>${(rows[0]?.MembershipType||'—').slice(0,20)}</b> with <b>${num(rows[0]?.lapsed||0)}</b> cancellations this month.`;
     $('#mixChartDetail').innerHTML=detailTiles([['Types',num(rows.length)],['Total lapsed',num(totalLapsed)],['Top type',(rows[0]?.MembershipType||'—').slice(0,14)],['Top lapses',num(rows[0]?.lapsed||0)]]);
   }
-  setActive('.mix-toggle',`[data-mix="${mode}"]`);
+  setActive('.mix-toggle', mode, 'mix');
 }
 
 
