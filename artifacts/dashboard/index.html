@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="data:,"><title>Physique 57 | Executive Studio Performance Dashboard</title><style>
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap');
 :root{--bg:#fff;--bg2:#f7f8fa;--panel:#fff;--panel2:#f4f6f8;--ink:#17181b;--muted:#666d78;--soft:#939aa5;--line:#e4e7ec;--line2:#eef1f4;--accent:#a8792a;--accent2:#d3b46a;--green:#167a5a;--red:#b5453d;--amber:#a97821;--blue:#416d9c;--plum:#7b5168;--sage:#4f7463;--shadow:0 20px 60px rgba(24,32,42,.08);--radius:18px;--focus:#17181b;--focusText:#fff;--tooltip:#17181b;--tooltipText:#fff}html[data-theme="dark"]{--bg:#101113;--bg2:#15171a;--panel:#1b1d21;--panel2:#22262b;--ink:#f5f3ed;--muted:#aeb4bd;--soft:#808894;--line:#2d3238;--line2:#262b31;--accent:#d3b46a;--accent2:#edd388;--green:#5bc199;--red:#e27368;--amber:#e0b55e;--blue:#80aee0;--plum:#d092ad;--sage:#8ab9a2;--shadow:0 24px 80px rgba(0,0,0,.34);--focus:#f5f3ed;--focusText:#111;--tooltip:#f5f3ed;--tooltipText:#111}*{box-sizing:border-box}body{margin:0;background:var(--bg2);color:var(--ink);font-family:'Instrument Sans',Inter,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;line-height:1.38;-webkit-font-smoothing:antialiased}button,select{font-family:inherit}.app{min-height:100vh}.topbar{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.86);backdrop-filter:blur(24px);border-bottom:1px solid var(--line);padding:13px 22px}html[data-theme="dark"] .topbar{background:rgba(16,17,19,.86)}.topbar-inner{max-width:1680px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}.brand{display:flex;align-items:center;gap:12px;white-space:nowrap}.brand-mark{width:38px;height:38px;border-radius:13px;background:var(--focus);color:var(--focusText);display:grid;place-items:center;font-weight:900;font-size:11px;letter-spacing:.05em;box-shadow:0 12px 28px rgba(0,0,0,.12)}.brand-title{font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:12px}.brand-sub{font-size:11px;color:var(--muted)}.studio-tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.studio-tab,.tool-btn,.segmented button{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;cursor:pointer;transition:transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease}.studio-tab{padding:9px 14px;font-weight:800;font-size:12px}.studio-tab:hover,.tool-btn:hover,.segmented button:hover{transform:translateY(-1px);box-shadow:0 12px 26px rgba(24,32,42,.08);border-color:var(--accent2)}.studio-tab.active,.segmented button.active{background:var(--focus);color:var(--focusText);border-color:var(--focus)}.controls{display:flex;gap:9px;align-items:center}.select-wrap{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;background:var(--panel);padding:8px 10px}.select-wrap span{font-size:10px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}select{border:0;background:transparent;color:var(--ink);outline:none;font-weight:900;font-size:12px}.tool-btn{padding:10px 12px;font-size:11px;font-weight:900}.dashboard{max-width:1680px;margin:0 auto;padding:22px}.hero{display:grid;grid-template-columns:1.05fr 1.85fr;gap:16px;margin-bottom:16px}.hero-card{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:25px 26px;box-shadow:var(--shadow);position:relative;overflow:hidden;animation:enter .55s ease both}.hero-card:after{content:'';position:absolute;right:-80px;top:-100px;width:260px;height:260px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent2) 46%,transparent)}.eyebrow{font-size:10px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}.hero h1{font-family:'Newsreader',serif;font-size:42px;line-height:.98;letter-spacing:-.04em;margin:0 0 12px}.hero p{margin:0;color:var(--muted);max-width:680px}.network-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.network-card,.metric-card,.insight,.panel,.drill-panel,.index-drawer{background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow)}.network-card{border-radius:22px;padding:18px;animation:enter .55s ease both}.network-card label,.metric-card label,.panel-label{display:block;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.network-card strong{display:block;font-size:30px;letter-spacing:-.05em;margin:9px 0 4px}.network-card small{color:var(--soft);font-weight:800}.studio-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:18px;margin:20px 0 13px}.studio-head h2{font-family:'Newsreader',serif;font-size:40px;line-height:1;margin:0 0 6px;letter-spacing:-.04em}.studio-head p{margin:0;color:var(--muted);font-weight:700}.date-chip{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:13px 15px;text-align:right;box-shadow:var(--shadow)}.date-chip strong{display:block}.date-chip span{font-size:11px;color:var(--muted);font-weight:800}.metrics{display:grid;grid-template-columns:repeat(8,1fr);gap:10px}.metric-card{border-radius:18px;padding:14px;cursor:pointer;position:relative;overflow:hidden;animation:enter .45s ease both;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}.metric-card:hover{transform:translateY(-3px);border-color:var(--accent2);box-shadow:0 24px 70px rgba(168,121,42,.15)}.metric-card:before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:var(--accent);opacity:.7}.metric-card strong{display:block;font-size:24px;letter-spacing:-.045em;margin:8px 0 7px}.sub{font-size:11px;color:var(--muted);font-weight:800}.trend{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:10px;font-weight:900}.trend.good{background:color-mix(in srgb,var(--green) 13%,transparent);color:var(--green)}.trend.bad{background:color-mix(in srgb,var(--red) 13%,transparent);color:var(--red)}.trend.neutral{background:color-mix(in srgb,var(--amber) 15%,transparent);color:var(--amber)}.insight-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0 16px}.insight{border-radius:18px;padding:14px;animation:enter .5s ease both}.insight span{font-size:11px;color:var(--muted);font-weight:800}.insight strong{display:block;font-size:22px;margin:5px 0 2px}.layout{display:grid;grid-template-columns:1.55fr 1fr;gap:14px}.stack{display:grid;gap:14px}.panel{border-radius:22px;padding:17px;min-width:0;animation:enter .55s ease both}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:11px}.panel h3{margin:0;font-size:15px;letter-spacing:-.02em}.panel-sub{font-size:11px;color:var(--muted);font-weight:800;margin-top:2px}.panel-summary{border-left:3px solid var(--accent2);background:var(--panel2);border-radius:12px;padding:10px 12px;margin:10px 0 12px;color:var(--muted);font-size:12px}.panel-summary b{color:var(--ink)}.segmented{display:flex;gap:5px;background:var(--panel2);border:1px solid var(--line2);border-radius:999px;padding:4px}.segmented button{padding:7px 10px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.drill-link{border:0;background:transparent;color:var(--accent);font-weight:900;font-size:11px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.chart-box{min-height:250px}.chart-box svg{width:100%;height:auto;overflow:visible}.gridline{stroke:var(--line2);stroke-width:1}.axis{font-size:10px;fill:var(--soft);font-weight:800}.chart-label{font-size:10px;fill:var(--muted);font-weight:900;text-transform:uppercase}.chart-value{font-size:11px;fill:var(--ink);font-weight:900}.line-main{fill:none;stroke:var(--focus);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1000;stroke-dashoffset:1000;animation:dash 1.3s ease forwards}.area-main{fill:var(--edge-blue);opacity:.1}.dot-main{fill:var(--focus);stroke:var(--panel);stroke-width:3}.bar-anim{transform-box:fill-box;transform-origin:left;animation:growX .8s ease forwards}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.table-wrap{overflow:auto}.data-table{width:100%;border-collapse:collapse}.data-table th{font-size:9px;color:var(--soft);font-weight:900;letter-spacing:.08em;text-transform:uppercase;text-align:right;border-bottom:1px solid var(--line);padding:8px 7px;white-space:nowrap}.data-table th:first-child{text-align:left}.data-table td{padding:8px 7px;border-bottom:1px solid var(--line2);text-align:right;font-size:12px;vertical-align:middle}.data-table td:first-child{text-align:left;font-weight:800}.data-table tr{cursor:pointer;transition:background .18s ease}.data-table tr:hover{background:var(--panel2)}.fmt-pill{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:10px;font-weight:900}.fmt-pill.barre{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}.fmt-pill.powercycle{background:color-mix(in srgb,var(--blue) 14%,transparent);color:var(--blue)}.fmt-pill.strength{background:color-mix(in srgb,var(--plum) 14%,transparent);color:var(--plum)}.mini-bar{height:6px;background:var(--line2);border-radius:999px;overflow:hidden;min-width:58px}.mini-bar i{display:block;height:100%;background:var(--focus);border-radius:999px;animation:growX .8s ease both}.rank-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.rank-box{background:var(--panel2);border:1px solid var(--line2);border-radius:16px;padding:12px}.rank-box h4{margin:0 0 8px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}.rank-box ul{list-style:none;margin:0;padding:0}.rank-box li{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:11px;cursor:pointer}.rank-box li:first-child{border-top:0}.rank-box b{white-space:nowrap}.readout{display:grid;gap:9px}.readout-item{display:flex;gap:10px;align-items:flex-start}.readout-num{width:23px;height:23px;border-radius:50%;background:var(--focus);color:var(--focusText);display:grid;place-items:center;font-size:10px;font-weight:900;flex:0 0 auto}.readout-text{font-size:12px;color:var(--muted)}.readout-text b{color:var(--ink)}.footer-note{margin:16px 0;color:var(--muted);font-size:11px;display:flex;justify-content:space-between;gap:20px}.overlay{position:fixed;inset:0;background:rgba(16,18,20,.38);backdrop-filter:blur(7px);z-index:110;opacity:0;pointer-events:none;transition:.25s}.overlay.open{opacity:1;pointer-events:auto}.drill-panel,.index-drawer{position:fixed;top:0;right:0;bottom:0;width:min(760px,96vw);z-index:120;border-radius:24px 0 0 24px;padding:22px;overflow:auto;transform:translateX(110%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}.drill-panel.open,.index-drawer.open{transform:translateX(0)}.drawer-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}.drawer-head h2{margin:0;font-family:'Newsreader',serif;font-size:30px;letter-spacing:-.04em}.drawer-close{border:1px solid var(--line);background:var(--panel2);color:var(--ink);width:34px;height:34px;border-radius:50%;font-size:20px;cursor:pointer}.formula-list{display:grid;gap:10px}.formula-card{border:1px solid var(--line);border-radius:16px;background:var(--panel2);padding:13px}.formula-card strong{display:block;margin-bottom:4px}.formula-card code{display:block;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px;margin:8px 0;color:var(--accent);white-space:normal}.search{width:100%;border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:999px;padding:12px 14px;margin:4px 0 14px;outline:none}.empty{color:var(--muted);padding:14px;border:1px dashed var(--line);border-radius:14px;background:var(--panel2)}[data-tooltip]{position:relative}[data-tooltip]:hover:after{content:attr(data-tooltip);position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);background:var(--tooltip);color:var(--tooltipText);padding:8px 10px;border-radius:10px;font-size:11px;font-weight:700;line-height:1.25;width:max-content;max-width:260px;z-index:200;box-shadow:0 14px 34px rgba(0,0,0,.18)}[data-tooltip]:hover:before{content:'';position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--tooltip);z-index:201}@keyframes enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}@keyframes growX{from{transform:scaleX(0)}to{transform:scaleX(1)}}@keyframes dash{to{stroke-dashoffset:0}}@media(max-width:1240px){.topbar-inner{grid-template-columns:1fr}.studio-tabs{justify-content:flex-start}.hero,.layout,.two-col,.three-col{grid-template-columns:1fr}.network-strip,.insight-grid{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:repeat(4,1fr)}.rank-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:720px){.dashboard{padding:16px 14px}.topbar{padding:12px 14px}.studio-tabs{overflow:auto;flex-wrap:nowrap}.studio-tab{white-space:nowrap}.controls{flex-wrap:wrap}.hero h1{font-size:34px}.network-strip,.insight-grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.metric-card strong{font-size:21px}.studio-head{grid-template-columns:1fr}.date-chip{text-align:left}.data-table{min-width:680px}.rank-grid{grid-template-columns:1fr}.panel{padding:14px}.footer-note{display:block}.topbar-inner{gap:12px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}@media print{.topbar,.overlay,.drill-panel,.index-drawer{display:none}.dashboard{max-width:none;padding:10mm}.hero{display:none}.layout{grid-template-columns:1fr}.panel,.metric-card,.network-card{box-shadow:none}.metrics{grid-template-columns:repeat(4,1fr)}}
@@ -7505,7 +7505,8 @@ html[data-theme="dark"] .cockpit-header,
     max-width:none!important;
   }
 }
-</style></head>
+</style>
+</head>
 <body>
 <button class="theme-float" id="themeFloat" type="button" aria-label="Switch theme" title="Theme">◐</button>
 <button class="ai-chat-launcher" id="aiChatToggle" type="button" aria-expanded="false" aria-controls="aiChatPanel" title="Ask AI analyst">AI</button>
@@ -7638,7 +7639,7 @@ function bindCockpitImages(){
   cockpitImageTimer = window.setInterval(setRandomCockpitImage, 14000);
 }
 function init(){
-  document.documentElement.dataset.theme = safeStore.get(THEME_STORE_KEY) || document.documentElement.dataset.theme || 'dark';
+  document.documentElement.dataset.theme = safeStore.get(THEME_STORE_KEY) || document.documentElement.dataset.theme || 'light';
   syncThemeButton();
   $('#monthSelect').innerHTML = APP.periods.map(p=>`<option value="${p.key}" ${p.key===state.period?'selected':''}>${p.label}</option>`).join('');
   $('#monthSelect').addEventListener('change', e=>{state.period=e.target.value; render(); refreshAiReadout({force:true});});
@@ -8512,4 +8513,230 @@ function openIndex(){ lastFocus=document.activeElement; renderFormulas(); docume
 function renderFormulas(){ const q=($('#formulaSearch')?.value||'').toLowerCase(); const rows=APP.formulas.filter(f=>(f.metric+f.formula+f.definition).toLowerCase().includes(q)); $('#formulaList').innerHTML=`<div class="empty">${rows.length} formula${rows.length===1?'':'s'} shown</div>` + (rows.map(f=>`<div class="formula-card"><strong>${esc(f.metric)}</strong><div>${esc(f.definition)}</div><code>${esc(f.formula)}</code></div>`).join('') || '<div class="empty">No matching formula found.</div>'); }
 function closeDrawers(){ const wasOpen=$('#overlay').classList.contains('open'); $('#overlay').classList.remove('open'); $('#drillPanel').classList.remove('open'); $('#indexDrawer').classList.remove('open'); document.body.classList.remove('no-scroll'); if(wasOpen && lastFocus?.focus){ lastFocus.focus({preventScroll:true}); } }
 document.addEventListener('DOMContentLoaded', init);
-</script></body></html>
+</script>
+<style id="p57-light-redesign-override">
+/* ============================================================
+   PHYSIQUE 57 — LIGHT + HIGH-CONTRAST REDESIGN OVERRIDE
+   Injected at </body> to win the cascade over all !important rules
+   ============================================================ */
+
+/* 1. HIGH-CONTRAST LIGHT THEME VARIABLES */
+:root, html, html[data-theme="light"] {
+  --bg: #ffffff;
+  --bg2: #f1f3f6;
+  --panel: #ffffff;
+  --panel2: #eef0f4;
+  --ink: #0a0c10;
+  --muted: #454d5a;
+  --soft: #6b7280;
+  --line: #cbd0d8;
+  --line2: #e2e6ec;
+  --accent: #7a4f10;
+  --accent2: #a8732a;
+  --green: #0a5e38;
+  --red: #8f2520;
+  --amber: #7d5508;
+  --blue: #1a4570;
+  --plum: #52304a;
+  --sage: #2c5040;
+  --shadow: 0 1px 4px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+  --focus: #0a0c10;
+  --focusText: #ffffff;
+  --tooltip: #0a0c10;
+  --tooltipText: #ffffff;
+}
+
+html[data-theme="dark"] {
+  --bg: #ffffff !important;
+  --bg2: #f1f3f6 !important;
+  --panel: #ffffff !important;
+  --panel2: #eef0f4 !important;
+  --ink: #0a0c10 !important;
+  --muted: #454d5a !important;
+  --soft: #6b7280 !important;
+  --line: #cbd0d8 !important;
+  --line2: #e2e6ec !important;
+  --accent: #7a4f10 !important;
+  --accent2: #a8732a !important;
+  --green: #0a5e38 !important;
+  --red: #8f2520 !important;
+  --amber: #7d5508 !important;
+  --blue: #1a4570 !important;
+  --plum: #52304a !important;
+  --sage: #2c5040 !important;
+  --focus: #0a0c10 !important;
+  --focusText: #ffffff !important;
+  --tooltip: #0a0c10 !important;
+  --tooltipText: #ffffff !important;
+}
+
+/* 2. BODY + PAGE */
+body { background: #f1f3f6 !important; color: #0a0c10 !important; }
+
+/* 3. TOPBAR */
+.topbar { background: rgba(255,255,255,.97) !important; box-shadow: 0 1px 0 #cbd0d8 !important; backdrop-filter: blur(8px) !important; }
+html[data-theme="dark"] .topbar { background: rgba(255,255,255,.97) !important; }
+
+/* 4. UNIFORM MAX-WIDTH */
+.topbar-inner, .dashboard { max-width: 1720px !important; }
+
+/* 5. COCKPIT HEADER — keep dark photo but make it taller (the hero image)  */
+.cockpit-header {
+  min-height: 440px !important;
+  padding: 36px 32px 32px !important;
+}
+
+/* 6. COCKPIT INNER — single column (needs matching specificity) */
+html[data-theme="light"] .cockpit-inner,
+html[data-theme="dark"] .cockpit-inner,
+.cockpit-inner {
+  max-width: 1720px !important;
+  grid-template-columns: 1fr !important;
+  grid-template-areas: "title" "controls" "network" !important;
+}
+
+/* Cockpit controls — horizontal strip */
+html[data-theme="light"] .cockpit-controls,
+html[data-theme="dark"] .cockpit-controls,
+.cockpit-controls {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+
+/* 7. ALL PANELS, CARDS, BOXES → white with dark ink */
+.panel,
+.network-card,
+.metric-card,
+.insight,
+.rank-box,
+.date-chip,
+.drill-panel,
+.index-drawer,
+.formula-card {
+  background: var(--tone-bg, #ffffff) !important;
+  border: 1px solid var(--tone-border, #cbd0d8) !important;
+  color: #0a0c10 !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04) !important;
+}
+
+/* Dark mode tone color overrides → light equivalents */
+html[data-theme="dark"] .tone-gold { --tone-bg: #fff8ec !important; --tone-border: #e8d2a0 !important; }
+html[data-theme="dark"] .tone-blue { --tone-bg: #eef4fb !important; --tone-border: #c4d8ef !important; }
+html[data-theme="dark"] .tone-sage { --tone-bg: #edf7f3 !important; --tone-border: #bfd8d0 !important; }
+html[data-theme="dark"] .tone-plum { --tone-bg: #f4eff7 !important; --tone-border: #d8cce4 !important; }
+html[data-theme="dark"] .tone-red  { --tone-bg: #fff1f0 !important; --tone-border: #ecc8c5 !important; }
+html[data-theme="dark"] .tone-cyan { --tone-bg: #eff8fa !important; --tone-border: #c2dce2 !important; }
+
+html[data-theme="dark"] .stack > .panel:nth-child(1) { --tone-bg: #eef4fb !important; }
+html[data-theme="dark"] .stack > .panel:nth-child(2) { --tone-bg: #edf7f3 !important; }
+html[data-theme="dark"] .stack > .panel:nth-child(3) { --tone-bg: #fff8ec !important; }
+html[data-theme="dark"] .stack > .panel:nth-child(4) { --tone-bg: #f4eff7 !important; }
+html[data-theme="dark"] .stack > .panel:nth-child(5) { --tone-bg: #eff8fa !important; }
+html[data-theme="dark"] .stack > .panel:nth-child(6) { --tone-bg: #fff1f0 !important; }
+html[data-theme="dark"] .stack > .panel:nth-child(7) { --tone-bg: #eef4fb !important; }
+html[data-theme="dark"] .stack > .panel:nth-child(8) { --tone-bg: #edf7f3 !important; }
+
+/* 8. HERO CARD — ONLY the hero-brief card below the cockpit gets light bg.
+   The cockpit header has its own dark photo background which is intentional. */
+.hero > .hero-card {
+  background: #ffffff !important;
+  color: #0a0c10 !important;
+  border: 1px solid #cbd0d8 !important;
+  border-radius: 0 0 16px 16px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06) !important;
+}
+.hero > .hero-card .eyebrow { color: #7a4f10 !important; }
+.hero > .hero-card h1 { color: #0a0c10 !important; }
+.hero > .hero-card p { color: #454d5a !important; }
+
+/* 9. SECTION KPI METRIC CARDS */
+.section-kpis .metric-card {
+  background: #ffffff !important;
+  border: 1px solid #cbd0d8 !important;
+  color: #0a0c10 !important;
+}
+.section-kpis .metric-card label { color: #454d5a !important; }
+.section-kpis .metric-card strong { color: #0a0c10 !important; }
+.section-kpis .metric-card .sub { color: #454d5a !important; }
+html[data-theme="dark"] .section-kpis .metric-card { background: #ffffff !important; border-color: #cbd0d8 !important; }
+html[data-theme="dark"] .section-kpis .metric-card label { color: #454d5a !important; }
+html[data-theme="dark"] .section-kpis .metric-card strong { color: #0a0c10 !important; }
+
+/* 10. TEXT CONTRAST */
+.panel h3 { color: #0a0c10 !important; }
+.panel-sub { color: #454d5a !important; }
+.panel-label { color: #454d5a !important; }
+.metric-card strong { color: #0a0c10 !important; }
+.metric-card label { color: #454d5a !important; }
+.network-card strong { color: #0a0c10 !important; }
+.network-card small { color: #6b7280 !important; }
+.readout-text { color: #454d5a !important; }
+.readout-text b { color: #0a0c10 !important; }
+.panel-summary {
+  background: #f0f3f7 !important;
+  border-left-color: #a8732a !important;
+  color: #454d5a !important;
+}
+.panel-summary b { color: #0a0c10 !important; }
+.rank-box { background: #f8f9fb !important; }
+.rank-box h4 { color: #454d5a !important; }
+
+/* 11. DATA TABLES — high contrast */
+.data-table th {
+  background: #f8f9fb !important;
+  color: #0a0c10 !important;
+  border-bottom: 2px solid #cbd0d8 !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+}
+.data-table td { color: #0a0c10 !important; border-bottom: 1px solid #e2e6ec !important; }
+.data-table tr:hover { background: #f0f3f7 !important; }
+
+/* 12. LAYOUT → SINGLE COLUMN */
+.layout {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 14px !important;
+}
+
+/* 13. HERO → SINGLE COLUMN (hero is now cockpit header + brief card stacked) */
+.hero {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 0 !important;
+  margin-bottom: 20px !important;
+}
+
+/* 14. CONTROLS — stay clean */
+.segmented { background: #f0f3f7 !important; }
+.segmented button { background: #ffffff !important; color: #0a0c10 !important; border-color: #cbd0d8 !important; }
+.studio-tab, .tool-btn { background: #ffffff !important; color: #0a0c10 !important; border-color: #cbd0d8 !important; }
+
+/* 15. FOOTER */
+.footer-note { color: #454d5a !important; }
+
+/* 16. PRINT */
+@media print {
+  .topbar, .overlay, .drill-panel, .index-drawer { display: none !important; }
+  .dashboard { max-width: none !important; padding: 8mm 12mm !important; }
+  .cockpit-header { min-height: 180px !important; }
+  .layout { grid-template-columns: 1fr !important; }
+  .metrics { grid-template-columns: repeat(4, 1fr) !important; }
+}
+
+/* 17. RESPONSIVE */
+@media (max-width: 1360px) {
+  .network-strip, .insight-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .metrics { grid-template-columns: repeat(4, 1fr) !important; }
+  .rank-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 720px) {
+  .two-col, .three-col, .network-strip, .insight-grid { grid-template-columns: 1fr !important; }
+  .metrics { grid-template-columns: repeat(2, 1fr) !important; }
+  .rank-grid { grid-template-columns: 1fr 1fr !important; }
+  .cockpit-header { min-height: 280px !important; }
+}
+</style>
+</body></html>
