@@ -8171,8 +8171,8 @@ function renderTrend(){
     <stop offset="100%" stop-color="${CLR}" stop-opacity="0"/>
   </linearGradient>
   <linearGradient id="tg${uid}" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="rgba(255,255,255,0.6)"/>
-    <stop offset="100%" stop-color="rgba(255,255,255,0.05)"/>
+    <stop offset="0%" stop-color="rgba(255,255,255,0.5)"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
   </linearGradient>
   <radialGradient id="ball${uid}" cx="35%" cy="35%" r="65%">
     <stop offset="0%" stop-color="rgba(255,255,255,0.95)"/>
@@ -8188,8 +8188,8 @@ function renderTrend(){
 
 <!-- Y grid lines & labels -->
 ${tickLines.map(({y,v})=>`
-  <line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <text x="${PL-9}" y="${(+y+4).toFixed(1)}" text-anchor="end" font-size="9" fill="rgba(255,255,255,0.4)" font-weight="700" font-family="inherit">${v}</text>
+  <line x1="${PL}" x2="${W-PR}" y1="${y}" y2="${y}" stroke="rgba(0,0,0,0.07)" stroke-width="1"/>
+  <text x="${PL-9}" y="${(+y+4).toFixed(1)}" text-anchor="end" font-size="9" fill="rgba(0,0,0,0.45)" font-weight="700" font-family="inherit">${v}</text>
 `).join('')}
 
 <!-- Area fill -->
@@ -8228,14 +8228,14 @@ ${pts.map(([x,y],i)=>{
 }).join('')}
 
 <!-- Month labels -->
-${ps.map((p,i)=>`<text x="${pts[i][0].toFixed(1)}" y="${H+13}" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,0.38)" font-weight="700" font-family="inherit">${periodLabel(p).split(' ')[0].slice(0,3)} '${(periodLabel(p).split(' ')[1]||'').slice(2)}</text>`).join('')}
+${ps.map((p,i)=>`<text x="${pts[i][0].toFixed(1)}" y="${H+13}" text-anchor="middle" font-size="8.5" fill="rgba(0,0,0,0.38)" font-weight="700" font-family="inherit">${periodLabel(p).split(' ')[0].slice(0,3)} '${(periodLabel(p).split(' ')[1]||'').slice(2)}</text>`).join('')}
 
 <!-- Baseline -->
-<line x1="${PL}" x2="${W-PR}" y1="${H-PB}" y2="${H-PB}" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+<line x1="${PL}" x2="${W-PR}" y1="${H-PB}" y2="${H-PB}" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
 
 <!-- Hero value + context -->
 <text x="${PL}" y="22" font-size="14" fill="${CLR}" font-weight="900" font-family="inherit" letter-spacing="-0.02em">${fmt(vals.at(-1))}</text>
-<text x="${PL+96}" y="22" font-size="9.5" fill="rgba(255,255,255,0.42)" font-weight="700" font-family="inherit">this month · ${isUp?'↑ up':'↓ down'} ${isMoney?money(Math.abs(vals.at(-1)-vals[0])):isPct?((Math.abs(vals.at(-1)-vals[0])*100).toFixed(1)+'pp'):num(Math.abs(vals.at(-1)-vals[0]))} since start</text>
+<text x="${PL+96}" y="22" font-size="9.5" fill="rgba(0,0,0,0.42)" font-weight="700" font-family="inherit">this month · ${isUp?'↑ up':'↓ down'} ${isMoney?money(Math.abs(vals.at(-1)-vals[0])):isPct?((Math.abs(vals.at(-1)-vals[0])*100).toFixed(1)+'pp'):num(Math.abs(vals.at(-1)-vals[0]))} since start</text>
 </svg>`;
 }
 
@@ -9071,12 +9071,12 @@ html .mix-panel .chart-box svg {
 /* ── CHART BG — lighter glassmorphic dark ── */
 html .trend-chart-3d,
 .trend-chart-3d {
-  background: rgba(14,20,38,0.88) !important;
-  backdrop-filter: blur(20px) saturate(1.5) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(1.5) !important;
+  background: rgba(255,255,255,0.82) !important;
+  backdrop-filter: blur(18px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
   border-radius: 14px !important;
-  border: 1px solid rgba(255,255,255,0.10) !important;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 0 0 1px rgba(255,255,255,0.04) !important;
+  border: 1px solid rgba(255,255,255,0.95) !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07), 0 8px 32px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,1), inset 0 0 0 1px rgba(255,255,255,0.6) !important;
   margin: 0 !important;
   padding: 16px 14px 10px !important;
 }
