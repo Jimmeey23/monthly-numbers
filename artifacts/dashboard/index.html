@@ -8234,7 +8234,7 @@ function renderMixChart(){
   function hbarChart(rows, valueFn, fmtFn, colorFn, labelFn){
     if(!rows.length) return `<div class="empty">No data for this selection.</div>`;
     const maxV=Math.max(...rows.map(valueFn),1);
-    const rowH=38, padL=148, padR=70, padT=8, w=880;
+    const rowH=38, padL=210, padR=70, padT=8, w=920;
     const svgH=padT+rows.length*rowH+8;
     return `<svg viewBox="0 0 ${w} ${svgH}" role="img">${rows.map((r,i)=>{
       const y=padT+i*rowH, v=valueFn(r), bw=(w-padL-padR)*(v/maxV);
@@ -9325,6 +9325,147 @@ html .chart-stat strong,
 .trend-readout-divider small {
   font-size: 10px !important;
   color: #94a3b8 !important;
+}
+
+
+
+/* ═══════════════════════════════════════════════
+   CONTAINER ALIGNMENT — everything flushes to same left/right edges
+   ═══════════════════════════════════════════════ */
+
+/* executive-zone: break out of .dashboard's 22px padding to go edge-to-edge */
+html .executive-zone,
+html[data-theme="light"] .executive-zone,
+html[data-theme="dark"] .executive-zone {
+  margin-left: -22px !important;
+  margin-right: -22px !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+  border-top: 1px solid #e2e8f0 !important;
+  margin-top: 0 !important;
+}
+
+/* zone-head inside executive-zone: restore 22px side padding */
+html .executive-zone > .zone-head,
+html[data-theme="light"] .executive-zone > .zone-head,
+html[data-theme="dark"] .executive-zone > .zone-head {
+  padding: 24px 22px 18px !important;
+  margin-bottom: 0 !important;
+}
+
+/* executive-grid: no horizontal padding */
+html .executive-grid,
+html[data-theme="light"] .executive-grid,
+html[data-theme="dark"] .executive-grid {
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 0 !important;
+}
+
+/* studio-analytics-panel: flush edge-to-edge, no rounded corners on sides */
+html .studio-analytics-panel,
+html[data-theme="light"] .studio-analytics-panel,
+html[data-theme="dark"] .studio-analytics-panel {
+  border-radius: 0 !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+/* All inner sections: uniform 22px horizontal padding */
+html .studio-analytics-head {
+  padding: 20px 22px 16px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+html .studio-analytics-panel > .panel-summary {
+  margin: 0 !important;
+  padding: 10px 22px !important;
+  border-radius: 0 !important;
+  border-left: 3px solid #e2e8f0 !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  background: #fafbfc !important;
+}
+html .trend-chart-3d {
+  padding: 18px 12px 12px !important;
+  background: #fff !important;
+  border-top: 1px solid #f1f5f9 !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+html .chart-readout {
+  padding: 12px 22px 16px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+}
+html .trend-readout-divider {
+  padding: 10px 22px 9px !important;
+  border-top: none !important;
+  border-bottom: 1px solid #e8ecf1 !important;
+  background: #f7f8fa !important;
+}
+html .readout.trend-inline-readout {
+  padding: 12px 22px 14px !important;
+  grid-template-columns: 1fr 1fr !important;
+  background: #fafbfc !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+}
+html .analytics-mix-break {
+  padding: 14px 22px !important;
+  margin: 0 !important;
+  border-top: none !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  background: #f7f8fa !important;
+}
+html .studio-analytics-panel > .panel-summary + .panel-summary,
+html #mixChartSummary {
+  padding: 10px 22px !important;
+  border-radius: 0 !important;
+  border-left: 3px solid #e2e8f0 !important;
+  margin: 0 !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  background: #fafbfc !important;
+}
+html .analytics-mix-chart {
+  padding: 16px 12px 12px !important;
+  background: #fff !important;
+}
+html #mixChartDetail {
+  padding: 12px 22px 16px !important;
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+/* Tab row: prevent overflow, allow scroll */
+html .studio-analytics-head .segmented {
+  max-width: none !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  gap: 4px !important;
+}
+html .studio-analytics-head .segmented::-webkit-scrollbar { display:none!important; }
+html .trend-toggle, html .mix-toggle {
+  white-space: nowrap !important;
+  padding: 6px 11px !important;
+  font-size: 10px !important;
+}
+
+/* Readout 2-column grid */
+html .readout.trend-inline-readout {
+  display: grid !important;
+  gap: 8px !important;
+}
+html .readout-item {
+  background: #fff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  padding: 9px 12px !important;
 }
 
 </style>
